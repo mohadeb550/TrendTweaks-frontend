@@ -4,7 +4,8 @@ import {useForm } from "react-hook-form";
 import { ClipLoader } from "react-spinners";
 import { toast } from "sonner";
 import { FaPen, FaImage, FaListAlt, FaAlignLeft } from 'react-icons/fa';
-import { useCreatePostMutation } from "@/redux/features/car/carApi";
+import { useCreatePostMutation } from "@/redux/features/posts/postApi";
+import { useAppSelector } from "@/redux/hooks";
 
 // type for car
 export type TPost = {
@@ -12,9 +13,16 @@ export type TPost = {
     title : string;
     category : string;
     rating?: string;
+    likesDislikes? : { likes : number, dislikes : number}; 
     description : string;
     images : string[];
     comments? : string[];
+    authorInfo : {
+      name : string;
+      email: string;
+      image : string;
+      role :string;
+    }
     isDeleted? : boolean;
     createdAt? : string,
     updatedAt? : string,
@@ -30,6 +38,7 @@ export default function CreatePostModal({ open, setOpen} : TModalProps) {
 
   const { register, handleSubmit } = useForm();
   const [createPost, { isLoading }] = useCreatePostMutation();
+  const user = useAppSelector(state => state.auth.user)
 
   // console.log(res)
 
@@ -40,6 +49,17 @@ export default function CreatePostModal({ open, setOpen} : TModalProps) {
     category : data.category,
     description : data.description,
     images : [ data.image1, data.image2, data.image3],
+    likesDislikes : {
+      likes : 0,
+      dislikes : 0
+    },
+    authorInfo : {
+      name: user?.name as string,
+      email: user?.email as string,
+      image : user?.image as string,
+      role : user?.role as string,
+    },
+    rating : '0'
   }
 
   try {
@@ -142,9 +162,9 @@ export default function CreatePostModal({ open, setOpen} : TModalProps) {
        
 
 
-<button type="submit" className="px-8 text-sm lg:text-base mt-6 mr-3 py-2 md:py-2 font-semibold text-white rounded transition bg-black hover:bg-gray-800 "> Create</button>
+<button type="submit" className="px-8 text-sm lg:text-base mt-6 mr-3 py-2 md:py-2 font-semibold text-white rounded transition bg-blue-600 hover:bg-blue-700 "> Create</button>
 
-<button onClick={() => setOpen(!open)} className="px-8 text-sm lg:text-base mr-3 py-2 md:py-2 font-semibold text-white rounded transition bg-red-600 hover:bg-red-700 "> Close </button>
+<button onClick={() => setOpen(!open)} className="px-8 text-sm lg:text-base mr-3 py-2 md:py-2 font-semibold text-gray-600 rounded transition bg-gray-200 hover:bg-gray-300 "> Close </button>
 </form>
        
        </section>

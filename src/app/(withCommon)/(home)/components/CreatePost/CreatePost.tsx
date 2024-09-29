@@ -26,7 +26,7 @@ export default function CreatePost() {
       {/* Input Section */}
       <div className="flex items-center space-x-2 mb-4">
         <Image
-          src={user?.image || '../../../../../assets/anonymous-avatar-icon-25.png'} // Replace with dynamic avatar URL
+          src={user?.image || ''} // Replace with dynamic avatar URL
           alt="Avatar"
           height={30}
           width={30}

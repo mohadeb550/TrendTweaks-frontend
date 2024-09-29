@@ -2,9 +2,16 @@
 
 import { AiOutlineClose } from "react-icons/ai";
 import Sidebar from "../Sidebar";
+import { useAppSelector } from "@/redux/hooks";
+import { usePathname } from "next/navigation";
+import UserNavigations from "@/app/(withDashboard)/components/UserNavigations";
+import AdminNavigations from "@/app/(withDashboard)/components/AdminNavigations";
+import FeaturesSidebar from "../FeaturesSidebar";
 
 
 const DrawerNav = () => {
+  const user = useAppSelector(state => state.auth.user)
+  const pathName = usePathname();
 
     return (
         <>
@@ -22,8 +29,16 @@ const DrawerNav = () => {
       {/* close button inside drawer  */}
       <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay flex justify-end p-2"><AiOutlineClose size={21}/> </label>
 
-      <Sidebar/>
-      
+ 
+      {/* Small Sidebar based on the routes and role  */}
+      {pathName.includes('dashboard') ?
+       <Sidebar>
+          {user?.role === 'admin' ? <AdminNavigations/>  : <UserNavigations/>  }
+         </Sidebar>  :
+
+        <Sidebar>
+          <FeaturesSidebar/>
+          </Sidebar>}
 
     </div>
   </div>
