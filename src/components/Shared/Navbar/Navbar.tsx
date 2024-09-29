@@ -44,11 +44,10 @@ const logoutUser = () => {
   return (
     <>
 
-  <Headroom> 
-  <div className={`bg-white`} >
+  <div className={`bg-white `} >
   <Container>
 
-<section className={`flex justify-between md:pt-2  h-16 md:h-[90px] bg-white `}>
+<section className={`flex justify-between md:pt-2  h-16 md:h-[96px] bg-white `}>
 
 {/* logo section  */}
 <div className="flex items-center gap-1" >
@@ -107,7 +106,6 @@ const logoutUser = () => {
 </section>
   </Container>
 </div>
-   </Headroom>
    </>
   )
 }

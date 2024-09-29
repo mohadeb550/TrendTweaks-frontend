@@ -1,71 +1,63 @@
-import { TCar } from "../../../components/Dashboard/components/Modal/CreateCarModal";
+
+import { TPost } from "@/app/(withCommon)/(home)/components/CreatePost/CreatePostModal";
 import baseApi from "../../api/baseApi";
 
 
-const productApi = baseApi.injectEndpoints({
+const postApi = baseApi.injectEndpoints({
     endpoints : (builder) => ({
 
-        createCar : builder.mutation({
-            query: (car : TCar) => ({
-                url : '/api/cars',
+        createPost : builder.mutation({
+            query: (post : TPost) => ({
+                url : '/posts',
                 method : "POST",
-                body: car,   
+                body: post,   
             }),
-           invalidatesTags: ['Cars']
+           invalidatesTags: ['Posts']
         }),
 
-        getCars : builder.query({
+        getPosts : builder.query({
             query: (query) => ({
-                url : '/api/cars',
+                url : '/posts',
                 method : "GET",
                 params : query,
             }),
-            providesTags: ['Cars']
+            providesTags: ['Posts']
         }),
 
 
-        getSingleCar : builder.query({
-            query: (carId: string) => ({
-                url : `/api/cars/${carId}`,
+        getSinglePost : builder.query({
+            query: (postId: string) => ({
+                url : `/posts/${postId}`,
                 method : "GET",   
             }),
-            providesTags : ['Single-car']
+            providesTags : ['Post']
         }),
 
-        deleteCar : builder.mutation({
-            query: (carId: string) => ({
-                url : `/api/cars/${carId}`,
+        deletePost : builder.mutation({
+            query: (postId: string) => ({
+                url : `/posts/${postId}`,
                 method : "DELETE",   
             }),
-            invalidatesTags: ['Cars']
+            invalidatesTags: ['Posts']
         }),
 
-        updateCar : builder.mutation({
-            query: ({ carId , payload } : { carId: string, payload:TCar}) => ({
+        updatePost : builder.mutation({
+            query: ({ postId , payload } : { postId: string, payload:TPost}) => ({
                 
-                url : `/api/cars/${carId}`,
+                url : `/posts/${postId}`,
                 method : "PUT", 
                 body : payload,  
             }),
-            invalidatesTags: ['Cars','Single-car' ]
+            invalidatesTags: ['Posts','Post' ]
         }),
 
-        returnCar : builder.mutation({
-            query: (payload : {bookingId : string}) => ({
-                
-                url : `/api/cars/return`,
-                method : "PUT", 
-                body : payload,  
-            }),
-            invalidatesTags: ['Cars','Bookings' ]
-        }),
     })
 })
 
 export const {
-    useCreateCarMutation,
-     useGetCarsQuery,
-      useUpdateCarMutation,
-       useDeleteCarMutation,
-        useGetSingleCarQuery, useReturnCarMutation
-    } = productApi;
+    useCreatePostMutation,
+     useGetPostsQuery,
+      useUpdatePostMutation,
+       useDeletePostMutation,
+        useGetSinglePostQuery,
+    } = postApi;
