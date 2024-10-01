@@ -3,7 +3,8 @@
 
 import { AiOutlineMinus } from "react-icons/ai";
 import { TComment, TPost } from "../CreatePost/CreatePostModal";
-import { FaHeart, FaThumbsDown, FaComment, FaShare, FaEllipsisH, FaStar, FaThumbsUp, FaReply } from 'react-icons/fa';
+import { FaHeart, FaThumbsDown, FaComment, FaShare, FaEllipsisH, FaStar, FaThumbsUp, FaReply, FaEdit } from 'react-icons/fa';
+import { RiDeleteBin4Line } from "react-icons/ri";
 import { useState } from "react";
 import Image from "next/image";
 import TimeAgo from 'react-timeago'
@@ -13,24 +14,34 @@ import ImageGallery from "./ImageGallery";
 import { IoSendSharp } from "react-icons/io5";
 import { useForm } from "react-hook-form";
 import { useAppSelector } from "@/redux/hooks";
-import { useAddCommentMutation, useUpdatePostMutation } from "@/redux/features/posts/postApi";
 import { toast } from "sonner";
 import { ClipLoader } from "react-spinners";
+import { useAddCommentMutation, useDeleteCommentMutation, useGetCommentsQuery, useUpdateCommentMutation } from "@/redux/features/comments/commentApi";
+import { BsThreeDots } from "react-icons/bs";
+import MiniUserProfile from "./MiniUserProfile";
 
 
 export default function PostCard({ post } : { post : TPost}) {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit , reset} = useForm();
   const user = useAppSelector(state => state.auth.user)
-  const [ addComment, { isLoading} ] = useAddCommentMutation();
+  const [ addComment, { isLoading : addLoading, } ] = useAddCommentMutation();
+  const [ updateComment, { isLoading: updateLoading} ] = useUpdateCommentMutation();
+  const [ deleteComment, { isLoading: deleteLoading} ] = useDeleteCommentMutation();
 
- const {_id, title, category, description, 
-    images, comments, likesDislikes, rating, authorInfo, createdAt} = post;
 
+ const {_id, category, description, 
+    images, likesDislikes, authorInfo, createdAt} = post;
+
+    // get comments based on the postID 
+    const { data  } = useGetCommentsQuery({ postId : _id});
+    const comments : TComment[] = data?.data || [];
+    
   
     const onSubmit = async (data: any ) => {
 
       const newComment  = {
         comment : data.newComment,
+        postId : _id,
         userInfo  : {
           name : user?.name,
           email : user?.email,
@@ -39,13 +50,10 @@ export default function PostCard({ post } : { post : TPost}) {
       }
 
       try {
-        const response =  await addComment({
-          postId :_id!,
-          comment : newComment as TComment,
-        }).unwrap();
+        const response =  await addComment(newComment as TComment).unwrap();
     
       if(response?.success){
-        toast.success('Comment Added')
+        reset();
       }
       }catch(error){
         toast.error('Something went wrong')
@@ -59,11 +67,15 @@ export default function PostCard({ post } : { post : TPost}) {
     <div className="bg-white rounded-xl shadow-md p-6 w-full mx-auto mt-6">
     {/* Header with User Info */}
     <div className="flex items-center mb-4">
+      <section className="group relative">
       <Image width={300} height={300}
         className="size-14 rounded-full object-cover"
         src={authorInfo?.image}
         alt="User Avatar"
       />
+       <MiniUserProfile userInfo={post.authorInfo}/>
+      </section>
+
       <div className="ml-3">
         <h2 className="text-lg font-semibold">{authorInfo?.name}</h2>
         <p className="text-sm md:text-base text-gray-500">{category} • <time className=" text-gray-500">
@@ -126,17 +138,16 @@ export default function PostCard({ post } : { post : TPost}) {
      <h4 className="font-semibold text-gray-600 cursor-pointer">View more comments</h4>
 
    {/* loading white layer  */}
-   {isLoading && <div className="w-full h-full absolute top-0 left-0 right-0 bottom-0 bg-white/80 rounded-md flex justify-center items-center"> 
+   {addLoading || deleteLoading || updateLoading && <div className="w-full h-full absolute top-0 left-0 z-50 right-0 bottom-0 bg-white/80 rounded-md flex justify-center items-center"> 
         <ClipLoader
            color='#3B82F6'
-           loading={isLoading}
-          //  cssOverride={override}
            size={60}
            aria-label="Loading Spinner"
            speedMultiplier={0.8} />
       </div>}
 
-        {comments?.slice(0, 2).map(comment => <> <div className="flex space-x-2">
+
+        {comments?.slice(0, 2).map((comment: TComment) => <> <div className="flex space-x-2 ">
         {/* User Image */}
         <Image
           src={comment?.userInfo?.image}
@@ -145,12 +156,27 @@ export default function PostCard({ post } : { post : TPost}) {
           height={300}
           className="size-10 rounded-full object-cover"
         />
-        <div className="flex flex-col">
+
+
+
+
+        <div className="flex flex-col dropdown">
           {/* User Info */}
-          <div className=" bg-gray-100 rounded-xl px-3">
+          <div className=" bg-gray-100 rounded-xl group px-3 relative">
             <h4 className="font-semibold">{comment?.userInfo?.name}</h4>
               {/* Comment Text */}
           <p className="text-gray-700">{comment?.comment}</p>
+
+                
+  <div tabIndex={0} role="button" className="p-2  hidden group-hover:flex  text-sm md:text-base rounded-lg ml-2 absolute top-0 right-0 "> <BsThreeDots /></div>
+  <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-lg z-[1] w-52 p-2 shadow-2xl relative right-0">
+          <h3  className="cursor-pointer font-semibold px-2 py-1 hover:bg-gray-50 rounded-md flex items-center gap-2"><span className="text-gray-600 text-lg"><RiDeleteBin4Line/></span> Edit</h3>
+
+          <h3 onClick={() => deleteComment(comment?._id as string) } className="cursor-pointer font-semibold px-2 py-1 hover:bg-gray-50 rounded-md flex items-center gap-2"><span className="text-gray-600 text-lg"><FaEdit/></span> Delete</h3>
+  </ul>
+  
+
+         
           </div>
 
           {/* Like & Reply Actions */}
@@ -167,6 +193,8 @@ export default function PostCard({ post } : { post : TPost}) {
             </button>
           </div>
         </div>
+
+       
       </div></>)}
 
     </div>

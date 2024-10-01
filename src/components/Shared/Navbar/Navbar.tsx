@@ -86,10 +86,17 @@ const logoutUser = () => {
       {user && <img tabIndex={0} src={user?.image || 'https://i.ibb.co/Ttgtb82/pngwing-com-15.png' } className="dropdown w-9 h-7 md:w-8 md:h-8 lg:size-9 object-cover cursor-pointer rounded-full border border-zinc-400 p-[1px]" />}
 
       {user && 
-     <ul tabIndex={0} className={`dropdown-content p-2 shadow-2xl bg-white rounded w-52 `}>
-      {user && <li className="text-lg p-2 border-b rounded text-zinc-800 flex items-center gap-2"> {user?.name || 'User'}  <img tabIndex={0} src={user?.image || 'https://i.ibb.co/Ttgtb82/pngwing-com-15.png' } className="w-8 h-8 object-cover rounded-full border border-gray-300 p-[1px]" /></li>}
+     <ul tabIndex={0} className={`dropdown-content p-3 mt-1 shadow-2xl bg-white rounded-lg w-60 `}>
+      {user && <li className="text-lg p-2 border-b font-semibold rounded text-gray-600 flex items-center gap-2"> {user?.name || 'User'}  <img tabIndex={0} src={user?.image || 'https://i.ibb.co/Ttgtb82/pngwing-com-15.png' } className="w-8 h-8 object-cover rounded-full border border-gray-300 p-[1px]" /></li>}
         
-     <li onClick={logoutUser} className="text-base inter-regular font-semibold cursor-pointer transition-all text-gray-600 p-1 rounded hover:underline" > Log out</li> 
+     <Link href={`/profile`}>
+     <li className="text-base font-semibold cursor-pointer transition-all text-gray-500 p-1 rounded hover:text-blue-600" > Profile</li> </Link>
+    
+     <Link href={user?.role === 'admin'? '/admin-dashboard/manage-users': 'user-dashboard/add-product'}>
+     <li className="text-base font-semibold cursor-pointer transition-all text-gray-500 p-1 rounded hover:text-blue-600" >Dashboard</li> </Link>
+    
+
+     <li onClick={logoutUser} className="text-base font-semibold cursor-pointer transition-all text-gray-600 p-1 rounded hover:underline" > Log out</li> 
 
     </ul>}
     </div>

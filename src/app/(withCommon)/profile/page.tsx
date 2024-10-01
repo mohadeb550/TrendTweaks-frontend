@@ -8,6 +8,7 @@ import { TUser } from '@/redux/features/authentication/authSlice';
 import Image from 'next/image';
 import { MdModeEdit } from "react-icons/md";
 import CreatePost from '../(home)/components/CreatePost/CreatePost';
+import MyPosts from './components/MyPosts';
 
 const Profile = () => {
 
@@ -111,6 +112,9 @@ const Profile = () => {
 
         {/* create post section  */}
         <CreatePost/>
+
+        {/* user posts  */}
+        <MyPosts/>
       </div>
     );
 };

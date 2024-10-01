@@ -28,8 +28,8 @@ export default function CreatePost() {
         <Image
           src={user?.image || ''} // Replace with dynamic avatar URL
           alt="Avatar"
-          height={30}
-          width={30}
+          height={300}
+          width={300}
           className="w-10 h-10 rounded-full object-cover"
         />
         <button onClick={() => setOpenModal(true)} 
@@ -39,7 +39,7 @@ export default function CreatePost() {
       </div>
 
       {/* Action Buttons Section */}
-      <div className="flex justify-between items-center border-t pt-4">
+      <div className="flex justify-between items-center pt-2">
         <button className="flex items-center space-x-1 text-red-500 hover:bg-red-100 p-2 rounded-lg">
           <FaVideo className="text-base md:text-xl" />
           <span className="text-xs md:text-sm font-medium">Live Video</span>

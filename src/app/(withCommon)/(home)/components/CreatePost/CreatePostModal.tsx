@@ -6,9 +6,14 @@ import { toast } from "sonner";
 import { FaPen, FaImage, FaListAlt, FaAlignLeft } from 'react-icons/fa';
 import { useCreatePostMutation } from "@/redux/features/posts/postApi";
 import { useAppSelector } from "@/redux/hooks";
+import { TfiLayoutListPost } from "react-icons/tfi";
+import { TUser } from "@/redux/features/authentication/authSlice";
+import { useGetSingleUserQuery } from "@/redux/features/user/userApi";
 
 export type TComment = {
+  _id? : string;
   comment : string,
+  postId : string,
   userInfo  : {
     name : string,
     email : string,
@@ -34,6 +39,8 @@ export type TPost = {
       email: string;
       image : string;
       role :string;
+      authorId : string;
+      authorEmail : string;
     }
     isPremium : boolean;
     isDeleted? : boolean;
@@ -49,11 +56,15 @@ type TModalProps = {
 
 export default function CreatePostModal({ open, setOpen} : TModalProps) {
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit} = useForm();
   const [createPost, { isLoading }] = useCreatePostMutation();
   const user = useAppSelector(state => state.auth.user)
 
-  // console.log(res)
+  // only for checking the membership in the userData 
+  const { data } = useGetSingleUserQuery(user?.email as string);
+  const userFromDB : TUser = data?.data || {};
+ 
+
 
   const onSubmit = async (data: any ) => {
   
@@ -66,11 +77,14 @@ export default function CreatePostModal({ open, setOpen} : TModalProps) {
       likes : 0,
       dislikes : 0
     },
+    isPremium : data.premium === 'premium'? true : false,
     authorInfo : {
       name: user?.name as string,
       email: user?.email as string,
       image : user?.image as string,
       role : user?.role as string,
+      authorId : user?._id as string,
+      authorEmail : user?.email as string,
     },
     rating : '0'
   }
@@ -103,7 +117,7 @@ export default function CreatePostModal({ open, setOpen} : TModalProps) {
         {/* loading white layer  */}
       {isLoading && <div className="w-full h-full absolute top-0 left-0 right-0 bottom-0 bg-white/80 rounded-md flex justify-center items-center"> 
         <ClipLoader
-           color='#000002'
+           color='#3B82F6'
            loading={isLoading}
           //  cssOverride={override}
            size={60}
@@ -126,6 +140,7 @@ export default function CreatePostModal({ open, setOpen} : TModalProps) {
       {/* Category Input */}
       <div className="flex items-center space-x-3">
         <FaListAlt className="text-green-500 text-xl" />
+       
 
         <select className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-400" {...register("category")} >
               <option disabled selected>Select Category</option>
@@ -136,6 +151,40 @@ export default function CreatePostModal({ open, setOpen} : TModalProps) {
         </select>
 
       </div>
+
+        {/* Premium Selection  */}
+        
+     {userFromDB?.memberShip &&  <div className="flex items-center gap-10">
+        <label className=" text-gray-500 font-semibold flex items-center gap-3"> <TfiLayoutListPost className="text-purple-600 text-xl" /> Content</label>
+        
+        <div className="flex space-x-4 items-center">
+          <label className="flex items-center space-x-2">
+            <input 
+              type="radio" 
+              value={'premium'} 
+              {...register('premium', { required: 'Please choose an option' })} 
+              className="form-radio" 
+            />
+            <span>Premium</span>
+          </label>
+          
+          <label className="flex items-center space-x-2">
+            <input 
+              type="radio" 
+              value="free" 
+              defaultChecked
+              {...register('premium', { required: 'Please choose an option' })} 
+              className="form-radio" 
+            />
+            <span>Free</span>
+          </label>
+        </div>
+
+      </div>
+}
+
+
+
 
       {/* Description Input */}
       <div className="flex items-center space-x-3">
