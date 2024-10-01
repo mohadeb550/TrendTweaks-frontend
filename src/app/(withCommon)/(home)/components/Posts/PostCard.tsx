@@ -1,63 +1,65 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import { AiOutlineMinus } from "react-icons/ai";
-import { TPost } from "../CreatePost/CreatePostModal";
-import { FaHeart, FaThumbsDown, FaComment, FaShare, FaEllipsisH, FaStar } from 'react-icons/fa';
+import { TComment, TPost } from "../CreatePost/CreatePostModal";
+import { FaHeart, FaThumbsDown, FaComment, FaShare, FaEllipsisH, FaStar, FaThumbsUp, FaReply } from 'react-icons/fa';
 import { useState } from "react";
 import Image from "next/image";
 import TimeAgo from 'react-timeago'
 import { BiSolidLike, BiSolidDislike } from "react-icons/bi";
 import { FaRegComment, } from "react-icons/fa6";
-import { AiFillStar } from "react-icons/ai";
+import ImageGallery from "./ImageGallery";
+import { IoSendSharp } from "react-icons/io5";
+import { useForm } from "react-hook-form";
+import { useAppSelector } from "@/redux/hooks";
+import { useAddCommentMutation, useUpdatePostMutation } from "@/redux/features/posts/postApi";
+import { toast } from "sonner";
+import { ClipLoader } from "react-spinners";
+
 
 export default function PostCard({ post } : { post : TPost}) {
+  const { register, handleSubmit } = useForm();
+  const user = useAppSelector(state => state.auth.user)
+  const [ addComment, { isLoading} ] = useAddCommentMutation();
 
  const {_id, title, category, description, 
     images, comments, likesDislikes, rating, authorInfo, createdAt} = post;
 
-
-    const [newComment, setNewComment] = useState<string>('');
-    const [commentList, setCommentList] = useState<string[]>(comments || []);
   
-    const handleCommentSubmit = () => {
-      if (newComment.trim()) {
-        setCommentList([...commentList, newComment]);
-        setNewComment('');
+    const onSubmit = async (data: any ) => {
+
+      const newComment  = {
+        comment : data.newComment,
+        userInfo  : {
+          name : user?.name,
+          email : user?.email,
+          image : user?.image
+        },
       }
-    };
-  
 
-
-     // Image Grid - Conditionally adjust columns based on the number of images
-  const renderImages = () => {
-    if (post.images.length === 1) {
-      return <img src={post.images[0]} className="w-full h-64 object-cover rounded-lg" alt="Post Image" />;
-    }
-    if (post.images.length === 2) {
-      return (
-        <div className="grid grid-cols-2 gap-2">
-          {post.images.map((image, idx) => (
-            <img key={idx} src={image} className="h-64 w-full object-cover rounded-lg" alt={`Post Image ${idx + 1}`} />
-          ))}
-        </div>
-      );
-    }
-    if (post.images.length >= 3) {
-      return (
-        <div className="grid grid-cols-3 gap-2">
-          {post.images.slice(0, 3).map((image, idx) => (
-            <img key={idx} src={image} className="h-40 w-full object-cover rounded-lg" alt={`Post Image ${idx + 1}`} />
-          ))}
-        </div>
-      );
-    }
-  };
+      try {
+        const response =  await addComment({
+          postId :_id!,
+          comment : newComment as TComment,
+        }).unwrap();
+    
+      if(response?.success){
+        toast.success('Comment Added')
+      }
+      }catch(error){
+        toast.error('Something went wrong')
+        console.log(error)
+      }
+     
+      }
+    
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 w-full mx-auto mt-6">
+    <div className="bg-white rounded-xl shadow-md p-6 w-full mx-auto mt-6">
     {/* Header with User Info */}
     <div className="flex items-center mb-4">
-      <Image width={30} height={30}
+      <Image width={300} height={300}
         className="size-14 rounded-full object-cover"
         src={authorInfo?.image}
         alt="User Avatar"
@@ -93,14 +95,10 @@ export default function PostCard({ post } : { post : TPost}) {
     </p>
 
     {/* Images Section */}
-    {images && images.length > 0 && (
-      <div className="mb-4">
-        {renderImages()}
-      </div>
-    )}
+    <ImageGallery images={images} />
 
   {/* Likes, Dislikes, Comments, Rating, and Share Section */}
-  <div className="flex justify-between items-center mt-4 border-t pt-4">
+  <div className="flex justify-between items-center mt-4 border-y py-2">
         <div className="flex space-x-6 text-gray-600">
           <div className="flex items-center space-x-2">
             <BiSolidLike className="text-blue-500 cursor-pointer hover:scale-110 transition-transform text-xl xl:text-2xl " />
@@ -112,12 +110,9 @@ export default function PostCard({ post } : { post : TPost}) {
           </div>
           <div className="flex items-center space-x-2">
             <FaRegComment className="cursor-pointer text-lg xl:text-xl text-gray-500" />
-            <span className="text-sm md:text-base">{commentList.length}</span>
+            <span className="text-sm md:text-base">{comments?.length}</span>
           </div>
-          <div className="flex items-center space-x-2">
-            <AiFillStar className="text-orange-600 cursor-pointer hover:scale-110 transition-transform text-xl xl:text-2xl" />
-            <span className="text-sm md:text-base">{rating || 'No rating'}</span>
-          </div>
+          
         </div>
         <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-800 transition-colors">
           <FaShare className="cursor-pointer hover:scale-110 transition-transform" />
@@ -125,34 +120,84 @@ export default function PostCard({ post } : { post : TPost}) {
         </button>
       </div>
 
-    {/* Comment Input Box */}
-    <div className="mt-4">
-      <textarea
-        className="w-full h-16 border rounded-lg p-2 focus:outline-none"
-        placeholder="Add a comment..."
-        value={newComment}
-        onChange={(e) => setNewComment(e.target.value)}
-      />
-      <button
-        onClick={handleCommentSubmit}
-        className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2 hover:bg-blue-600"
-      >
-        Submit Comment
-      </button>
+
+     {/* Main comment section */}
+     <div className="flex flex-col space-y-2 pb-4 my-3 relative">
+     <h4 className="font-semibold text-gray-600 cursor-pointer">View more comments</h4>
+
+   {/* loading white layer  */}
+   {isLoading && <div className="w-full h-full absolute top-0 left-0 right-0 bottom-0 bg-white/80 rounded-md flex justify-center items-center"> 
+        <ClipLoader
+           color='#3B82F6'
+           loading={isLoading}
+          //  cssOverride={override}
+           size={60}
+           aria-label="Loading Spinner"
+           speedMultiplier={0.8} />
+      </div>}
+
+        {comments?.slice(0, 2).map(comment => <> <div className="flex space-x-2">
+        {/* User Image */}
+        <Image
+          src={comment?.userInfo?.image}
+          alt={'user'}
+          width={300}
+          height={300}
+          className="size-10 rounded-full object-cover"
+        />
+        <div className="flex flex-col">
+          {/* User Info */}
+          <div className=" bg-gray-100 rounded-xl px-3">
+            <h4 className="font-semibold">{comment?.userInfo?.name}</h4>
+              {/* Comment Text */}
+          <p className="text-gray-700">{comment?.comment}</p>
+          </div>
+
+          {/* Like & Reply Actions */}
+          <div className="flex items-center space-x-4 text-gray-500 text-sm mt-1">
+          <span className="text-gray-500 font-semibold text-sm">  <TimeAgo date={comment.createdAt!} /></span>
+
+            <button className="flex items-center space-x-1 hover:text-gray-700">
+              <FaThumbsUp className="text-gray-500" />
+              <span>Like</span>
+            </button>
+            <button className="flex items-center space-x-1 hover:text-gray-700">
+              <FaReply className="text-gray-500" />
+              <span>Reply</span>
+            </button>
+          </div>
+        </div>
+      </div></>)}
+
     </div>
 
-    {/* Display Comments */}
-    <div className="mt-4">
-      {commentList.length > 0 && (
-        <div className="space-y-2">
-          {commentList.map((comment, idx) => (
-            <div key={idx} className="border-b pb-2">
-              <p className="text-gray-700">{comment}</p>
-            </div>
-          ))}
-        </div>
-      )}
+
+
+    {/* Comment Input Box */}
+    <form className=" relative flex gap-3" onSubmit={handleSubmit(onSubmit)}>
+    <div className="">
+      <Image width={300} height={300}
+        className="size-10 rounded-full object-cover"
+        src={user?.image}
+        alt="User Avatar"
+      />
     </div>
+    
+      <textarea {...register("newComment")}
+        className="flex-1 h-11 border rounded-lg p-2 focus:outline-none"
+        placeholder="Add a comment..."
+         data-gramm="false"
+      />
+      <button type="submit"
+        className="text-blue-500 px-4 py-2 rounded-lg mt-2 hover:text-blue-600 absolute right-0 top-auto text-lg"
+      >
+       <IoSendSharp />
+      </button>
+    </form>
+
+
+
+
   </div>
   )
 }

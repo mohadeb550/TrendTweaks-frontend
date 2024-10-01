@@ -1,5 +1,5 @@
 
-import { TPost } from "@/app/(withCommon)/(home)/components/CreatePost/CreatePostModal";
+import { TComment, TPost } from "@/app/(withCommon)/(home)/components/CreatePost/CreatePostModal";
 import baseApi from "../../api/baseApi";
 
 
@@ -41,14 +41,24 @@ const postApi = baseApi.injectEndpoints({
             invalidatesTags: ['Posts']
         }),
 
+        addComment : builder.mutation({
+            query: ({ postId , comment } : { postId: string, comment : TComment}) => ({
+                
+                url : `/posts/add-comment/${postId}`,
+                method : "PATCH", 
+                body : comment,  
+            }),
+            invalidatesTags: ['Posts']
+        }),
+        
         updatePost : builder.mutation({
-            query: ({ postId , payload } : { postId: string, payload:TPost}) => ({
+            query: ({ postId , payload } : { postId: string, payload:Partial<TPost>}) => ({
                 
                 url : `/posts/${postId}`,
                 method : "PUT", 
                 body : payload,  
             }),
-            invalidatesTags: ['Posts','Post' ]
+            invalidatesTags: ['Posts' ]
         }),
 
     })
@@ -59,5 +69,5 @@ export const {
      useGetPostsQuery,
       useUpdatePostMutation,
        useDeletePostMutation,
-        useGetSinglePostQuery,
+        useGetSinglePostQuery, useAddCommentMutation
     } = postApi;

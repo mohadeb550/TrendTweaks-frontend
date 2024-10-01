@@ -9,14 +9,14 @@ const layout = ({children} : {children : ReactNode}) => {
         <section className="fixed w-full h-screen">
         <Navbar/>
       
-      <section className="flex items-center gap-5 xl:gap-10 relative bg-[#F8F9FB] p-3 pr-0" >
+      <section className="flex items-center gap-5 xl:gap-10 relative bg-[#F8F9FB] p-4 pr-0 " >
         <div className="hidden lg:block w-72">
           <Sidebar> 
             <FeaturesSidebar/>
           </Sidebar>
           </div>
 
-        <div className="w-full h-screen overflow-y-scroll lg:pr-6">
+        <div className="w-full h-screen overflow-y-scroll lg:pr-6 pb-24">
         {children}   
         </div>
       </section>

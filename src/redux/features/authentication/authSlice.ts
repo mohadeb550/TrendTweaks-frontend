@@ -6,6 +6,13 @@ export type TUser = {
   email: string;
   role: string;
   image: string;
+  memberShip : null | {
+    takenDate : string;
+    exp : string;
+    package: object;
+  };
+  followers : string[];
+  following : string[];
   iat?: number;
   exp?: number;
   isBlocked? : boolean;

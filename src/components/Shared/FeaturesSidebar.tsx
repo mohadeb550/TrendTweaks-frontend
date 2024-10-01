@@ -1,16 +1,17 @@
 import Link from 'next/link';
-import { FaTv, FaUserCircle, FaGlobe, FaStar, FaRocketchat, FaEnvelope, FaHotel, FaCalendarAlt, FaStream, FaCog, FaChartLine } from 'react-icons/fa';
+import { FaTv, FaUserCircle, FaGlobe, FaRocketchat, FaEnvelope, FaHotel, FaCalendarAlt, FaStream, FaCog, FaChartLine } from 'react-icons/fa';
+import { GoPackage } from "react-icons/go";
 
 
 const FeaturesSidebar = () => {
     return (
-        <div className="w-64 bg-white shadow-lg p-4 space-y-7">
+        <div className="w-64 bg-white shadow-lg p-4 pb-32 space-y-7">
       {/* New Feeds Section */}
       <div className="space-y-4">
         <h2 className="text-gray-500 text-sm font-semibold">New Feeds</h2>
         <ul className="space-y-6">
           <li className="flex items-center space-x-4">
-            <Link href="/newsfeed" className="flex items-center space-x-4 hover:text-blue-500">
+            <Link href="/" className="flex items-center space-x-4 hover:text-blue-500">
               <div className="p-2 rounded-full bg-blue-600 text-2xl">
                 <FaTv className="text-white" />
               </div>
@@ -18,11 +19,11 @@ const FeaturesSidebar = () => {
             </Link>
           </li>
           <li className="flex items-center space-x-4">
-            <Link href="/badges" className="flex items-center space-x-4 hover:text-blue-500">
+            <Link href="/membarship" className="flex items-center space-x-4 hover:text-blue-500">
               <div className="p-2 rounded-full bg-orange-500 text-2xl">
-                <FaStar className="text-white" />
+                <GoPackage className="text-white" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Badges</span>
+              <span className="text-gray-700 font-medium hover:text-blue-600">Membership</span>
             </Link>
           </li>
           <li className="flex items-center space-x-4">

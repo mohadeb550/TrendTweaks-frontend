@@ -3,17 +3,17 @@
 
 import { useState } from "react";
 // import SearchBanner from "../components/ui/CarsPage/SearchBanner";
-import { ClipLoader } from "react-spinners";
+
 import { useGetPostsQuery } from "@/redux/features/posts/postApi";
 import PostCard from "./PostCard";
 import { TPost } from "../CreatePost/CreatePostModal";
+import PostSkeleton from "./PostSkeleton";
 
 export default function PostSection() {
 
   const [ filterQuery, setFilterQuery ] = useState({})
     const { data , isFetching } = useGetPostsQuery(filterQuery);
     const posts : TPost[] = data?.data || [];
-
 
      //  {
                 // location : 'tangail'
@@ -23,21 +23,12 @@ export default function PostSection() {
                 // status : 'unavailable'
         //  }
 
- 
   return (
-    <section className="pb-12">
+    <section className="">
         {/* <SearchBanner setFilterQuery={setFilterQuery} /> */}
 
      <section className="my-2 md:my-6 lg:my-8 " >
     
-      
-        {isFetching && <ClipLoader
-           color='#3B82F6'
-           size={60}
-           className="absolute top-72 md:top-2/4 left-2/4"
-           aria-label="Loading Spinner"
-           speedMultiplier={0.8} /> }
-
         <section>
 
           {/* all filtering section  */}
@@ -79,8 +70,12 @@ export default function PostSection() {
 
           </div>
 
+      {/* Grid section  */}
         <div className="grid grid-cols-1 gap-7  mb-8 ">
             {posts?.map(post => <PostCard key={post._id} post={post} /> )}
+
+            {/* Card placeholder  */}
+            {isFetching && [1, 2, 3, 4].map((num) => <PostSkeleton key={num} /> )}
         </div> 
 
           {/* no posts direction  */}

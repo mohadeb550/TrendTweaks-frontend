@@ -7,7 +7,19 @@ import { FaPen, FaImage, FaListAlt, FaAlignLeft } from 'react-icons/fa';
 import { useCreatePostMutation } from "@/redux/features/posts/postApi";
 import { useAppSelector } from "@/redux/hooks";
 
-// type for car
+export type TComment = {
+  comment : string,
+  userInfo  : {
+    name : string,
+    email : string,
+    image : string
+  },
+  createdAt? : string,
+  updatedAt? : string,
+ 
+}
+
+// type for post
 export type TPost = {
     _id? : string,
     title : string;
@@ -16,13 +28,14 @@ export type TPost = {
     likesDislikes? : { likes : number, dislikes : number}; 
     description : string;
     images : string[];
-    comments? : string[];
+    comments? : TComment[];
     authorInfo : {
       name : string;
       email: string;
       image : string;
       role :string;
     }
+    isPremium : boolean;
     isDeleted? : boolean;
     createdAt? : string,
     updatedAt? : string,
@@ -48,7 +61,7 @@ export default function CreatePostModal({ open, setOpen} : TModalProps) {
     title : data.title,
     category : data.category,
     description : data.description,
-    images : [ data.image1, data.image2, data.image3],
+    images : [],
     likesDislikes : {
       likes : 0,
       dislikes : 0
@@ -61,6 +74,9 @@ export default function CreatePostModal({ open, setOpen} : TModalProps) {
     },
     rating : '0'
   }
+  if(data.image1) postData.images.push(data.image1)
+  if(data.image2) postData.images.push(data.image2)
+  if(data.image3) postData.images.push(data.image3)
 
   try {
     const response =  await createPost(postData).unwrap();

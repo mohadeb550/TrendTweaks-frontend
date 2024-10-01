@@ -8,7 +8,7 @@ const userApi = baseApi.injectEndpoints({
 
         getUsers : builder.query({
             query: (query) => ({
-                url : '/api/users',
+                url : '/users',
                 method : "GET",
                 params : query,
             }),
@@ -17,15 +17,15 @@ const userApi = baseApi.injectEndpoints({
 
         getSingleUser : builder.query({
             query: (userEmail: string) => ({
-                url : `/api/users/${userEmail}`,
+                url : `/users/${userEmail}`,
                 method : "GET",   
             }),
-            providesTags : ['Single-user']
+            providesTags : ['User']
         }),
 
         deleteUser : builder.mutation({
             query: (userId: string) => ({
-                url : `/api/users/${userId}`,
+                url : `/users/${userId}`,
                 method : "DELETE",   
             }),
             invalidatesTags: ['Users']
@@ -34,11 +34,11 @@ const userApi = baseApi.injectEndpoints({
         updateUser : builder.mutation({
             query: ({ userId , payload } : { userId: string, payload:Partial<TUser>}) => ({
                 
-                url : `/api/users/${userId}`,
+                url : `/users/${userId}`,
                 method : "PUT", 
                 body : payload,  
             }),
-            invalidatesTags: ['Single-user', 'Users' ]
+            invalidatesTags: ['User', 'Users' ]
         }),
     })
 })

@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
+    "@stripe/react-stripe-js": "^2.8.0",
+    "@stripe/stripe-js": "^4.6.0",
     "jwt-decode": "^4.0.0",
+    "lightgallery": "^2.7.2",
     "nexios-http": "^1.1.21",
     "next": "14.2.13",
     "next-auth": "^4.24.8",
