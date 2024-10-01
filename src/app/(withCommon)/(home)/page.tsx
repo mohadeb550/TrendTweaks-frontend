@@ -1,11 +1,11 @@
-import Banner from "./components/CreatePost/CreatePost";
+import CreatePost from "./components/CreatePost/CreatePost";
 import PostSection from "./components/Posts/PostSection";
 
 
 const page = () => {
     return (
         <>
-           <Banner/>
+           <CreatePost/>
            <PostSection/>
         </>
     );

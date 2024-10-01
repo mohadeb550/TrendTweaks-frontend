@@ -27,6 +27,14 @@ const FeaturesSidebar = () => {
             </Link>
           </li>
           <li className="flex items-center space-x-4">
+            <Link href="/profile" className="flex items-center space-x-4 hover:text-blue-500">
+              <div className="p-2 rounded-full bg-blue-500 text-2xl">
+                <FaUserCircle className="text-white" />
+              </div>
+              <span className="text-gray-700 font-medium hover:text-blue-600">Profile</span>
+            </Link>
+          </li>
+          <li className="flex items-center space-x-4">
             <Link href="/explore-stories" className="flex items-center space-x-4 hover:text-blue-500">
               <div className="p-2 rounded-full bg-yellow-400 text-2xl">
                 <FaGlobe className="text-white" />
@@ -42,14 +50,7 @@ const FeaturesSidebar = () => {
               <span className="text-gray-700 font-medium hover:text-blue-600">Popular Groups</span>
             </Link>
           </li>
-          <li className="flex items-center space-x-4">
-            <Link href="/author-profile" className="flex items-center space-x-4 hover:text-blue-500">
-              <div className="p-2 rounded-full bg-blue-500 text-2xl">
-                <FaUserCircle className="text-white" />
-              </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Author Profile</span>
-            </Link>
-          </li>
+         
         </ul>
       </div>
 

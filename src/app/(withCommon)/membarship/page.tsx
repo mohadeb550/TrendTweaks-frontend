@@ -89,7 +89,7 @@ const Membership = () => {
 
 
     return (
-        <div className="flex flex-col items-center justify-center ">
+        <div className="flex flex-col items-center justify-center">
         {/* <!-- Page Heading --> */}
         {/* <h1 className="text-4xl font-bold mb-8 text-gray-800">Choose Your Membership Plan</h1> */}
 
@@ -97,7 +97,7 @@ const Membership = () => {
          {/* payment modal  */}
    {openPayModal && <PaymentModal membersShip={membersShip} open={openPayModal} setOpen={setOpenPayModal}/> }
         
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7 w-full ">
           
 
          {membershipPackages?.map(pack => <><div className="bg-white shadow-md rounded-xl p-6 flex flex-col justify-between hover:shadow-lg transition-shadow duration-300">
