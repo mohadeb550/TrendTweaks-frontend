@@ -29,8 +29,11 @@ export type TPost = {
     _id? : string,
     title : string;
     category : string;
-    rating?: string;
-    likesDislikes? : { likes : number, dislikes : number}; 
+    votes?: number
+    voters?: [{ 
+      userId: string, 
+      voteType: string 
+    }],
     description : string;
     images : string[];
     comments? : TComment[];

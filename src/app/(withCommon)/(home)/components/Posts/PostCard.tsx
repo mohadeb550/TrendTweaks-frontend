@@ -1,14 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
-import { AiOutlineMinus } from "react-icons/ai";
 import { TComment, TPost } from "../CreatePost/CreatePostModal";
-import { FaHeart, FaThumbsDown, FaComment, FaShare, FaEllipsisH, FaStar, FaThumbsUp, FaReply, FaEdit } from 'react-icons/fa';
+import {  FaShare, FaEllipsisH, FaStar, FaThumbsUp, FaReply, FaEdit } from 'react-icons/fa';
 import { RiDeleteBin4Line } from "react-icons/ri";
 import { useState } from "react";
 import Image from "next/image";
 import TimeAgo from 'react-timeago'
-import { BiSolidLike, BiSolidDislike } from "react-icons/bi";
 import { FaRegComment, } from "react-icons/fa6";
 import ImageGallery from "./ImageGallery";
 import { IoSendSharp } from "react-icons/io5";
@@ -19,6 +17,9 @@ import { ClipLoader } from "react-spinners";
 import { useAddCommentMutation, useDeleteCommentMutation, useGetCommentsQuery, useUpdateCommentMutation } from "@/redux/features/comments/commentApi";
 import { BsThreeDots } from "react-icons/bs";
 import MiniUserProfile from "./MiniUserProfile";
+import VoteSection from "./VoteSection";
+import { BiCommentDetail } from "react-icons/bi";
+
 
 
 export default function PostCard({ post } : { post : TPost}) {
@@ -30,7 +31,7 @@ export default function PostCard({ post } : { post : TPost}) {
 
 
  const {_id, category, description, 
-    images, likesDislikes, authorInfo, createdAt} = post;
+    images, authorInfo, votes, voters, createdAt} = post;
 
     // get comments based on the postID 
     const { data  } = useGetCommentsQuery({ postId : _id});
@@ -112,17 +113,12 @@ export default function PostCard({ post } : { post : TPost}) {
   {/* Likes, Dislikes, Comments, Rating, and Share Section */}
   <div className="flex justify-between items-center mt-4 border-y py-2">
         <div className="flex space-x-6 text-gray-600">
-          <div className="flex items-center space-x-2">
-            <BiSolidLike className="text-blue-500 cursor-pointer hover:scale-110 transition-transform text-xl xl:text-2xl " />
-            <span className="text-sm md:text-base">{likesDislikes?.likes}</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <BiSolidDislike className="text-gray-500 cursor-pointer hover:scale-110 transition-transform text-xl xl:text-2xl" />
-            <span className="text-sm md:text-base">{likesDislikes?.dislikes}</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <FaRegComment className="cursor-pointer text-lg xl:text-xl text-gray-500" />
-            <span className="text-sm md:text-base">{comments?.length}</span>
+
+          <VoteSection postId={_id as string} userId={user?._id as string} votes={votes} voters={voters}/>
+         
+          <div className="flex items-center gap-3 bg-gray-200/50 rounded-full px-3 py-1">
+            <BiCommentDetail className="cursor-pointer text-lg xl:text-xl text-gray-500" />
+            <span className="font-semibold text-gray-600">{comments?.length}</span>
           </div>
           
         </div>
