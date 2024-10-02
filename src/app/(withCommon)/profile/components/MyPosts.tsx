@@ -1,13 +1,11 @@
 import { useGetPostsQuery } from "@/redux/features/posts/postApi";
 import PostCard from "../../(home)/components/Posts/PostCard";
 import PostSkeleton from "../../(home)/components/Posts/PostSkeleton";
-import { useAppSelector } from "@/redux/hooks";
 import { TPost } from "../../(home)/components/CreatePost/CreatePostModal";
 
 
-const MyPosts = () => {
-    const user = useAppSelector(state => state.auth.user)
-    const { data , isFetching } = useGetPostsQuery({ userEmail : user?.email});
+const MyPosts = ({userEmail} : { userEmail : string}) => {
+    const { data , isFetching } = useGetPostsQuery({ userEmail});
     const posts : TPost[] = data?.data || [];
 
     return (

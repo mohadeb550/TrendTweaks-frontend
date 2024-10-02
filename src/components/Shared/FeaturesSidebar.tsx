@@ -1,9 +1,14 @@
+'use client'
+
+import { useAppSelector } from '@/redux/hooks';
 import Link from 'next/link';
 import { FaTv, FaUserCircle, FaGlobe, FaRocketchat, FaEnvelope, FaHotel, FaCalendarAlt, FaStream, FaCog, FaChartLine } from 'react-icons/fa';
 import { GoPackage } from "react-icons/go";
 
 
 const FeaturesSidebar = () => {
+  const user = useAppSelector(state => state.auth.user)
+
     return (
         <div className="w-64 bg-white shadow-lg p-4 pb-32 space-y-7">
       {/* New Feeds Section */}
@@ -27,7 +32,7 @@ const FeaturesSidebar = () => {
             </Link>
           </li>
           <li className="flex items-center space-x-4">
-            <Link href="/profile" className="flex items-center space-x-4 hover:text-blue-500">
+            <Link href={`/profile/${user?.email}`} className="flex items-center space-x-4 hover:text-blue-500">
               <div className="p-2 rounded-full bg-blue-500 text-2xl">
                 <FaUserCircle className="text-white" />
               </div>

@@ -5,6 +5,7 @@ import { useFollowUserMutation, useGetSingleUserQuery } from "@/redux/features/u
 import { toast } from "sonner";
 import { ClipLoader } from "react-spinners";
 import { TUser } from "@/redux/features/authentication/authSlice";
+import Link from "next/link";
 
 
 const MiniUserProfile = ({userInfo}: { userInfo : {
@@ -24,7 +25,6 @@ const MiniUserProfile = ({userInfo}: { userInfo : {
     const { data } = useGetSingleUserQuery(userInfo?.authorEmail);
     const latestAuthorData : TUser = data?.data || {};
 
-    console.log(latestAuthorData)
 
     const handleFollow = async () => {
         try{
@@ -73,9 +73,10 @@ const MiniUserProfile = ({userInfo}: { userInfo : {
           <button className="flex-1 font-semibold bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded-full">
            Create Post
           </button>
+          <Link href={`/profile/${userInfo?.email}`}>
           <button className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 py-1 px-4 rounded-full font-semibold">
-            Edit Profile
-          </button>
+           View Profile
+          </button></Link>
         </div> 
         
         : 
@@ -99,9 +100,10 @@ const MiniUserProfile = ({userInfo}: { userInfo : {
           
 
 
+          <Link href={`/profile/${userInfo?.email}`}>
           <button className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 py-1 px-4 rounded-full font-semibold">
-            Message
-          </button>
+           View Profile
+          </button></Link>
         </div>}
       </div>
     

@@ -1,33 +1,66 @@
 'use client'
 
 import { FaCheckCircle } from 'react-icons/fa';
-import { BsPersonPlusFill, BsEnvelopeFill, BsThreeDots } from 'react-icons/bs';
-import { useGetSingleUserQuery } from '@/redux/features/user/userApi';
+import { BsEnvelopeFill, BsThreeDots } from 'react-icons/bs';
+import { useFollowUserMutation, useGetSingleUserQuery } from '@/redux/features/user/userApi';
 import { useAppSelector } from '@/redux/hooks';
 import { TUser } from '@/redux/features/authentication/authSlice';
 import Image from 'next/image';
 import { MdModeEdit } from "react-icons/md";
-import CreatePost from '../(home)/components/CreatePost/CreatePost';
-import MyPosts from './components/MyPosts';
+import CreatePost from '../../(home)/components/CreatePost/CreatePost';
+import MyPosts from '../components/MyPosts';
+import { ClipLoader } from 'react-spinners';
+import { toast } from 'sonner';
+import { RiUserFollowLine } from "react-icons/ri";
+import { useState } from 'react';
+import EditProfileModal from '../components/EditProfileModal';
 
-const Profile = () => {
+const Profile = ({ params} : { params: { userEmail: string}}) => {
+  const { userEmail } = params;
 
-    const user = useAppSelector(state => state.auth.user)
-    const { data , isLoading } = useGetSingleUserQuery(user?.email as string);
+    const loggedUser = useAppSelector(state => state.auth.user)
+    const [ followUser , { isLoading }] = useFollowUserMutation();
+    const [ editModal, setEditModal ] = useState(false);
+
+    const { data } = useGetSingleUserQuery(userEmail);
     const userDetails : TUser = data?.data || {};
 
-    const {email,followers, following, image,memberShip,name,  } = userDetails;
+    const {email, image,memberShip,name, coverImg } = userDetails;
+
+
+
+    const handleFollow = async () => {
+      try{
+          const response = await followUser({
+              userId : loggedUser?._id as string ,
+              targetedUserId : userDetails?._id as string ,
+          })
+          if(response?.success){
+              toast.success('You followed the user')
+            }
+
+      }catch(error){
+          toast.error("Something went wrong")
+          console.log(error)
+      }
+  }
+
+
+
+
+
+
 
     return (
         <div className=" bg-white p-4 rounded-lg">
         {/* Cover Photo */}
         <div className="relative">
           <Image
-            src={image}
+            src={coverImg || 'https://i.ibb.co.com/mqccxqc/minimalist-purple-mountains-sunset-wallpaper.jpg'}
             alt="Cover"
             width={600}
             height={600}
-            className="w-full h-28 md:h-44 lg:h-52 object-cover rounded-t-lg"
+            className="w-full h-28 md:h-44 lg:h-52 object-cover object-top rounded-t-lg"
           />
           <div className="relative lg:left-4 -top-4 md:-top-7 flex items-center space-x-4">
             <Image
@@ -35,7 +68,7 @@ const Profile = () => {
               alt="Profile"
               width={300}
               height={300}
-              className="size-24 md:size-36 rounded-full border-4 border-white object-cover"
+              className="size-20 md:size-36 rounded-full border-4 border-white object-cover"
             />
             <div>
               <h1 className=  "text-xl md:text-2xl font-bold flex items-center">
@@ -46,27 +79,45 @@ const Profile = () => {
             </div>
           </div>
         </div>
+
+        {/* Open Edit Modal  */}
+        {editModal && <EditProfileModal open={editModal} setOpen={setEditModal}/>}
   
         {/* Profile Details */}
         <div className="flex justify-between">
 
-        {user?.email !== userDetails.email &&   <div className="flex items-center gap-3">
-            <button className="bg-blue-500 text-white px-2 md:px-4 py-2 text-sm md:text-base rounded-lg flex items-center">
-              <BsPersonPlusFill className="mr-2" />
-              Add Friend
-            </button>
+        {loggedUser?.email !== userDetails.email &&   <div className="flex items-center gap-3">
+
+          {userDetails?.followers?.includes(loggedUser?._id as string) ? <><h3 className="bg-blue-500 text-white px-2 md:px-4 py-2 text-sm md:text-base rounded-lg flex items-center font-semibold">
+            <RiUserFollowLine className="mr-2" />
+            Following
+          </h3></> 
+          
+          : 
+          <><button onClick={handleFollow} className="bg-blue-500 text-white px-2 md:px-4 py-2 text-sm md:text-base rounded-lg flex items-center font-semibold">
+             <RiUserFollowLine className="mr-2" />
+           
+          {isLoading?  <ClipLoader
+           color='#ffffff'
+           size={16}
+           aria-label="Loading Spinner"
+           speedMultiplier={0.8} /> : 'Follow'}
+          </button></>}
+
+
 
             <button className="bg-gray-200 px-2 md:px-4 py-2 text-sm md:text-base rounded-lg flex items-center font-semibold">
               <BsEnvelopeFill className="mr-2" />
+             
               Message
             </button>
           </div>}
 
           <div className="space-y-1 flex items-center">
-            <button className="bg-gray-200 px-2 md:px-4 py-2 text-sm md:text-base rounded-lg flex items-center font-semibold">
+           {loggedUser?.email === userDetails?.email &&  <button onClick={()=> setEditModal(true)} className="bg-gray-200 px-2 md:px-4 py-2 text-sm md:text-base rounded-lg flex items-center font-semibold">
               <MdModeEdit className="mr-2" />
              Edit Profile
-            </button>
+            </button>}
             <button className="bg-gray-200 px-2 md:px-4 h-full hidden md:block  text-sm md:text-base rounded-lg ml-2">
               <BsThreeDots />
             </button>
@@ -88,11 +139,11 @@ const Profile = () => {
             {/* Followers/Following Section */}
       <div className="mt-2 flex justify-around bg-white px-4 rounded-lg ">
         <div className="text-center">
-          <h3 className="text-xl font-bold">254</h3>
+          <h3 className="text-xl font-bold">{userDetails?.followers?.length}</h3>
           <p className="text-gray-500">Followers</p>
         </div>
         <div className="text-center">
-          <h3 className="text-xl font-bold">123</h3>
+          <h3 className="text-xl font-bold">{userDetails?.following?.length}</h3>
           <p className="text-gray-500">Following</p>
         </div>
       </div>
@@ -111,10 +162,11 @@ const Profile = () => {
         </div>}
 
         {/* create post section  */}
-        <CreatePost/>
+        {loggedUser?.email === userDetails?.email && <CreatePost/>
+        }
 
         {/* user posts  */}
-        <MyPosts/>
+        <MyPosts userEmail={userDetails?.email} />
       </div>
     );
 };

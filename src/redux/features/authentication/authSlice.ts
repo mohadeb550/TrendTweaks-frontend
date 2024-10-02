@@ -6,6 +6,7 @@ export type TUser = {
   email: string;
   role: string;
   image: string;
+  coverImg? : string;
   memberShip : null | {
     takenDate : string;
     exp : string;
