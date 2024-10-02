@@ -8,6 +8,7 @@ import { useGetPostsQuery } from "@/redux/features/posts/postApi";
 import PostCard from "./PostCard";
 import { TPost } from "../CreatePost/CreatePostModal";
 import PostSkeleton from "./PostSkeleton";
+import { TfiSearch } from "react-icons/tfi";
 
 export default function PostSection() {
 
@@ -16,57 +17,65 @@ export default function PostSection() {
     const posts : TPost[] = data?.data || [];
 
      //  {
-                // location : 'tangail'
-                // carType : 'sedun'
-                // costRange : '10-35'
-                // sortByCost : -1
-                // status : 'unavailable'
+                // searchTerm : 'tangail'
+                // userEmail : '@gmil.com'
+               // category : 'Ai'
+                // sortByUpvote : -1
         //  }
 
   return (
     <section className="">
-        {/* <SearchBanner setFilterQuery={setFilterQuery} /> */}
-
+  
      <section className="my-2 md:my-6 lg:my-8 " >
     
         <section>
 
+
           {/* all filtering section  */}
-          <div className="flex justify-between md:justify-end my-6 gap-3 flex-wrap-reverse">
+          <div className="flex justify-end my-1 mt-3 md:mt-0 gap-2 md:gap-3">
+
+    {/* FOR LARGE  */}
+          <div className="hidden relative md:flex items-center">
+ <span className="absolute left-4"> <TfiSearch/></span>
+  <input   onChange={(e) => setFilterQuery(prev => ({...prev, searchTerm: e.target.value}))}
+ type="text" className="rounded-full outline-none placeholder:text-gray-500 py-2 pl-10 pr-2 bg-white shadow-md lg:w-72" placeholder="Search.."/>
+</div>
+
+{/* for small  */}
+<div className="dropdown md:hidden">
+  <h3 tabIndex={0} role="button" className=" bg-white flex items-center gap-2 shadow-md p-3 px-5 rounded-full text-sm md:text-base"> <TfiSearch/></h3>
+
+  <ul tabIndex={0} className="dropdown-content menu rounded-md z-[1] w-52 ">
+
+  <div className="relative md:flex items-center">
+ <span className="absolute left-4 top-7"> <TfiSearch/></span>
+  <input   onChange={(e) => setFilterQuery(prev => ({...prev, searchTerm: e.target.value}))}
+ type="text" className="rounded-md outline-none placeholder:text-gray-500 py-2 pl-10 pr-2 bg-white shadow-2xl border-t-2 border-gray-200 w-72 h-16" placeholder="Search.."/>
+</div>
+  </ul>
+</div>
+
             
           <select 
-          onChange={(e)=> setFilterQuery(prev => ({...prev, sortByCost: e.target.value}))}
-           className=" max-w-xs outline p-2 outline-black/20 rounded-sm outline-1 text-xs md:text-sm">
-              <option disabled selected> Sort by Cost</option>
-               <option value='1'> Low to High</option>
-               <option value='-1'> High to Low</option>
+          onChange={(e)=> setFilterQuery(prev => ({...prev, sortByUpvote: e.target.value}))}
+           className=" max-w-xs p-2 shadow-md rounded-full outline-1 text-xs md:text-sm ">
+              <option disabled selected> Sort by Upvote</option>
+               <option value='-1'>Most Upvoted</option>
+               <option value='1'>Most Downvoted</option>
         </select>
 
           <select
-           onChange={(e)=> setFilterQuery(prev => ({...prev, costRange: e.target.value}))}
+           onChange={(e)=> setFilterQuery(prev => ({...prev, category : e.target.value}))}
 
-            className=" max-w-xs outline p-2 outline-black/20 rounded-sm outline-1 text-xs md:text-sm">
-              <option disabled selected>Filter by cost</option>
-               <option value='0-20'>0 - 20$</option>
-               <option value='20-40'>20 - 40$</option>
-               <option value='40-60'>40 - 60$</option>
-               <option value='60-80'>60 - 80$</option>
-               <option value='80-100'>80 - 100$</option>
-               <option value='0-0'>Custom</option>
+            className="p-2 shadow-md text-xs md:text-sm rounded-full">
+              <option disabled selected>Select Category</option>
+              <option value=''>All</option>
+              <option value='Web'>Web</option>
+              <option value='Software Engineering'>Software Engineering</option>
+              <option value='AI'>AI</option>
+              <option value='TEchnology'>Technology</option>
         </select>
-        
-        <select 
-        onChange={(e) => setFilterQuery(prev => ({...prev, carType: e.target.value}))}
-         className=" max-w-xs outline p-2 outline-black/20 rounded-sm outline-1 text-xs md:text-sm ">
-              <option disabled selected> Filter by Car Type</option>
-              <option value='compact'>Compact</option>
-              <option value='suv'>SUVs</option>
-              <option value='luxury'>Luxury</option>
-              <option value='pickup/truck'>Pickups / Trucks</option>
-              <option value='electric'>Electric</option>
-              <option value='convertibles'>Convertibles</option>
-        
-        </select>
+      
 
           </div>
 

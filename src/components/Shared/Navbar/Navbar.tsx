@@ -55,10 +55,10 @@ const logoutUser = () => {
  <h3 className="text-blue-600 font-extrabold text-2xl md:text-3xl">TrendTweaks</h3>
 </div>
 
-<div className="relative flex items-center ">
+{/* <div className="relative flex items-center ">
  <span className="absolute left-4"> <TfiSearch/></span>
   <input type="text" className="rounded-full outline-none py-2 pl-10 pr-2 bg-gray-100 lg:w-72" placeholder="Search.."/>
-</div>
+</div> */}
 
 {/* nav menu section  */}
 <ul id="nav-menu-list" className="hidden lg:flex items-center lg:text-[15px] xl:text-base  lg:gap-3 xl:gap-6 menu-horizontal px-1">
