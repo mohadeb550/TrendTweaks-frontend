@@ -18,14 +18,14 @@ interface IProps {
 export default function ImageGallery({ images }: IProps) {
   return (
     <LightGallery
-      elementClassNames={`mt-2 gap-2 grid gap-4 place-items-center ${images.length === 1 ? "grid-cols-1" : "grid-cols-2"} `}
+      elementClassNames={`mt-2 gap-2 grid gap-4 place-items-center ${images?.length === 1 ? "grid-cols-1" : "grid-cols-2"} `}
       plugins={[lgThumbnail, lgZoom]}
       speed={500}
     >
       {images?.map((image, index) => (
         <Link
           key={index}
-          className={`w-full ${images.length === 3 && index === 0 ? "col-span-2" : "col-span-1"}`}
+          className={`w-full ${images?.length === 3 && index === 0 ? "col-span-2" : "col-span-1"}`}
           href={image}
         >
           <Image

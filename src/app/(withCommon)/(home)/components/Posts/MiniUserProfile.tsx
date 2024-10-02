@@ -69,7 +69,7 @@ const MiniUserProfile = ({userInfo}: { userInfo : {
     
 
         {/* for myself  */}
-        {user?.email === userInfo.email? <div className="flex mt-4 space-x-2">
+        {user?.email === userInfo?.email? <div className="flex mt-4 space-x-2">
           <button className="flex-1 font-semibold bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded-full">
            Create Post
           </button>

@@ -1,14 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
-import { TComment, TPost } from "../CreatePost/CreatePostModal";
-import {  FaShare, FaEllipsisH, FaStar, FaThumbsUp, FaReply, FaEdit } from 'react-icons/fa';
+import {  FaShare, FaEllipsisH, FaThumbsUp, FaReply, FaEdit } from 'react-icons/fa';
 import { RiDeleteBin4Line } from "react-icons/ri";
-import { useRef, useState } from "react";
 import Image from "next/image";
 import TimeAgo from 'react-timeago'
-import { FaRegComment, } from "react-icons/fa6";
-import ImageGallery from "./ImageGallery";
 import { IoSendSharp } from "react-icons/io5";
 import { useForm } from "react-hook-form";
 import { useAppSelector } from "@/redux/hooks";
@@ -16,36 +12,44 @@ import { toast } from "sonner";
 import { ClipLoader } from "react-spinners";
 import { useAddCommentMutation, useDeleteCommentMutation, useGetCommentsQuery, useUpdateCommentMutation } from "@/redux/features/comments/commentApi";
 import { BsThreeDots } from "react-icons/bs";
-import MiniUserProfile from "./MiniUserProfile";
-import VoteSection from "./VoteSection";
 import { BiCommentDetail } from "react-icons/bi";
 import Link from "next/link";
-import { MdStars } from "react-icons/md";
-import { useReactToPrint } from "react-to-print";
-import { AiFillPrinter } from "react-icons/ai";
+import { TComment, TPost } from '../../components/CreatePost/CreatePostModal';
+import MiniUserProfile from '../../components/Posts/MiniUserProfile';
+import ImageGallery from '../../components/Posts/ImageGallery';
+import VoteSection from '../../components/Posts/VoteSection';
+import { useGetSinglePostQuery } from '@/redux/features/posts/postApi';
+import { MdStars } from 'react-icons/md';
+import { AiFillPrinter } from 'react-icons/ai';
+import { useRef } from 'react';
+import { useReactToPrint } from 'react-to-print';
 
 
 
-export default function PostCard({ post } : { post : TPost}) {
+
+export default function PostDetails({params } : { params : { postId: string}}) {
+
+    const { data , isFetching } = useGetSinglePostQuery(params?.postId);
+    const post : TPost = data?.data || {};
+
   const { register, handleSubmit , reset} = useForm();
   const user = useAppSelector(state => state.auth.user)
   const [ addComment, { isLoading : addLoading, } ] = useAddCommentMutation();
   const [ updateComment, { isLoading: updateLoading} ] = useUpdateCommentMutation();
   const [ deleteComment, { isLoading: deleteLoading} ] = useDeleteCommentMutation();
 
-  // for printing the page 
-  const contentRef = useRef<HTMLDivElement>(null);
-const reactToPrintFn = useReactToPrint({ contentRef });
-
 
  const {_id, category, description, 
     images, authorInfo, votes, voters, createdAt, isPremium} = post;
 
-
     // get comments based on the postID 
-    const { data  } = useGetCommentsQuery({ postId : _id});
-    const comments : TComment[] = data?.data || [];
+    const { data: commentsData  } = useGetCommentsQuery({ postId : _id});
+    const comments : TComment[] = commentsData?.data || [];
     
+      // for printing the page 
+  const contentRef = useRef<HTMLDivElement>(null);
+  const reactToPrintFn = useReactToPrint({ contentRef });
+
   
     const onSubmit = async (data: any ) => {
 
@@ -74,9 +78,9 @@ const reactToPrintFn = useReactToPrint({ contentRef });
     
 
   return (
-    <div  ref={contentRef} className="bg-white rounded-xl shadow-md p-6 w-full mx-auto mt-6">
+    <div ref={contentRef} className="bg-white rounded-xl shadow-md p-6 w-full mx-auto mt-6">
     {/* Header with User Info */}
-  
+
    <div className="flex items-center mb-4">
       <section className="group relative">
       <Image width={300} height={300}
@@ -93,42 +97,25 @@ const reactToPrintFn = useReactToPrint({ contentRef });
       <TimeAgo date={createdAt!} />
       </time></p>
       </div>
-      <div className="ml-auto flex items-center gap-2 md:gap-4">
-        
-        {isPremium && <MdStars className="text-orange-500 cursor-pointer text-2xl" />}
+      <div className="ml-auto flex items-center gap-2">
+      {isPremium && <MdStars className="text-orange-500 cursor-pointer text-2xl" />}
 
-        <button onClick={reactToPrintFn}> <AiFillPrinter className="text-gray-600 cursor-pointer text-2xl "/></button>
-
+      <button onClick={reactToPrintFn}> <AiFillPrinter className="text-gray-600 cursor-pointer text-2xl "/></button>
       </div>
     </div>
 
-    
-    {/* Post Description */}
-    <p className="lg:hidden text-gray-700 mb-4 text-base lg:text-lg">
-      {description.length > 100
-        ? `${description.substring(0, 200)}...`
-        : description}{' '}
-      <a href="#" className="text-blue-500">
-        See more
-      </a>
-    </p>
+     {/* Post title */}
+     <h2 className=" text-gra-500 mb-3 font-semibold text-lg ">
+      {post?.title}
+    </h2>
 
-    <p className="hidden lg:block text-gray-700 mb-4 text-base lg:text-lg">
-      {description.length > 100
-        ? `${description.substring(0, 400)}...`
-        : description}{' '}
-      <a href="#" className="text-blue-500">
-        See more
-      </a>
+    {/* Post Description */}
+    <p className=" text-gray-700 mb-4 text-base lg:text-lg">
+      {description}
     </p>
 
     {/* Images Section */}
-    <Link href={`/details/${_id}`}>
-       <div className="pointer-events-none">
-       <ImageGallery images={images} />
-       </div>
-     </Link>
- 
+    <ImageGallery images={images} />
 
   {/* Likes, Dislikes, Comments, Rating, and Share Section */}
   <div className="flex justify-between items-center mt-4 border-y py-2">
@@ -151,7 +138,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
 
      {/* Main comment section */}
      <div className="flex flex-col space-y-2 pb-4 my-3 relative">
-     <h4 className="font-semibold text-gray-600 cursor-pointer">View more comments</h4>
+    
 
    {/* loading white layer  */}
    {addLoading || deleteLoading || updateLoading && <div className="w-full h-full absolute top-0 left-0 z-50 right-0 bottom-0 bg-white/80 rounded-md flex justify-center items-center"> 
@@ -163,7 +150,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
       </div>}
 
 
-        {comments?.slice(0, 2).map((comment: TComment) => <> <div className="flex space-x-2 ">
+        {comments?.map((comment: TComment) => <> <div className="flex space-x-2 ">
         {/* User Image */}
         <Image
           src={comment?.userInfo?.image}
@@ -199,14 +186,14 @@ const reactToPrintFn = useReactToPrint({ contentRef });
           <div className="flex items-center space-x-4 text-gray-500 text-sm mt-1">
           <span className="text-gray-500 font-semibold text-sm">  <TimeAgo date={comment.createdAt!} /></span>
 
-            <h2 className="flex items-center space-x-1 hover:text-gray-700">
+            <h3 className="flex items-center space-x-1 hover:text-gray-700">
               <FaThumbsUp className="text-gray-500" />
               <span>Like</span>
-            </h2>
-            <h2 className="flex items-center space-x-1 hover:text-gray-700">
+            </h3>
+            <h3 className="flex items-center space-x-1 hover:text-gray-700">
               <FaReply className="text-gray-500" />
               <span>Reply</span>
-            </h2>
+            </h3>
           </div>
         </div>
 

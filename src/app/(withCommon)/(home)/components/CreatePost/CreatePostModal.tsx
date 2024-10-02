@@ -45,7 +45,7 @@ export type TPost = {
       authorId : string;
       authorEmail : string;
     }
-    isPremium : boolean;
+    isPremium? : boolean;
     isDeleted? : boolean;
     createdAt? : string,
     updatedAt? : string,
