@@ -8,12 +8,15 @@ import { IoIosSettings } from "react-icons/io";
 import { MdOutlineNotificationsNone } from "react-icons/md";
 import { BiSolidDashboard } from "react-icons/bi";
 import { TfiSearch } from "react-icons/tfi";
+import { IoSettingsOutline } from "react-icons/io5";
+import { IoIosNotificationsOutline } from "react-icons/io";
 
 import Container from "../Container";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { logout } from "@/redux/features/authentication/authSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { RxDashboard } from "react-icons/rx";
 
 
 export default function Navbar() {
@@ -52,16 +55,11 @@ const logoutUser = () => {
 {/* logo section  */}
 <div className="flex items-center gap-1" >
 {/* <img src='/6201330c4babde0004ca47f.png' className="w-24 md:w-32 lg:w-40 opacity-90"/> */}
- <h3 className="text-blue-600 font-extrabold text-2xl md:text-3xl">TrendTweaks</h3>
+ <h3 className="text-blue-500 font-extrabold text-xl md:text-2xl xl:text-3xl">TrendTweaks</h3>
 </div>
 
-{/* <div className="relative flex items-center ">
- <span className="absolute left-4"> <TfiSearch/></span>
-  <input type="text" className="rounded-full outline-none py-2 pl-10 pr-2 bg-gray-100 lg:w-72" placeholder="Search.."/>
-</div> */}
-
 {/* nav menu section  */}
-<ul id="nav-menu-list" className="hidden lg:flex items-center lg:text-[15px] xl:text-base  lg:gap-3 xl:gap-6 menu-horizontal px-1">
+<ul id="nav-menu-list" className="hidden lg:flex items-center lg:text-[15px] xl:text-base  lg:gap-10 xl:gap-12 menu-horizontal px-1">
   {navLinks}
 </ul>
 
@@ -72,10 +70,10 @@ const logoutUser = () => {
 <div className="mr-3 md:mr-5 rounded-full text-xl md:text-[22px] lg:text-2xl text-black flex gap-5 md:gap-6 items-center ">
 
 
-    {user && <div className="flex items-center gap-6 text-[32px] text-blue-600">
-      <span className="text-[28px]"><BiSolidDashboard></BiSolidDashboard> </span>
-      <span><MdOutlineNotificationsNone></MdOutlineNotificationsNone> </span>
-      <span><IoIosSettings></IoIosSettings> </span>
+    {user && <div className="flex items-center gap-3 md:gap-6 text-2xl md:text-[26px] text-gray-500">
+      <span><IoIosNotificationsOutline></IoIosNotificationsOutline> </span>
+      <span className= "text-xl md:text-[23px] xl:text-2xl"><RxDashboard></RxDashboard> </span>
+      <span className="hidden md:block"><IoSettingsOutline></IoSettingsOutline> </span>
       </div>}
 
     <div className="dropdown dropdown-end flex items-center justify-center gap-2 z-20">
@@ -106,7 +104,7 @@ const logoutUser = () => {
 </div>
 
 {/* label for open daisy ui drawer that component has another file  */}
-    <label htmlFor="my-drawer" className={`lg:hidden text-xl md:text-2xl text-zinc-200`}><HiOutlineMenu/> </label>
+    <label htmlFor="my-drawer" className={`lg:hidden text-xl md:text-2xl text-gray-500`}><HiOutlineMenu/> </label>
     <DrawerNav/>
 </div>
 

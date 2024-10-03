@@ -23,7 +23,11 @@ export default function PostSection() {
 
   useEffect(() => {
     if (inView) {
-      if(posts?.length < totalPosts){
+      // check the category, searchTerm, sort are exist in the filterQuery
+      const isFilterExist = Object.keys(filterQuery).find(option => ['category','searchTerm', 'sortByUpvote'].includes(option))
+
+      // console.log(isFilterExist)
+      if(!isFilterExist && posts?.length < totalPosts){
       setFilterQuery({...filterQuery, limit : limit + 10})
       setLimit(limit +10)
        }

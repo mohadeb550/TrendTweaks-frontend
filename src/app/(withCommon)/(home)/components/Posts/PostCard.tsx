@@ -80,7 +80,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
    <div className="flex items-center mb-4">
       <section className="group relative">
       <Image width={300} height={300}
-        className="size-14 rounded-full object-cover"
+        className="size-11 lg:size-14 rounded-full object-cover"
         src={authorInfo?.image}
         alt="User Avatar"
       />
@@ -150,7 +150,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
 
 
      {/* Main comment section */}
-     <div className="flex flex-col space-y-2 pb-4 my-3 relative">
+     <div className="flex flex-col space-y-2 pb-2 md:pb-4 my-3 relative">
      <h4 className="font-semibold text-gray-600 cursor-pointer">View more comments</h4>
 
    {/* loading white layer  */}
@@ -221,19 +221,19 @@ const reactToPrintFn = useReactToPrint({ contentRef });
     <form className=" relative flex gap-3" onSubmit={handleSubmit(onSubmit)}>
     <div className="">
       <Image width={300} height={300}
-        className="size-10 rounded-full object-cover"
+        className="size-8 md:size-10 rounded-full object-cover"
         src={user?.image}
         alt="User Avatar"
       />
     </div>
     
       <textarea {...register("newComment")}
-        className="flex-1 h-11 border rounded-lg p-2 focus:outline-none"
+        className="flex-1 h-9 md:h-11 border rounded-lg p-1 md:p-2 px-3 focus:outline-none"
         placeholder="Add a comment..."
          data-gramm="false"
       />
       <button type="submit"
-        className="text-blue-500 px-4 py-2 rounded-lg mt-2 hover:text-blue-600 absolute right-0 top-auto text-lg"
+        className="text-blue-500 px-4 py-2 rounded-lg mt-2 hover:text-blue-600 absolute right-0 -top-2 md:top-auto text-lg"
       >
        <IoSendSharp />
       </button>

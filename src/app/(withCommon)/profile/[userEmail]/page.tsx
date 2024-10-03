@@ -47,12 +47,8 @@ const Profile = ({ params} : { params: { userEmail: string}}) => {
 
 
 
-
-
-
-
     return (
-        <div className=" bg-white p-4 rounded-lg">
+        <div className=" md:bg-white md:p-4 rounded-lg">
         {/* Cover Photo */}
         <div className="relative">
           <Image

@@ -19,8 +19,8 @@ export default function CreatePost() {
 
       {/* Header Section */}
       <div className="flex items-center mb-4">
-        <FaPen className="text-blue-500 text-xl" />
-        <h2 className="ml-2 text-lg font-semibold text-gray-800">Create Post</h2>
+        <FaPen className="text-blue-500 md:text-lg" />
+        <h2 className="ml-2 xl:text-lg font-semibold text-gray-500">Create Post</h2>
       </div>
 
       {/* Input Section */}
@@ -30,16 +30,16 @@ export default function CreatePost() {
           alt="Avatar"
           height={300}
           width={300}
-          className="w-10 h-10 rounded-full object-cover"
+          className="size-9 md:size-10 rounded-full object-cover"
         />
         <button onClick={() => setOpenModal(true)} 
-          className="flex-1 p-3 border border-gray-300 rounded-lg  text-left">What's on your mind?</button>
+          className="flex-1 p-2 md:p-3 border border-gray-200 rounded-md text-left text-gray-600">What's on your mind?</button>
          
         
       </div>
 
       {/* Action Buttons Section */}
-      <div className="flex justify-between items-center pt-2">
+      <div className="flex justify-between items-center">
         <button className="flex items-center space-x-1 text-red-500 hover:bg-red-100 p-2 rounded-lg">
           <FaVideo className="text-base md:text-xl" />
           <span className="text-xs md:text-sm font-medium">Live Video</span>
