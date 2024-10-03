@@ -2,7 +2,7 @@
 
 const PostSkeleton = () => {
     return (
-        <div className="p-4 border border-gray-200 rounded-md shadow-sm w-full  mx-auto space-y-4">
+        <div className="p-4 mt-3 border border-gray-200 rounded-md shadow-sm w-full  mx-auto space-y-4">
         {/* <!-- User Info Skeleton --> */}
         <div className="flex items-center space-x-4">
             <div className="w-12 h-12 bg-gray-300 rounded-full animate-pulse"></div>

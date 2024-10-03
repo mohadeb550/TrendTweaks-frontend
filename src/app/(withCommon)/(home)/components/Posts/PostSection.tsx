@@ -1,27 +1,36 @@
 
 "use client"
 
-import { useState } from "react";
-// import SearchBanner from "../components/ui/CarsPage/SearchBanner";
+import { useEffect, useState } from "react";
 
 import { useGetPostsQuery } from "@/redux/features/posts/postApi";
 import PostCard from "./PostCard";
 import { TPost } from "../CreatePost/CreatePostModal";
 import PostSkeleton from "./PostSkeleton";
 import { TfiSearch } from "react-icons/tfi";
+import { useInView } from "react-intersection-observer";
 
 export default function PostSection() {
 
   const [ filterQuery, setFilterQuery ] = useState({})
-    const { data , isFetching } = useGetPostsQuery(filterQuery);
-    const posts : TPost[] = data?.data || [];
+  const [ limit , setLimit] = useState(10)
+    const { data , isFetching } = useGetPostsQuery({...filterQuery, skip:0, limit});
+    const { totalPosts, posts}  = data?.data || {};
 
-     //  {
-                // searchTerm : 'tangail'
-                // userEmail : '@gmil.com'
-               // category : 'Ai'
-                // sortByUpvote : -1
-        //  }
+    const { ref, inView } = useInView({
+      threshold: 1, 
+    });
+
+  useEffect(() => {
+    if (inView) {
+      if(posts?.length < totalPosts){
+      setFilterQuery({...filterQuery, limit : limit + 10})
+      setLimit(limit +10)
+       }
+     return;
+    }
+  }, [inView]);
+
 
   return (
     <section className="">
@@ -80,15 +89,17 @@ export default function PostSection() {
           </div>
 
       {/* Grid section  */}
-        <div className="grid grid-cols-1 gap-7  mb-8 ">
-            {posts?.map(post => <PostCard key={post._id} post={post} /> )}
+   
+      <div  className="grid grid-cols-1 gap-7  mb-8 ">
+            {posts?.map((post : TPost) => <PostCard key={post._id} post={post} /> )}
 
             {/* Card placeholder  */}
-            {isFetching && [1, 2, 3, 4].map((num) => <PostSkeleton key={num} /> )}
-        </div> 
+            {isFetching && [1, 2].map((num) => <PostSkeleton key={num} /> )}
 
-          {/* no posts direction  */}
-        { (!posts || !posts.length) && <p className="text-lg mt-4 text-gray-500 text-center">No Posts</p>}
+      <div ref={ref} className="text-center text-gray-500">
+        {posts?.length < totalPosts ? '' : 'No more items to load...'}
+      </div>
+        </div> 
 
         </section>
           
