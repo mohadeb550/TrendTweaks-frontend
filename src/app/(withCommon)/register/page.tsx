@@ -13,18 +13,23 @@ import { PiImage } from "react-icons/pi";
 import { useSignUpMutation } from "@/redux/features/authentication/authApi";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import uploadImage from "@/utils/uploadImage";
+
 
 
 export default function Register() {
   const { register, handleSubmit, formState: {errors}} = useForm();
   const [ loading , setLoading ] = useState(false)
   const [ confirmPassError ,setConfirmPassError ] = useState('')
-  const [ signUp,  { isLoading} ] = useSignUpMutation(); 
+  const [ signUp ] = useSignUpMutation(); 
   const router = useRouter()
 
 
     const onSubmit = async (data: FieldValues) => {
       setLoading(true)
+
+      // uploading Image 
+      const imageURL = await uploadImage(data.image)
 
       if(data.password !== data.confirmPassword){
         setConfirmPassError('Confirm Your Password');
@@ -37,6 +42,7 @@ export default function Register() {
       const userData = {
         ...data,
         role :'user',
+        image : imageURL,
        }
 
  const result : any = await signUp({
@@ -58,15 +64,15 @@ export default function Register() {
 
 
   return (
-    <div className="hero h-[730px] md:h-[790px] px-4 ">
+    <div className="hero h-[730px] md:h-[790px] md:px-4 ">
     <div className="hero-content flex-col w-full gap-0">
 
     <div className="text-center lg:text-left pt-5 rounded-l-lg">
-        <h1 className="text-[27px] lg:text-[34px] font-bold text-gray-800 text-center  carter-one-regular"> Create your account</h1>
+        <h1 className="text-[27px] lg:text-[34px] font-bold text-gray-800 text-center  carter-one-regular mb-3"> Create your account</h1>
       </div>
 
       <div className="rounded flex-shrink-0 w-full max-w-2xl ">
-        <div className= "p-6">
+        <div className= "md:p-6">
 
 
         <form onSubmit={handleSubmit(onSubmit)} className="">
@@ -115,10 +121,12 @@ export default function Register() {
 
           <div className="">
            <div className="relative flex items-center">
-           <input type="text" placeholder="Photo URL" className="w-full py-3 pl-12 pr-3 outline-none border-2 rounded-md bg-white border-gray-200 text-gray-700 focus:border-blue-600 " {...register('image',{required: true})} />
+           <input {...register('image', {required: true })} type="file" className="file-input pl-8 file-input-ghost w-full  bg-white outline outline-gray-200/40" />
+          
             <span className="text-2xl absolute left-4 text-gray-300"> <PiImage/></span>
            </div>
             <span className="text-red-400 font-semibold text-sm p-1"> {errors.image?.type === 'required' && 'Image is required'}  </span>
+     
           </div>
 
           <div className="">

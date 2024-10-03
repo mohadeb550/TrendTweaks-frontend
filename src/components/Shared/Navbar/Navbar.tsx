@@ -4,10 +4,6 @@ import Headroom from "react-headroom"
 import DrawerNav from "./DrawerNavbar"
 import { HiOutlineMenu } from "react-icons/hi";
 import Link from "next/link";
-import { IoIosSettings } from "react-icons/io";
-import { MdOutlineNotificationsNone } from "react-icons/md";
-import { BiSolidDashboard } from "react-icons/bi";
-import { TfiSearch } from "react-icons/tfi";
 import { IoSettingsOutline } from "react-icons/io5";
 import { IoIosNotificationsOutline } from "react-icons/io";
 
@@ -38,12 +34,12 @@ const logoutUser = () => {
   const navLinks = <>
 
 
-   {user &&    <li ><Link href={user?.role === 'user'? '/dashboard/' : '/dashboard/admin-overview' } className={pathName === '/e' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-gray-300  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500'} >Dashboard</Link></li>}
+   {user &&    <li ><Link href={user?.role === 'user'? '/dashboard/' : '/dashboard/admin-overview' } className={pathName === '/e' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-gray-300  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >Dashboard</Link></li>}
 
 
-   <li ><Link href='/about-us' className={pathName === '/w' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-gray-300  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500'} >About Us</Link></li>
+   <li ><Link href='/about' className={pathName === '/w' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-gray-300  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >About Us</Link></li>
 
-   <li ><Link href='/contact' className={pathName === '/contact' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-gray-300  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500'} >Contact</Link></li>
+   <li ><Link href='/contact' className={pathName === '/contact' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-gray-300  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >Contact Us</Link></li>
 
   </>
 
@@ -93,7 +89,7 @@ const logoutUser = () => {
      <Link href={`/profile/${user?.email}`}>
      <li className="text-base font-semibold cursor-pointer transition-all text-gray-500 p-1 rounded hover:text-blue-600" > Profile</li> </Link>
     
-     <Link href={user?.role === 'admin'? '/admin-dashboard/manage-users': 'user-dashboard/add-product'}>
+     <Link href={user?.role === 'admin'? '/admin-dashboard/manage-users': 'user-dashboard/my-payments'}>
      <li className="text-base font-semibold cursor-pointer transition-all text-gray-500 p-1 rounded hover:text-blue-600" >Dashboard</li> </Link>
     
 

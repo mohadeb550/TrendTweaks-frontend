@@ -9,6 +9,7 @@ import { useDeleteUserMutation, useGetUsersQuery, useUpdateUserMutation } from "
 import UpdateUserModal from "../components/UpdateUserModal";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import { TUser } from "@/redux/features/authentication/authSlice";
+import Image from "next/image";
 
 
 export default function ManageUsers() {
@@ -128,7 +129,7 @@ export default function ManageUsers() {
         <table
           className="min-w-full text-center text-sm inter-regular dark:border-neutral-500">
           <thead className="">
-            <tr className="bg-gray-200 h-8 text-gray-500 text-[12px] md:text-base ">
+            <tr className="bg-gray-200 h-10 text-gray-500 text-[12px] md:text-base ">
               <th
                 scope="col"
                 className="border-r px-6 py-0 md:py-2 lg:py-4 border-gray-300 rounded-l-lg">
@@ -176,7 +177,11 @@ export default function ManageUsers() {
           {users?.map(user =>  <tr key={user._id} className="border-b ">
               <td
                 className="whitespace-nowrap border-r px-6 py-4 font-medium border-gray-300 flex items-center justify-center">
-                <img src={user.image} className="w-[52px] h-[52px] md:w-16 md:h-16 object-contain rounded-3xl" />
+                <Image
+                width={200}
+                height={200}
+                alt='profile'
+                 src={user.image} className="size-9 md:size-12  object-contain rounded-3xl" />
               </td>
               <td
                 className=" border-r font-medium text-sm md:text-lg  text-zinc-400 text-start md:text-center px-6 py-4 border-gray-300">

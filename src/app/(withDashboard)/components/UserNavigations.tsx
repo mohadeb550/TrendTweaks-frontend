@@ -1,29 +1,43 @@
 'use client'
-import { FaHouse } from "react-icons/fa6";
-import { VscTasklist } from "react-icons/vsc";
-import { HiViewGrid } from "react-icons/hi";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { FaHome, FaUsers } from "react-icons/fa";
+import { VscHistory } from "react-icons/vsc";
 
 const UserNavigations = () => {
     const pathName = usePathname();
-    const user = { role : 'user'}
 
     return (
-            <>
+        <div className="w-64 bg-white p-1 lg:p-4 pb-32 space-y-7">
        
-       <li ><Link href='/' className={pathName === '/' ? 'cursor-pointer inter-thin text-[15[px]]  px-4 py-[3px] text-red-600  transition hover:text-gray-400 border-b-gray-400' : ''} >Home</Link></li>
-   
-   <li ><Link href='/cars' className={pathName === '/d' ? 'cursor-pointer inter-thin text-[15[px]]  px-4 py-[3px] text-gray-300  transition hover:text-gray-400 border-b-gray-400' : ''} >Cars</Link></li>
+        {/* Account Section */}
+        <div className="space-y-4">
+          <h2 className="text-gray-500 text-sm font-semibold">Routes</h2>
+          <ul className="space-y-0 lg:space-y-6 flex flex-col items-start">
+
+            <li className="flex items-center space-x-4">
+              <Link href="/" className={`flex items-center space-x-4 hover:text-blue-500 ${pathName === '/'? 'text-blue-500': 'text-gray-700'}`}>
+                <div className={`p-2 rounded-full ${pathName === '/' ? 'bg-blue-500': 'p-2 rounded-full bg-gray-300 text-xl lg:text-2xl'} text-xl lg:text-2xl`}>
+                  <FaHome className="text-white" />
+                </div>
+                <span className=" font-medium hover:text-blue-600">Home</span>
+              </Link>
+            </li>
 
 
-   {user &&    <li ><Link href={user?.role === 'user'? '/dashboard/' : '/dashboard/admin-overview' } className={pathName === '/e' ? 'cursor-pointer inter-thin text-[15[px]]  px-4 py-[3px] text-gray-300  transition hover:text-gray-400 border-b-gray-400' : ''} >Dashboard</Link></li>}
+            <li className="flex items-center space-x-4">
+              <Link href="/user-dashboard/my-payments" className={`flex items-center space-x-4 hover:text-blue-500 ${pathName === '/user-dashboard/my-payments'? 'text-blue-500': 'text-gray-700'}`}>
+                <div className={`p-2 rounded-full ${pathName === '/user-dashboard/my-payments' ? 'bg-blue-500': 'p-2 rounded-full bg-gray-300 text-xl lg:text-2xl'} text-xl lg:text-2xl`}>
+                  <VscHistory className="text-white" />
+                </div>
+                <span className=" font-medium hover:text-blue-600">Payment History</span>
+              </Link>
+            </li>
 
 
-   <li ><Link href='/about-us' className={pathName === '/w' ? 'cursor-pointer inter-thin text-[15[px]]  px-4 py-[3px] text-gray-300  transition hover:text-gray-400 border-b-gray-400' : ''} >About Us</Link></li>
-
-   <li ><Link href='/register' className={pathName === '/register' ? 'cursor-pointer inter-thin text-[15[px]]  px-4 py-[3px] text-gray-300  transition hover:text-gray-400 border-b-gray-400' : ''} >Sign Up</Link></li>
-    </>
+          </ul>
+        </div>
+      </div>
     );
 };
 
