@@ -1,14 +1,18 @@
+'use client';
+
+import { useAppSelector } from "@/redux/hooks";
 import CreatePost from "./components/CreatePost/CreatePost";
 import PostSection from "./components/Posts/PostSection";
 
 
-const page = () => {
+const Home = () => {
+    const currentUser = useAppSelector(state => state.auth.user)
     return (
         <>
-           <CreatePost/>
+          {currentUser && <CreatePost/>}
            <PostSection/>
         </>
     );
 };
 
-export default page;
+export default Home;

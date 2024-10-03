@@ -1,15 +1,15 @@
+'use client'
 
-import { MdOutlineMenu } from "react-icons/md";
 import { ReactNode } from "react";
 import UserNavigations from "./components/UserNavigations";
 import AdminNavigations from "./components/AdminNavigations";
 import Navbar from "@/components/Shared/Navbar/Navbar";
 import Sidebar from "@/components/Shared/Sidebar";
+import { useAppSelector } from "@/redux/hooks";
 
 
 const DashboardLayout = ({children} : { children : ReactNode}) => {
-
-  const user = { role : 'user'}
+  const currentUser = useAppSelector(state => state.auth.user)
 
     return (
 
@@ -21,8 +21,8 @@ const DashboardLayout = ({children} : { children : ReactNode}) => {
         <div className="hidden lg:block w-72">
           <Sidebar>
             {/* Navigations Based on the Role  */}
-     {user?.role === 'user' && <UserNavigations/>}
-      {user?.role === 'admin' && <AdminNavigations/>}
+     {currentUser?.role === 'user' && <UserNavigations/>}
+      {currentUser?.role === 'admin' && <AdminNavigations/>}
           </Sidebar>
 
         </div>

@@ -39,7 +39,7 @@ export default function PostSection() {
   return (
     <section className="">
   
-     <section className="my-2 md:my-6 lg:my-8 " >
+     <section className="my-2 " >
     
         <section>
 

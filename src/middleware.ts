@@ -10,6 +10,7 @@ export async function middleware(request: NextRequest) {
     // Authentication 
   const accessToken = cookies().get("accessToken")?.value;
 
+
   if (!accessToken) {
     return NextResponse.redirect(new URL(pathname ? `/login?redirect=${pathname}` : "/login", request.url))
   }
@@ -40,6 +41,5 @@ export const config = {
   matcher: [
     "/dashboard/:page*",
     "/admin-dashboard/:page*",
-    "/driver-dashboard/:page*",
   ],
 };

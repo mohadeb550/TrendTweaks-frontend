@@ -106,20 +106,20 @@ const reactToPrintFn = useReactToPrint({ contentRef });
     {/* Post Description */}
     <p className="lg:hidden text-gray-700 mb-4 text-base lg:text-lg">
       {description.length > 100
-        ? `${description.substring(0, 200)}...`
+        ? `${description.substring(0, 112)}...`
         : description}{' '}
-      <a href="#" className="text-blue-500">
+      <Link href={`/details/${_id}`} className="text-blue-500">
         See more
-      </a>
+      </Link>
     </p>
 
     <p className="hidden lg:block text-gray-700 mb-4 text-base lg:text-lg">
       {description.length > 100
-        ? `${description.substring(0, 400)}...`
+        ? `${description.substring(0, 300)}...`
         : description}{' '}
-      <a href="#" className="text-blue-500">
+      <Link href={`/details/${_id}`} className="text-blue-500">
         See more
-      </a>
+      </Link>
     </p>
 
     {/* Images Section */}
@@ -218,7 +218,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
 
 
     {/* Comment Input Box */}
-    <form className=" relative flex gap-3" onSubmit={handleSubmit(onSubmit)}>
+    {user && <form className=" relative flex gap-3" onSubmit={handleSubmit(onSubmit)}>
     <div className="">
       <Image width={300} height={300}
         className="size-8 md:size-10 rounded-full object-cover"
@@ -238,7 +238,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
        <IoSendSharp />
       </button>
     </form>
-
+}
 
 
 

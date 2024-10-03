@@ -17,7 +17,8 @@ import { toast } from "sonner";
 import { logout } from "@/redux/features/authentication/authSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RxDashboard } from "react-icons/rx";
-
+import { CiLogin } from "react-icons/ci";
+import Cookies from 'js-cookie';
 
 export default function Navbar() {
   const pathName = usePathname()
@@ -27,6 +28,8 @@ export default function Navbar() {
 
 const logoutUser = () => {
   dispatch(logout())
+  // remove cookie 
+  Cookies.remove('accessToken');
   toast.success('Logout Successfully!');
    router.push('/')
    }
@@ -78,7 +81,7 @@ const logoutUser = () => {
 
     <div className="dropdown dropdown-end flex items-center justify-center gap-2 z-20">
     
-    {!user && <Link href={'/register'}> <button className="px-4 md:px-8 text-sm mr-3 py-1 md:py-2 xl:py-3 font-semibold rounded-lg transition bg-gray-100 text-gray-600 hover:bg-gray-200 whitespace-nowrap">Sign Up</button></Link>}
+    {!user && <Link href={'/register'}> <button className="px-2 md:px-8 text-sm mr-3 py-1 md:py-2 xl:py-3 rounded-md transition bg-gray-100 text-gray-600 hover:bg-gray-200/70 flex items-center font-semibold gap-2 whitespace-nowrap"><CiLogin className="text-lg"/> Sign Up</button></Link>}
     
     <div className={`z-30 w-9 md:w-10 rounded-full p-[2px]  ${!user && 'hidden'}`}>
       {user && <img tabIndex={0} src={user?.image || 'https://i.ibb.co/Ttgtb82/pngwing-com-15.png' } className="dropdown w-9 h-7 md:w-8 md:h-8 lg:size-9 object-cover cursor-pointer rounded-full border border-zinc-400 p-[1px]" />}

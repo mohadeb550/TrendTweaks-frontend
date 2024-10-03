@@ -205,7 +205,7 @@ export default function PostDetails({params } : { params : { postId: string}}) {
 
 
     {/* Comment Input Box */}
-    <form className=" relative flex gap-3" onSubmit={handleSubmit(onSubmit)}>
+   {user &&  <form className=" relative flex gap-3" onSubmit={handleSubmit(onSubmit)}>
     <div className="">
       <Image width={300} height={300}
         className="size-8 md:size-10 rounded-full object-cover"
@@ -224,7 +224,7 @@ export default function PostDetails({params } : { params : { postId: string}}) {
       >
        <IoSendSharp />
       </button>
-    </form>
+    </form>}
 
 
 
