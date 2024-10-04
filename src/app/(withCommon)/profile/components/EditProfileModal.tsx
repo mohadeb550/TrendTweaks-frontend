@@ -10,7 +10,9 @@ import { TfiLayoutListPost } from "react-icons/tfi";
 import { setUser, TUser } from "@/redux/features/authentication/authSlice";
 import { useGetSingleUserQuery, useUpdateUserMutation } from "@/redux/features/user/userApi";
 import Image from "next/image";
-import { useEffect } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { MdUpload } from "react-icons/md";
+import uploadImage from "@/utils/uploadImage";
 
 
 type TModalProps = {
@@ -22,14 +24,18 @@ type TModalProps = {
 export default function EditProfileModal({ open, setOpen} : TModalProps) {
 
   const { register, handleSubmit, reset} = useForm();
-  const [updateUser, { isLoading }] = useUpdateUserMutation();
+  const [updateUser] = useUpdateUserMutation();
   const currentUser = useAppSelector(state => state.auth.user)
   const dispatch = useAppDispatch();
   const auth = useAppSelector(state => state.auth)
-console.log(auth)
+  const [ coverPreview , setCoverPreview ] = useState("")
+  const [ profilePreview , setProfilePreview ] = useState("")
+  const [ submitLoading, setSubmitLoading ] = useState(false);
+
+
 
   // only for checking the membership in the userData 
-  const { data, isSuccess } = useGetSingleUserQuery(currentUser?.email as string);
+  const { data, isSuccess, isLoading: dataGettingLoading } = useGetSingleUserQuery(currentUser?.email as string);
   const userFromDB : TUser = data?.data || {};
 
   
@@ -38,8 +44,6 @@ console.log(auth)
         if(isSuccess){
           reset({
             name : userFromDB.name,
-            image : userFromDB.image,
-            coverImg : userFromDB.coverImg,
           });
         }
       }, [reset, userFromDB, isSuccess]);
@@ -47,13 +51,27 @@ console.log(auth)
 
 
   const onSubmit = async (data: any ) => {
+    setSubmitLoading(true);
+    let coverImage;
+    let profileImage;
+
+ // upload cover image 
+    if(data?.coverImg[0]){
+      coverImage =  await uploadImage(data.coverImg);
+    }else{coverImage = userFromDB?.coverImg}
+   
+  
+    // upload profile image 
+    if(data?.image[0]){
+      profileImage = await uploadImage(data.image);
+    }else{profileImage = userFromDB?.image}
   
   const userNewData = {
     userId : currentUser?._id as string,
     payload : {
         name : data.name,
-        image : data.image,
-        coverImg : data.coverImg,
+        image : profileImage,
+        coverImg : coverImage,
     }
   }
 
@@ -73,13 +91,40 @@ console.log(auth)
     setOpen(false)
     // show a toast 
     toast.success('Info Updated Successfully')
+    setSubmitLoading(false)
   }
   }catch(error){
     toast.error('Something went wrong')
     console.log(error)
+    setSubmitLoading(false)
   }
- 
   }
+
+    // get the temporaray preview image 
+    const handleCoverPreview = (e: ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files![0];
+      if (file) {
+        const reader = new FileReader();
+  
+        reader.onloadend = () => {
+          setCoverPreview(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+
+    // get the temporaray preview image 
+    const handleProfilePreview = (e: ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files![0];
+      if (file) {
+        const reader = new FileReader();
+  
+        reader.onloadend = () => {
+          setProfilePreview(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
 
 
   return (
@@ -88,10 +133,9 @@ console.log(auth)
        <form className="w-[400px] md:w-[620px] h-fit p-6 bg-white rounded-xl relative" onSubmit={handleSubmit(onSubmit)}>
 
         {/* loading white layer  */}
-      {isLoading && <div className="w-full h-full absolute top-0 left-0 right-0 bottom-0 bg-white/80 rounded-md flex justify-center items-center"> 
+      {(submitLoading || dataGettingLoading) && <div className="w-full h-full absolute top-0 left-0 right-0 bottom-0 z-50 bg-white/80 rounded-md flex justify-center items-center"> 
         <ClipLoader
            color='#3B82F6'
-           loading={isLoading}
           //  cssOverride={override}
            size={60}
            aria-label="Loading Spinner"
@@ -102,15 +146,22 @@ console.log(auth)
        {/* User Images and cover */}
        <div className="relative">
           <Image
-            src={userFromDB?.coverImg as string}
+            src={coverPreview || userFromDB?.coverImg as string}
             alt="Cover"
             width={600}
             height={600}
             className="w-full h-28 md:h-36 object-cover rounded-t-xl"
           />
+           
+
+      <div className="flex items-center justify-end ">
+           <input {...register('coverImg')}  onChange={(e) => handleCoverPreview(e)} type="file" className={`w-24 relative -top-11`} />
+          </div>
+
+
           <div className="relative lg:left-4 -top-4 md:-top-4 flex items-center space-x-4">
             <Image
-             src={userFromDB?.image}
+             src={profilePreview || userFromDB?.image}
               alt="Profile"
               width={300}
               height={300}
@@ -124,6 +175,13 @@ console.log(auth)
               <p className="text-gray-600">{userFromDB?.email}</p>
             </div>
           </div>
+
+          <div className="relative">
+          <input {...register('image')}  onChange={(e) => handleProfilePreview(e)} type="file" className={`w-24 relative -top-3 left-6`} />
+             
+          </div>
+   
+
         </div>
 
 
@@ -138,28 +196,6 @@ console.log(auth)
         />
       </div>
 
-
-      {/* Images Input */}
-      <div className="space-y-2">
-        <div className="flex items-center space-x-3">
-          
-          <FaImage className="text-red-500 text-xl" />
-          <input {...register("image")}
-            type="text"
-            placeholder="Profile Image"
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-          />
-        </div>
-        <div className="flex items-center space-x-3">
-          <FaImage className="text-red-500 text-xl" />
-          <input {...register("coverImg")}
-            type="text"
-            placeholder="Cover Image"
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-          />
-        </div>
-       
-      </div>
     </div>
        
 

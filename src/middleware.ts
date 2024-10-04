@@ -24,16 +24,9 @@ export async function middleware(request: NextRequest) {
   if (role === "admin" && pathname.match(/^\/admin-dashboard/)) {
     return NextResponse.next();
   }
-  if (role === "driver" && pathname.match(/^\/driver-dashboard/)) {
-    return NextResponse.next();
-  }
   if (role === "user" && pathname.match(/^\/user-dashboard/)) {
     return NextResponse.next();
   }
-  if (role === "user" && pathname === "/profile"){
-    return NextResponse.next();
-  }
-
   return NextResponse.redirect(new URL("/", request.url));
 }
 

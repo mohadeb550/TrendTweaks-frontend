@@ -3,7 +3,7 @@
 
 import { FieldValues, useForm } from "react-hook-form";
 import { ClipLoader } from "react-spinners";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import Link from "next/link";
 import SocialLogin from "@/components/Shared/SocialLogin";
 import { IoPersonOutline } from "react-icons/io5";
@@ -14,15 +14,16 @@ import { useSignUpMutation } from "@/redux/features/authentication/authApi";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import uploadImage from "@/utils/uploadImage";
+import Image from "next/image";
 
 
 
 export default function Register() {
   const { register, handleSubmit, formState: {errors}} = useForm();
   const [ loading , setLoading ] = useState(false)
-  const [ confirmPassError ,setConfirmPassError ] = useState('')
   const [ signUp ] = useSignUpMutation(); 
   const router = useRouter()
+  const [ imagePreview , setImagePreview ] = useState("")
 
 
     const onSubmit = async (data: FieldValues) => {
@@ -30,15 +31,8 @@ export default function Register() {
 
       // uploading Image 
       const imageURL = await uploadImage(data.image)
+      if(!imageURL)return toast.error('Image not uploaded');
 
-      if(data.password !== data.confirmPassword){
-        setConfirmPassError('Confirm Your Password');
-        setLoading(false)
-        return;
-      }
-      else{
-        setConfirmPassError('')
-      }
       const userData = {
         ...data,
         role :'user',
@@ -59,9 +53,21 @@ export default function Register() {
      else if(result?.data?.success)
       toast.success('Registered Successfully! Please Login')
       router.push('/login');
-
     }
 
+  // get the temporaray preview image 
+    const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files![0];
+      if (file) {
+        const reader = new FileReader();
+  
+        reader.onloadend = () => {
+          setImagePreview(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+  
 
   return (
     <div className="hero h-[730px] md:h-[790px] md:px-4 ">
@@ -110,20 +116,17 @@ export default function Register() {
 
           <div className="">
            <div className="relative flex items-center">
-           <input type="text" placeholder="Confirm Password" className="w-full py-3 pl-12 pr-3 outline-none border-2 rounded-md bg-white border-gray-200 text-gray-700 focus:border-blue-600 " {...register('confirmPassword', {required: true })} />
-            <span className="text-2xl absolute left-4 text-gray-300"> <GoUnlock/></span>
-           </div>
-
-            <span className="text-red-400 font-semibold text-sm p-1"> {errors.confirmPassword?.type === 'required'} {confirmPassError? confirmPassError : ''} </span>
+           <input {...register('image', {required: true })}  onChange={(e) => handleImageChange(e)} type="file" className={`file-input ${imagePreview? 'h-20 pl-20 ': 'pl-8 h-14'} file-input-ghost w-full  bg-white outline-dashed outline-2 rounded-md outline-gray-300/40`} />
           
-          </div>
+            <span className="text-2xl absolute left-4 text-gray-300"> 
 
+              {imagePreview? <div><Image
+            width={300} height={300} alt="preview"
+            className="size-16 object-cover rounded-md"
+             src={imagePreview}/>
+            </div> :   <PiImage/>}
 
-          <div className="">
-           <div className="relative flex items-center">
-           <input {...register('image', {required: true })} type="file" className="file-input pl-8 file-input-ghost w-full  bg-white outline outline-gray-200/40" />
-          
-            <span className="text-2xl absolute left-4 text-gray-300"> <PiImage/></span>
+              </span>
            </div>
             <span className="text-red-400 font-semibold text-sm p-1"> {errors.image?.type === 'required' && 'Image is required'}  </span>
      

@@ -56,7 +56,7 @@ const Profile = ({ params} : { params: { userEmail: string}}) => {
             alt="Cover"
             width={600}
             height={600}
-            className="w-full h-28 md:h-44 lg:h-52 object-cover object-top rounded-t-lg"
+            className="w-full h-28 md:h-44 lg:h-52 object-cover object-center rounded-t-lg"
           />
           <div className="relative lg:left-4 -top-4 md:-top-7 flex items-center space-x-4">
             <Image
