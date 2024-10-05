@@ -13,7 +13,7 @@ const FeaturesSidebar = () => {
   const user = useAppSelector(state => state.auth.user)
 
     return (
-        <div className="w-64 bg-white shadow-lg p-1 lg:p-4 pb-32 space-y-7">
+        <div className="w-64 bg-white p-1 lg:p-4 pb-32 space-y-7">
       {/* New Feeds Section */}
       <div className="space-y-4">
         <h2 className="text-gray-500 text-sm font-semibold">New Feeds</h2>

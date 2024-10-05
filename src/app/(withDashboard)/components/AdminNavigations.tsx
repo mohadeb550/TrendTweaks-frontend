@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { FaHome, FaUsers } from "react-icons/fa";
 import { ImBooks } from "react-icons/im";
 import { RiAdminFill } from "react-icons/ri";
+import { BsGraphUp } from "react-icons/bs";
 
 const AdminNavigations = () => {
     const pathName = usePathname();
@@ -17,15 +18,16 @@ const AdminNavigations = () => {
           <h2 className="text-gray-500 text-sm font-semibold">Admin Routes</h2>
           <ul className="space-y-0 lg:space-y-6 flex flex-col items-start">
 
-            <li className="flex items-center space-x-4">
-              <Link href="/" className={`flex items-center space-x-4 hover:text-blue-500 ${pathName === '/'? 'text-blue-500': 'text-gray-700'}`}>
-                <div className={`p-2 rounded-full ${pathName === '/' ? 'bg-blue-500': 'p-2 rounded-full bg-gray-300 text-xl lg:text-2xl'} text-xl lg:text-2xl`}>
-                  <FaHome className="text-white" />
+          <li className="flex items-center space-x-4">
+              <Link href="/admin-dashboard/statistics" className={`flex items-center space-x-4 hover:text-blue-500 ${pathName === '/admin-dashboard/statistics'? 'text-blue-500': 'text-gray-700'}`}>
+                <div className={`p-2 rounded-full ${pathName === '/admin-dashboard/statistics' ? 'bg-blue-500': 'p-2 rounded-full bg-gray-300 text-xl lg:text-2xl'} text-xl lg:text-2xl`}>
+                  <BsGraphUp className="text-white" />
                 </div>
-                <span className=" font-medium hover:text-blue-600">Home</span>
+                <span className=" font-medium hover:text-blue-600">Statistics</span>
               </Link>
             </li>
 
+           
             
             <li className="flex items-center space-x-4">
               <Link href="/admin-dashboard/manage-posts" className={`flex items-center space-x-4 hover:text-blue-500 ${pathName === '/admin-dashboard/manage-posts'? 'text-blue-500': 'text-gray-700'}`}>
@@ -62,6 +64,15 @@ const AdminNavigations = () => {
                   <FaUsers className="text-white" />
                 </div>
                 <span className=" font-medium hover:text-blue-600">Payment History</span>
+              </Link>
+            </li>
+            
+            <li className="flex items-center space-x-4">
+              <Link href="/" className={`flex items-center space-x-4 hover:text-blue-500 ${pathName === '/'? 'text-blue-500': 'text-gray-700'}`}>
+                <div className={`p-2 rounded-full ${pathName === '/' ? 'bg-blue-500': 'p-2 rounded-full bg-gray-300 text-xl lg:text-2xl'} text-xl lg:text-2xl`}>
+                  <FaHome className="text-white" />
+                </div>
+                <span className=" font-medium hover:text-blue-600">Home</span>
               </Link>
             </li>
 

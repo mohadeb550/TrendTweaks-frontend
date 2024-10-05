@@ -175,7 +175,7 @@ export default function EditProfileModal({ open, setOpen} : TModalProps) {
               </h1>
               <p className="text-gray-600">{userFromDB?.email}</p>
             </div>
-          </div>
+          </div> 
 
           <div className="flex items-center relative justify-end ">
         <label htmlFor='image1' className="absolute -top-24 right-7"><MdPhotoCamera className="text-4xl text-gray-800 size-10 p-2 bg-black/10 rounded-md  opacity-70"/> </label>
@@ -184,8 +184,6 @@ export default function EditProfileModal({ open, setOpen} : TModalProps) {
             setProfileImage(e?.target?.files)
            }} type="file" className={`hidden`} id="image1" />
           </div>
-   
-
         </div>
 
 
