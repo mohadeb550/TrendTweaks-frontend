@@ -3,10 +3,8 @@
 import {useForm } from "react-hook-form";
 import { ClipLoader } from "react-spinners";
 import { toast } from "sonner";
-import { FaPen, FaImage, FaListAlt, FaAlignLeft, FaCheckCircle } from 'react-icons/fa';
-import { useCreatePostMutation } from "@/redux/features/posts/postApi";
+import { FaPen, FaCheckCircle } from 'react-icons/fa';
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { TfiLayoutListPost } from "react-icons/tfi";
 import { setUser, TUser } from "@/redux/features/authentication/authSlice";
 import { useGetSingleUserQuery, useUpdateUserMutation } from "@/redux/features/user/userApi";
 import Image from "next/image";
@@ -48,6 +46,8 @@ export default function EditProfileModal({ open, setOpen} : TModalProps) {
         }
       }, [reset, userFromDB, isSuccess]);
 
+      const [ profileImageFile, setProfileImage ] = useState <any>(undefined);
+      const [ coverImageFile, setCoverImage ] = useState<any>(undefined);
 
 
   const onSubmit = async (data: any ) => {
@@ -55,15 +55,15 @@ export default function EditProfileModal({ open, setOpen} : TModalProps) {
     let coverImage;
     let profileImage;
 
- // upload cover image 
-    if(data?.coverImg[0]){
-      coverImage =  await uploadImage(data.coverImg);
+//  upload cover image 
+    if(coverImageFile){
+      coverImage =  await uploadImage(coverImageFile);
     }else{coverImage = userFromDB?.coverImg}
    
   
     // upload profile image 
-    if(data?.image[0]){
-      profileImage = await uploadImage(data.image);
+    if(profileImageFile){
+      profileImage = await uploadImage(profileImageFile);
     }else{profileImage = userFromDB?.image}
   
   const userNewData = {
@@ -154,9 +154,11 @@ export default function EditProfileModal({ open, setOpen} : TModalProps) {
            
       <div className="flex items-center relative -top-10 justify-end bg-black/5 py-1">
         <label htmlFor='cover' className="relative -top-1 right-7"><MdPhotoCamera className="text-4xl text-gray-300 p-2 bg-gray-900 rounded-md  opacity-70"/> </label>
-           <input id="cover" {...register('coverImg')}  onChange={(e) => handleCoverPreview(e)} type="file" className={`hidden`} />
+           <input id="cover"  onChange={(e) => {
+            handleCoverPreview(e);
+            setCoverImage(e?.target?.files)
+           }} type="file" className={`hidden`} />
           </div>
-
 
           <div className="relative lg:left-4 -top-4 md:-top-4 flex items-center space-x-4">
             <Image
@@ -177,7 +179,10 @@ export default function EditProfileModal({ open, setOpen} : TModalProps) {
 
           <div className="flex items-center relative justify-end ">
         <label htmlFor='image1' className="absolute -top-24 right-7"><MdPhotoCamera className="text-4xl text-gray-800 size-10 p-2 bg-black/10 rounded-md  opacity-70"/> </label>
-           <input {...register('image')}  onChange={(e) => handleProfilePreview(e)} type="file" className={`hidden`} id="image1" />
+           <input  onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            handleProfilePreview(e);
+            setProfileImage(e?.target?.files)
+           }} type="file" className={`hidden`} id="image1" />
           </div>
    
 
