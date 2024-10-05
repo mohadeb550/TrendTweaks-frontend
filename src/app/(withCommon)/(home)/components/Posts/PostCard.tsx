@@ -101,26 +101,13 @@ const reactToPrintFn = useReactToPrint({ contentRef });
 
       </div>
     </div>
-
     
     {/* Post Description */}
-    <p className="lg:hidden text-gray-700 mb-4 text-base lg:text-lg">
-      {description.length > 100
-        ? `${description.substring(0, 112)}...`
-        : description}{' '}
-      <Link href={`/details/${_id}`} className="text-blue-500">
-        See more
-      </Link>
-    </p>
+    <div className=" text-gray-700 mb-4 text-base lg:text-lg"
+      dangerouslySetInnerHTML={{ __html: description}}
+    >
+    </div>
 
-    <p className="hidden lg:block text-gray-700 mb-4 text-base lg:text-lg">
-      {description.length > 100
-        ? `${description.substring(0, 300)}...`
-        : description}{' '}
-      <Link href={`/details/${_id}`} className="text-blue-500">
-        See more
-      </Link>
-    </p>
 
     {/* Images Section */}
     <Link href={`/details/${_id}`}>

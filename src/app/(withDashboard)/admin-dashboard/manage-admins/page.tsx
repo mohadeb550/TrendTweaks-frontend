@@ -12,10 +12,10 @@ import { TUser } from "@/redux/features/authentication/authSlice";
 import Image from "next/image";
 
 
-export default function ManageUsers() {
+export default function ManageAdmins() {
   
     const [openUpdateModal, setOpenUpdateModal ] = useState<boolean>(false);
-    const { data, isLoading } = useGetUsersQuery({role : 'user'});
+    const { data, isLoading } = useGetUsersQuery({role : 'admin'});
     const [ updateUser ] = useUpdateUserMutation();
     const [ deleteUserFromDB ] = useDeleteUserMutation();
     const [updateUserEmail, setUpdateUserEmail ] = useState('')
@@ -30,7 +30,7 @@ export default function ManageUsers() {
 
         Swal.fire({
           title: "Are you sure?",
-          text: "Are you going to block this user?",
+          text: "Are you going to block this Admin?",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
@@ -43,7 +43,7 @@ export default function ManageUsers() {
            if(response.success){
             Swal.fire({
               title: "Blocked!",
-              text: "User has been Blocked.",
+              text: "The Admin has been Blocked.",
               icon: "success"
             });
            }
@@ -56,7 +56,7 @@ export default function ManageUsers() {
       else if(action === 'activate'){
         Swal.fire({
           title: "Are you sure?",
-          text: "Are you going to activate this user?",
+          text: "Are you going to activate this Admin?",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
@@ -69,7 +69,7 @@ export default function ManageUsers() {
            if(response.success){
             Swal.fire({
               title: "Activated!",
-              text: "User has been Activated.",
+              text: "Admin has been Activated.",
               icon: "success"
             });
            }
@@ -81,11 +81,11 @@ export default function ManageUsers() {
     }
 
 
-    // delete a user
+    // delete a admin
     const deleteUser = (userId: string) => {
         Swal.fire({
           title: "Are you sure?",
-          text: "Are you going to delete this user?",
+          text: "Are you going to delete this Admin?",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
@@ -98,7 +98,7 @@ export default function ManageUsers() {
            if(response.success){
             Swal.fire({
               title: "Deleted!",
-              text: "User has been deleted.",
+              text: "Admin has been deleted.",
               icon: "success"
             });
            }
@@ -112,11 +112,8 @@ export default function ManageUsers() {
 
 
    <div className="text-right mb-7">
-  
 
-
-
-   {/* update product modal  */}
+   {/* update admin modal  */}
    {openUpdateModal && <UpdateUserModal userEmail={updateUserEmail} open={openUpdateModal} setOpen={setOpenUpdateModal}/>}
     
    </div>

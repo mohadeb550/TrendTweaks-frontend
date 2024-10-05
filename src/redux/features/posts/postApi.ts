@@ -48,7 +48,7 @@ const postApi = baseApi.injectEndpoints({
                 method : "PUT", 
                 body : payload,  
             }),
-            invalidatesTags: ['Posts' ]
+            invalidatesTags: ['Posts', 'Post']
         }),
         
         votePost : builder.mutation({

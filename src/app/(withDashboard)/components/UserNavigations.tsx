@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaHome, FaUsers } from "react-icons/fa";
 import { VscHistory } from "react-icons/vsc";
+import { TfiLayoutListPost } from "react-icons/tfi";
 
 const UserNavigations = () => {
     const pathName = usePathname();
@@ -12,7 +13,7 @@ const UserNavigations = () => {
        
         {/* Account Section */}
         <div className="space-y-4">
-          <h2 className="text-gray-500 text-sm font-semibold">Routes</h2>
+          <h2 className="text-gray-500 text-sm font-semibold">User Routes</h2>
           <ul className="space-y-0 lg:space-y-6 flex flex-col items-start">
 
             <li className="flex items-center space-x-4">
@@ -21,6 +22,15 @@ const UserNavigations = () => {
                   <FaHome className="text-white" />
                 </div>
                 <span className=" font-medium hover:text-blue-600">Home</span>
+              </Link>
+            </li>
+
+            <li className="flex items-center space-x-4">
+              <Link href="/user-dashboard/my-posts" className={`flex items-center space-x-4 hover:text-blue-500 ${pathName === '/user-dashboard/my-posts'? 'text-blue-500': 'text-gray-700'}`}>
+                <div className={`p-2 rounded-full ${pathName === '/user-dashboard/my-posts' ? 'bg-blue-500': 'p-2 rounded-full bg-gray-300 text-xl lg:text-2xl'} text-xl lg:text-2xl`}>
+                  <TfiLayoutListPost className="text-white" />
+                </div>
+                <span className=" font-medium hover:text-blue-600">My Posts</span>
               </Link>
             </li>
 

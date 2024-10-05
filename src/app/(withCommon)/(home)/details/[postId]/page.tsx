@@ -110,9 +110,9 @@ export default function PostDetails({params } : { params : { postId: string}}) {
     </h2>
 
     {/* Post Description */}
-    <p className=" text-gray-700 mb-4 text-base lg:text-lg">
-      {description}
-    </p>
+  <div className='text-gray-700 mb-4 text-base lg:text-lg' dangerouslySetInnerHTML={{ __html: description }}>
+  </div>
+    
 
     {/* Images Section */}
     <ImageGallery images={images} />

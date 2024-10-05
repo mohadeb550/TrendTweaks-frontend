@@ -1,46 +1,23 @@
 
 "use client"
 
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
 import { useGetPostsQuery } from "@/redux/features/posts/postApi";
-import PostCard from "./PostCard";
-import { TPost } from "../CreatePost/CreatePostModal";
-import PostSkeleton from "./PostSkeleton";
 import { TfiSearch } from "react-icons/tfi";
-import { useInView } from "react-intersection-observer";
+import { TPost } from "@/app/(withCommon)/(home)/components/CreatePost/CreatePostModal";
+import PostSkeleton from "@/app/(withCommon)/(home)/components/Posts/PostSkeleton";
+import MiniPostCard from "../../admin-dashboard/components/MiniPostCard";
+import { useAppSelector } from "@/redux/hooks";
+
 
 export default function PostSection() {
-
-  const [ filterQuery, setFilterQuery ] = useState({})
-  const [ limit , setLimit] = useState(10)
-    const { data , isFetching } = useGetPostsQuery({...filterQuery, skip:0, limit});
-    const { totalPosts, posts}  = data?.data || {};
-
-    const { ref, inView } = useInView({
-      threshold: 1, 
-    });
-
-  useEffect(() => {
-    if (inView) {
-      // check the category, searchTerm, sort are exist in the filterQuery
-      const isFilterExist = Object.keys(filterQuery).find(option => ['category','searchTerm', 'sortByUpvote'].includes(option))
-
-      console.log(posts?.length, totalPosts)
-
-      // console.log(isFilterExist)
-      if(!isFilterExist && posts?.length < totalPosts){
-      setFilterQuery({...filterQuery, limit : limit + 10})
-      setLimit(limit +10)
-       }
-     return;
-    }
-  }, [inView]);
+const user = useAppSelector(state => state.auth.user)
+  const [ filterQuery, setFilterQuery ] = useState({ userEmail: user?.email})
+    const { data , isFetching } = useGetPostsQuery({...filterQuery});
+    const { posts}  = data?.data || {};
 
 
   return (
-    <section className="">
-  
      <section className="my-2 " >
     
         <section>
@@ -96,21 +73,17 @@ export default function PostSection() {
 
       {/* Grid section  */}
    
-      <div  className="grid grid-cols-1 gap-7  mb-8 ">
-            {posts?.map((post : TPost) => <PostCard key={post._id} post={post} /> )}
+      <div  className="grid grid-cols-1 gap-3  mb-8 ">
+            {posts?.map((post : TPost) => <MiniPostCard key={post._id} post={post} /> )}
 
             {/* Card placeholder  */}
             {isFetching && [1, 2].map((num) => <PostSkeleton key={num} /> )}
-
-      <div ref={ref} className="text-center text-gray-500">
-        {posts?.length < totalPosts ? '' : 'No more items to load...'}
-      </div>
         </div> 
 
         </section>
           
     </section>
-    </section>
+ 
  
   )
 }

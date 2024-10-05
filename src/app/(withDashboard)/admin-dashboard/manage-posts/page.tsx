@@ -1,14 +1,13 @@
-
 "use client"
 
 import { useEffect, useState } from "react";
 
 import { useGetPostsQuery } from "@/redux/features/posts/postApi";
-import PostCard from "./PostCard";
-import { TPost } from "../CreatePost/CreatePostModal";
-import PostSkeleton from "./PostSkeleton";
 import { TfiSearch } from "react-icons/tfi";
 import { useInView } from "react-intersection-observer";
+import { TPost } from "@/app/(withCommon)/(home)/components/CreatePost/CreatePostModal";
+import PostCard from "../components/MiniPostCard";
+import PostSkeleton from "@/app/(withCommon)/(home)/components/Posts/PostSkeleton";
 
 export default function PostSection() {
 
@@ -21,12 +20,11 @@ export default function PostSection() {
       threshold: 1, 
     });
 
+
   useEffect(() => {
     if (inView) {
       // check the category, searchTerm, sort are exist in the filterQuery
       const isFilterExist = Object.keys(filterQuery).find(option => ['category','searchTerm', 'sortByUpvote'].includes(option))
-
-      console.log(posts?.length, totalPosts)
 
       // console.log(isFilterExist)
       if(!isFilterExist && posts?.length < totalPosts){
@@ -39,7 +37,7 @@ export default function PostSection() {
 
 
   return (
-    <section className="">
+   
   
      <section className="my-2 " >
     
@@ -96,7 +94,7 @@ export default function PostSection() {
 
       {/* Grid section  */}
    
-      <div  className="grid grid-cols-1 gap-7  mb-8 ">
+      <div  className="grid grid-cols-1 gap-3  mb-8 ">
             {posts?.map((post : TPost) => <PostCard key={post._id} post={post} /> )}
 
             {/* Card placeholder  */}
@@ -110,7 +108,7 @@ export default function PostSection() {
         </section>
           
     </section>
-    </section>
+ 
  
   )
 }

@@ -4,104 +4,82 @@ import {useForm } from "react-hook-form";
 import { ClipLoader } from "react-spinners";
 import { toast } from "sonner";
 import { FaPen, FaImage, FaListAlt, FaAlignLeft } from 'react-icons/fa';
-import { useCreatePostMutation } from "@/redux/features/posts/postApi";
+import {  useGetSinglePostQuery, useUpdatePostMutation } from "@/redux/features/posts/postApi";
 import { useAppSelector } from "@/redux/hooks";
 import { TfiLayoutListPost } from "react-icons/tfi";
 import { TUser } from "@/redux/features/authentication/authSlice";
 import { useGetSingleUserQuery } from "@/redux/features/user/userApi";
+import { TPost } from "./CreatePostModal";
+import { useEffect, useState } from "react";
 import TextEditor from "./TextEditor";
-import { useState } from "react";
-
-export type TComment = {
-  _id? : string;
-  comment : string,
-  postId : string,
-  userInfo  : {
-    name : string,
-    email : string,
-    image : string
-  },
-  createdAt? : string,
-  updatedAt? : string,
- 
-}
-
-// type for post
-export type TPost = {
-    _id? : string,
-    title : string;
-    category : string;
-    votes?: number
-    voters?: [{ 
-      userId: string, 
-      voteType: string 
-    }],
-    description : string;
-    images : string[];
-    comments? : TComment[];
-    authorInfo : {
-      name : string;
-      email: string;
-      image : string;
-      role :string;
-      authorId : string;
-      authorEmail : string;
-    }
-    isPremium? : boolean;
-    createdAt? : string,
-    updatedAt? : string,
-};
 
 type TModalProps = {
   open : boolean,
-  setOpen : React.Dispatch<React.SetStateAction<boolean>>
+  setOpen : React.Dispatch<React.SetStateAction<boolean>>,
+  postId : string,
 }
 
 
-export default function CreatePostModal({ open, setOpen} : TModalProps) {
+export default function UpdatePostModal({ open, setOpen, postId} : TModalProps) {
 
-  const { register, handleSubmit} = useForm();
-  const [createPost, { isLoading }] = useCreatePostMutation();
+  const { register, handleSubmit, reset } = useForm();
+  const [updatePost, { isLoading }] = useUpdatePostMutation();
   const user = useAppSelector(state => state.auth.user)
 
-  // only for checking the membership in the userData 
+  // only for checking the membership is in the userData 
   const { data } = useGetSingleUserQuery(user?.email as string);
   const userFromDB : TUser = data?.data || {};
 
-  // description from the text editor 
-  const [latestDescription, setLatestDescription] = useState('');
- 
+  // get the specific post 
+  const { data: postData, isSuccess, isLoading: dataGetLoading } = useGetSinglePostQuery(postId);
+  const post : TPost = postData?.data || {};
+
+    // description from the text editor 
+    const [description, setDescription] = useState('');
+    const [latestDescription, setLatestDescription] = useState('');
+
+
+    // Set the default values dynamically
+    useEffect(() => {
+      if(isSuccess){
+        reset({
+        title : post?.title,
+        category : post?.category,
+        premium : post?.isPremium? 'premium' : 'free',
+        image1 : post?.images[0],
+        image2 : post?.images[1],
+        image3 : post?.images[2],
+        });
+        // set default description for text editor 
+        setDescription(post?.description)
+      }
+    }, [reset, post, isSuccess]);
+
 
 
   const onSubmit = async (data: any ) => {
-  
-  const postData : TPost = {
+  const postData : Partial<TPost> = {
     title : data.title,
     category : data.category,
     description : latestDescription,
     images : [],
     isPremium : data.premium === 'premium'? true : false,
-    authorInfo : {
-      name: user?.name as string,
-      email: user?.email as string,
-      image : user?.image as string,
-      role : user?.role as string,
-      authorId : user?._id as string,
-      authorEmail : user?.email as string,
-    },
   }
   if(data.image1) postData.images.push(data.image1)
   if(data.image2) postData.images.push(data.image2)
   if(data.image3) postData.images.push(data.image3)
 
   try {
-    const response =  await createPost(postData).unwrap();
+    const response =  await updatePost({
+      postId : post?._id as string ,
+      payload : postData,
+    }).unwrap();
 
   if(response?.success){
     // close the modal 
     setOpen(false)
     // show a toast 
-    toast.success('You created a new post')
+    toast.success('Updated the post')
   }
   }catch(error){
     toast.error('Something went wrong')
@@ -110,17 +88,15 @@ export default function CreatePostModal({ open, setOpen} : TModalProps) {
  
   }
 
-
   return (
     <section className="w-screen absolute top-0 left-0 right-0 bottom-0 z-50  bg-black/20 backdrop-blur-sm flex justify-center py-10 overflow-y-auto">  
        
-       <form className="w-[400px] md:w-[700px] h-fit bg-white rounded-md relative" onSubmit={handleSubmit(onSubmit)}>
+       <form className="w-[400px] md:w-[700px] h-fit md:p-2 bg-white rounded-md relative" onSubmit={handleSubmit(onSubmit)}>
 
         {/* loading white layer  */}
-      {isLoading && <div className="w-full h-full absolute top-0 left-0 right-0 bottom-0 z-50 bg-white/80 rounded-md flex justify-center items-center"> 
+      {(isLoading || dataGetLoading) && <div className="w-full h-full absolute top-0 left-0 right-0 bottom-0 z-50 bg-white/80 rounded-md flex justify-center items-center"> 
         <ClipLoader
            color='#3B82F6'
-           loading={isLoading}
           //  cssOverride={override}
            size={60}
            aria-label="Loading Spinner"
@@ -189,9 +165,8 @@ export default function CreatePostModal({ open, setOpen} : TModalProps) {
       {/* Description Input */}
       <div className="flex items-center space-x-3">
         <FaAlignLeft className="text-yellow-500 text-xl" />
-         <TextEditor setLatestDescription={setLatestDescription} />
+         <TextEditor description={description} setLatestDescription={setLatestDescription} />
       </div>
-    
 
       {/* Images Input */}
       <div className="space-y-2">
@@ -224,7 +199,8 @@ export default function CreatePostModal({ open, setOpen} : TModalProps) {
        
 
 
-<button type="submit" className="px-8 text-sm lg:text-base mb-5 md:mb-4 mx-3 py-2 md:py-2 font-semibold text-white rounded transition bg-blue-600 hover:bg-blue-700 "> Create</button>
+<button type="submit" className="px-8 text-sm lg:text-base mb-5 md:mb-4
+ mx-3 py-2 md:py-2 font-semibold text-white rounded transition bg-blue-600 hover:bg-blue-700 ">Modify</button>
 
 <button onClick={() => setOpen(!open)} className="px-8 text-sm lg:text-base mr-3 py-2 md:py-2 font-semibold text-gray-600 rounded transition bg-gray-200 hover:bg-gray-300 "> Close </button>
 </form>

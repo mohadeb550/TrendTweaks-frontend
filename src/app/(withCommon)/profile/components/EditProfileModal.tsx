@@ -11,7 +11,7 @@ import { setUser, TUser } from "@/redux/features/authentication/authSlice";
 import { useGetSingleUserQuery, useUpdateUserMutation } from "@/redux/features/user/userApi";
 import Image from "next/image";
 import { ChangeEvent, useEffect, useState } from "react";
-import { MdUpload } from "react-icons/md";
+import { MdPhotoCamera } from "react-icons/md";
 import uploadImage from "@/utils/uploadImage";
 
 
@@ -126,7 +126,6 @@ export default function EditProfileModal({ open, setOpen} : TModalProps) {
       }
     };
 
-
   return (
     <section className="w-screen absolute top-0 left-0 right-0 bottom-0 z-50  bg-black/20 backdrop-blur-sm flex justify-center py-10 overflow-y-auto">  
        
@@ -153,9 +152,9 @@ export default function EditProfileModal({ open, setOpen} : TModalProps) {
             className="w-full h-28 md:h-36 object-cover rounded-t-xl"
           />
            
-
-      <div className="flex items-center justify-end ">
-           <input {...register('coverImg')}  onChange={(e) => handleCoverPreview(e)} type="file" className={`w-24 relative -top-11`} />
+      <div className="flex items-center relative -top-10 justify-end bg-black/5 py-1">
+        <label htmlFor='cover' className="relative -top-1 right-7"><MdPhotoCamera className="text-4xl text-gray-300 p-2 bg-gray-900 rounded-md  opacity-70"/> </label>
+           <input id="cover" {...register('coverImg')}  onChange={(e) => handleCoverPreview(e)} type="file" className={`hidden`} />
           </div>
 
 
@@ -176,9 +175,9 @@ export default function EditProfileModal({ open, setOpen} : TModalProps) {
             </div>
           </div>
 
-          <div className="relative">
-          <input {...register('image')}  onChange={(e) => handleProfilePreview(e)} type="file" className={`w-24 relative -top-3 left-6`} />
-             
+          <div className="flex items-center relative justify-end ">
+        <label htmlFor='image1' className="absolute -top-24 right-7"><MdPhotoCamera className="text-4xl text-gray-800 size-10 p-2 bg-black/10 rounded-md  opacity-70"/> </label>
+           <input {...register('image')}  onChange={(e) => handleProfilePreview(e)} type="file" className={`hidden`} id="image1" />
           </div>
    
 
@@ -192,7 +191,7 @@ export default function EditProfileModal({ open, setOpen} : TModalProps) {
         <input {...register("name")}
           type="text"
           placeholder="Full name"
-          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
