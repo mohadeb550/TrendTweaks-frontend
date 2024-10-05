@@ -1,6 +1,5 @@
 'use client'
 
-import Headroom from "react-headroom"
 import DrawerNav from "./DrawerNavbar"
 import { HiOutlineMenu } from "react-icons/hi";
 import Link from "next/link";
@@ -34,12 +33,12 @@ const logoutUser = () => {
   const navLinks = <>
 
 
-   {user &&    <li ><Link href={user?.role === 'user'? '/dashboard/' : '/dashboard/admin-overview' } className={pathName === '/e' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-gray-300  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >Dashboard</Link></li>}
+   {user &&    <li ><Link href={user?.role === 'admin'? '/admin-dashboard/manage-posts': 'user-dashboard/my-posts'} className={pathName === '/e' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-600  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >Dashboard</Link></li>}
 
 
-   <li ><Link href='/about' className={pathName === '/w' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-gray-300  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >About Us</Link></li>
+   <li ><Link href='/about' className={pathName === '/about' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-600  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >About Us</Link></li>
 
-   <li ><Link href='/contact' className={pathName === '/contact' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-gray-300  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >Contact Us</Link></li>
+   <li ><Link href='/contact' className={pathName === '/contact' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-600  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >Contact Us</Link></li>
 
   </>
 
@@ -89,7 +88,7 @@ const logoutUser = () => {
      <Link href={`/profile/${user?.email}`}>
      <li className="text-base font-semibold cursor-pointer transition-all text-gray-500 p-1 rounded hover:text-blue-600" > Profile</li> </Link>
     
-     <Link href={user?.role === 'admin'? '/admin-dashboard/manage-users': 'user-dashboard/my-payments'}>
+     <Link href={user?.role === 'admin'? '/admin-dashboard/manage-posts': 'user-dashboard/my-posts'}>
      <li className="text-base font-semibold cursor-pointer transition-all text-gray-500 p-1 rounded hover:text-blue-600" >Dashboard</li> </Link>
     
 

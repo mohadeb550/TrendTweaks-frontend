@@ -4,6 +4,9 @@ import { useAppSelector } from '@/redux/hooks';
 import Link from 'next/link';
 import { FaTv, FaUserCircle, FaGlobe, FaRocketchat, FaEnvelope, FaHotel, FaCalendarAlt, FaStream, FaCog, FaChartLine } from 'react-icons/fa';
 import { GoPackage } from "react-icons/go";
+import { RxDashboard } from "react-icons/rx";
+import { SiHomeadvisor } from "react-icons/si";
+import { MdWifiCalling1 } from "react-icons/md";
 
 
 const FeaturesSidebar = () => {
@@ -21,6 +24,7 @@ const FeaturesSidebar = () => {
                 <FaTv className="text-white" />
               </div>
               <span className="text-gray-700 font-medium hover:text-blue-600">Newsfeed</span>
+              <span className="bg-orange-400 text-white text-xs font-bold px-2 py-1 rounded-full">14</span>
             </Link>
           </li>
           <li className="flex items-center space-x-4">
@@ -40,21 +44,14 @@ const FeaturesSidebar = () => {
             </Link>
           </li>
           <li className="flex items-center space-x-4">
-            <Link href="/explore-stories" className="flex items-center space-x-4 hover:text-blue-500">
+            <Link href={user?.role === 'admin'? '/admin-dashboard/manage-posts': 'user-dashboard/my-posts'} className="flex items-center space-x-4 hover:text-blue-500">
               <div className="p-2 rounded-full bg-yellow-400 text-xl lg:text-2xl">
-                <FaGlobe className="text-white" />
+                <RxDashboard className="text-white" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Explore Stories</span>
+              <span className="text-gray-700 font-medium hover:text-blue-600">Dashboard</span>
             </Link>
           </li>
-          <li className="flex items-center space-x-4">
-            <Link href="/popular-groups" className="flex items-center space-x-4 hover:text-blue-500">
-              <div className="p-2 rounded-full bg-pink-500 text-xl lg:text-2xl">
-                <FaRocketchat className="text-white" />
-              </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Popular Groups</span>
-            </Link>
-          </li>
+          
          
         </ul>
       </div>
@@ -64,20 +61,19 @@ const FeaturesSidebar = () => {
         <h2 className="text-gray-500 text-sm font-semibold">More Pages</h2>
         <ul className="space-y-0 lg:space-y-6 flex flex-col items-start">
           <li className="flex items-center justify-between">
-            <Link href="/email-box" className="flex items-center space-x-4 hover:text-blue-500">
+            <Link href="/about" className="flex items-center space-x-4 hover:text-blue-500">
               <div className="p-2 rounded-full bg-blue-500 text-xl lg:text-2xl">
-                <FaEnvelope className="text-white" />
+                <SiHomeadvisor className="text-white" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Email Box</span>
-              <span className="bg-orange-400 text-white text-xs font-bold px-2 py-1 rounded-full">584</span>
+              <span className="text-gray-700 font-medium hover:text-blue-600">About Us</span>
             </Link>
           </li>
           <li className="flex items-center space-x-4">
-            <Link href="/near-hotel" className="flex items-center space-x-4 hover:text-blue-500">
+            <Link href="/contact" className="flex items-center space-x-4 hover:text-blue-500">
               <div className="p-2 rounded-full bg-blue-500 text-xl lg:text-2xl">
-                <FaHotel className="text-white" />
+                <MdWifiCalling1 className="text-white" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Near Hotel</span>
+              <span className="text-gray-700 font-medium hover:text-blue-600">Contact Us</span>
             </Link>
           </li>
           <li className="flex items-center space-x-4">
@@ -86,14 +82,6 @@ const FeaturesSidebar = () => {
                 <FaCalendarAlt className="text-white" />
               </div>
               <span className="text-gray-700 font-medium hover:text-blue-600">Latest Event</span>
-            </Link>
-          </li>
-          <li className="flex items-center space-x-4">
-            <Link href="/live-stream" className="flex items-center space-x-4 hover:text-blue-500">
-              <div className="p-2 rounded-full bg-blue-500 text-xl lg:text-2xl">
-                <FaStream className="text-white" />
-              </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Live Stream</span>
             </Link>
           </li>
         </ul>
