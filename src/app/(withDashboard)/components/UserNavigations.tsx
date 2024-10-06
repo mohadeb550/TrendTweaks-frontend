@@ -5,6 +5,7 @@ import { FaHome, FaUsers } from "react-icons/fa";
 import { VscHistory } from "react-icons/vsc";
 import { TfiLayoutListPost } from "react-icons/tfi";
 import { SlUserFollowing } from "react-icons/sl";
+import { SiSimpleanalytics } from "react-icons/si";
 
 const UserNavigations = () => {
     const pathName = usePathname();
@@ -54,6 +55,15 @@ const UserNavigations = () => {
               </Link>
             </li>
 
+
+            <li className="flex items-center space-x-4">
+              <Link href="/user-dashboard/user-analytics" className={`flex items-center space-x-4 hover:text-blue-500 ${pathName === '/user-dashboard/user-analytics'? 'text-blue-500': 'text-gray-700'}`}>
+                <div className={`p-2 rounded-full ${pathName === '/user-dashboard/user-analytics' ? 'bg-blue-500': 'p-2 rounded-full bg-gray-300 text-xl lg:text-2xl'} text-xl lg:text-2xl`}>
+                  <SiSimpleanalytics className="text-white" />
+                </div>
+                <span className=" font-medium hover:text-blue-600">Analytics</span>
+              </Link>
+            </li>
 
           </ul>
         </div>
