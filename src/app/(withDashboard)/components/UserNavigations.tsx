@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { FaHome, FaUsers } from "react-icons/fa";
 import { VscHistory } from "react-icons/vsc";
 import { TfiLayoutListPost } from "react-icons/tfi";
+import { SlUserFollowing } from "react-icons/sl";
 
 const UserNavigations = () => {
     const pathName = usePathname();
@@ -31,6 +32,15 @@ const UserNavigations = () => {
                   <TfiLayoutListPost className="text-white" />
                 </div>
                 <span className=" font-medium hover:text-blue-600">My Posts</span>
+              </Link>
+            </li>
+
+            <li className="flex items-center space-x-4">
+              <Link href="/user-dashboard/my-followers" className={`flex items-center space-x-4 hover:text-blue-500 ${pathName === '/user-dashboard/my-followers'? 'text-blue-500': 'text-gray-700'}`}>
+                <div className={`p-2 rounded-full ${pathName === '/user-dashboard/my-followers' ? 'bg-blue-500': 'p-2 rounded-full bg-gray-300 text-xl lg:text-2xl'} text-xl lg:text-2xl`}>
+                  <SlUserFollowing className="text-white" />
+                </div>
+                <span className=" font-medium hover:text-blue-600">Followers / Following</span>
               </Link>
             </li>
 

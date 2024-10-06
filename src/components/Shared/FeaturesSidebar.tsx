@@ -44,7 +44,7 @@ const FeaturesSidebar = () => {
             </Link>
           </li>
           <li className="flex items-center space-x-4">
-            <Link href={user?.role === 'admin'? '/admin-dashboard/manage-posts': 'user-dashboard/my-posts'} className="flex items-center space-x-4 hover:text-blue-500">
+            <Link href={user?.role === 'admin'? '/admin-dashboard/statistics': 'user-dashboard/my-posts'} className="flex items-center space-x-4 hover:text-blue-500">
               <div className="p-2 rounded-full bg-yellow-400 text-xl lg:text-2xl">
                 <RxDashboard className="text-white" />
               </div>
@@ -100,7 +100,7 @@ const FeaturesSidebar = () => {
             </Link>
           </li>
           <li className="flex items-center space-x-4">
-            <Link href="/analytics" className="flex items-center space-x-4 hover:text-blue-500">
+            <Link href={user?.role === 'admin'? '/admin-dashboard/statistics': 'user-dashboard/user-analytics'} className="flex items-center space-x-4 hover:text-blue-500">
               <div className="p-2 rounded-full bg-gray-300 text-xl lg:text-2xl">
                 <FaChartLine className="text-white" />
               </div>
