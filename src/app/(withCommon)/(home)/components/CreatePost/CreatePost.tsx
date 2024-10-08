@@ -33,7 +33,7 @@ export default function CreatePost() {
           className="size-9 md:size-10 rounded-full object-cover"
         />
         <button onClick={() => setOpenModal(true)} 
-          className="flex-1 p-2 md:p-3 border border-gray-200 rounded-md text-left text-gray-600">What's on your mind?</button>
+          className="flex-1 p-2 md:p-3 border border-gray-200 rounded-md text-left text-gray-600">Whats on your mind?</button>
          
         
       </div>

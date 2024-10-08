@@ -5,16 +5,17 @@ import LoginModal from "@/components/Ui/LoginModal";
 import { useVotePostMutation } from "@/redux/features/posts/postApi";
 import { useAppSelector } from "@/redux/hooks";
 import { useEffect, useState } from "react";
-import { PiArrowFatDownLight, PiArrowFatUpLight ,PiArrowFatDownFill, PiArrowFatUpFill , PiArrowFatLinesUpFill, PiArrowFatLinesDownFill} from "react-icons/pi";
+import { PiArrowFatDownLight, PiArrowFatUpLight , PiArrowFatLinesUpFill, PiArrowFatLinesDownFill} from "react-icons/pi";
 import { PulseLoader } from "react-spinners";
 
-const VoteSection = ({postId, userId, votes, voters }: { postId : string, userId: string, votes: number, voters: object[]}) => {
+const VoteSection = ({postId, userId, votes, voters }: { postId : string, userId: string, votes: number, voters: { userId: string, voteType : string }[]}) => {
 
     const [ votePost, { isLoading}] = useVotePostMutation();
     const currentUser = useAppSelector(state => state.auth.user)
-    const [ givenVote, setGivenVote ] = useState<object>();
-    const [ loginModal , setLoginModal ]  = useState(false)
+    const [ givenVote, setGivenVote ] = useState<{ voteType : string, userId : string}>();
+    const [ loginModal , setLoginModal ]  = useState<boolean>(false)
 
+    
     useEffect(()=> {
        const isExistVote = voters?.find(voter => voter?.userId === currentUser?._id )
 

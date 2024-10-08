@@ -34,7 +34,7 @@ const logoutUser = () => {
   const navLinks = <>
 
 
-   {user &&    <li ><Link href={user?.role === 'admin'? '/admin-dashboard/statistics': 'user-dashboard/my-posts'} className={pathName === '/e' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-600  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >Dashboard</Link></li>}
+   {user &&    <li ><Link href={user?.role === 'admin'? '/admin-dashboard/statistics': '/user-dashboard/my-posts'} className={pathName === '/e' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-600  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >Dashboard</Link></li>}
 
 
    <li ><Link href='/about' className={pathName === '/about' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-600  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >About Us</Link></li>
@@ -54,7 +54,7 @@ const logoutUser = () => {
 {/* logo section  */}
 <div className="flex items-center gap-1" >
 {/* <img src='/6201330c4babde0004ca47f.png' className="w-24 md:w-32 lg:w-40 opacity-90"/> */}
- <h3 className="text-blue-500 font-extrabold text-xl md:text-2xl xl:text-3xl">TrendTweaks</h3>
+ <h3 className="text-blue-500 font-extrabold text-[22px] md:text-2xl xl:text-3xl carter-one-regular">TrendTweaks</h3>
 </div>
 
 {/* nav menu section  */}
@@ -89,7 +89,7 @@ const logoutUser = () => {
      <Link href={`/profile/${user?.email}`}>
      <li className="text-base font-semibold cursor-pointer transition-all text-gray-500 p-1 rounded hover:text-blue-600" > Profile</li> </Link>
     
-     <Link href={user?.role === 'admin'? '/admin-dashboard/statistics': 'user-dashboard/my-posts'}>
+     <Link href={user?.role === 'admin'? '/admin-dashboard/statistics': '/user-dashboard/my-posts'}>
      <li className="text-base font-semibold cursor-pointer transition-all text-gray-500 p-1 rounded hover:text-blue-600" >Dashboard</li> </Link>
     
 

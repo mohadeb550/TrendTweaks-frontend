@@ -32,7 +32,7 @@ export default function UpdatePostModal({ open, setOpen, postId} : TModalProps) 
 
   // get the specific post 
   const { data: postData, isSuccess, isLoading: dataGetLoading } = useGetSinglePostQuery(postId);
-  const post : TPost = postData?.data || {};
+  const post : TPost = postData?.data
 
     // description from the text editor 
     const [description, setDescription] = useState('');
@@ -65,9 +65,9 @@ export default function UpdatePostModal({ open, setOpen, postId} : TModalProps) 
     images : [],
     isPremium : data.premium === 'premium'? true : false,
   }
-  if(data.image1) postData.images.push(data.image1)
-  if(data.image2) postData.images.push(data.image2)
-  if(data.image3) postData.images.push(data.image3)
+  if(data.image1) postData.images?.push(data.image1)
+  if(data.image2) postData.images?.push(data.image2)
+  if(data.image3) postData.images?.push(data.image3)
 
   try {
     const response =  await updatePost({
@@ -85,11 +85,10 @@ export default function UpdatePostModal({ open, setOpen, postId} : TModalProps) 
     toast.error('Something went wrong')
     console.log(error)
   }
- 
   }
 
   return (
-    <section className="w-screen absolute top-0 left-0 right-0 bottom-0 z-50  bg-black/20 backdrop-blur-sm flex justify-center py-10 overflow-y-auto">  
+    <section className="w-screen fixed top-0 left-0 right-0 bottom-0 z-50  bg-black/20 backdrop-blur-sm flex justify-center py-10 overflow-y-auto">  
        
        <form className="w-[400px] md:w-[700px] h-fit md:p-2 bg-white rounded-md relative" onSubmit={handleSubmit(onSubmit)}>
 

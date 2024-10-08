@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 "use client"
 
@@ -25,8 +26,6 @@ export default function PostSection() {
     if (inView) {
       // check the category, searchTerm, sort are exist in the filterQuery
       const isFilterExist = Object.keys(filterQuery).find(option => ['category','searchTerm', 'sortByUpvote'].includes(option))
-
-      console.log(posts?.length, totalPosts)
 
       // console.log(isFilterExist)
       if(!isFilterExist && posts?.length < totalPosts){

@@ -1,7 +1,7 @@
 'use client'
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaHome, FaUsers } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
 import { VscHistory } from "react-icons/vsc";
 import { TfiLayoutListPost } from "react-icons/tfi";
 import { SlUserFollowing } from "react-icons/sl";

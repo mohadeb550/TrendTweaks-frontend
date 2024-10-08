@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import PaymentModal from "./components/PaymentModal";
+import { useAppSelector } from "@/redux/hooks";
+import { useRouter } from "next/navigation";
 
 const membershipPackages = [
     {
@@ -86,6 +88,8 @@ const membershipPackages = [
 const Membership = () => {
     const [openPayModal, setOpenPayModal ] = useState<boolean>(false);
     const [ membersShip, setMembersShip ] = useState()
+    const loggedUser = useAppSelector(state => state.auth.user)
+    const router = useRouter();
 
 
     return (
@@ -116,7 +120,10 @@ const Membership = () => {
               </ul>
             </div>
             <button style={{ backgroundColor : pack.bgColor}}
-            onClick={() => {setMembersShip(pack); setOpenPayModal(true)}}
+            onClick={() => {
+              if(!loggedUser)return router.push('/login');
+              setMembersShip(pack); 
+              setOpenPayModal(true)}}
 
             className={`w-full py-2 px-4 text-white rounded-md hover:bg-blue-700 transition-colors`}>
               Subscribe Now

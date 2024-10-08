@@ -34,7 +34,7 @@ export default function EditProfileModal({ open, setOpen} : TModalProps) {
 
   // only for checking the membership in the userData 
   const { data, isSuccess, isLoading: dataGettingLoading } = useGetSingleUserQuery(currentUser?.email as string);
-  const userFromDB : TUser = data?.data || {};
+  const userFromDB : TUser = data?.data;
 
   
     // Set the default values dynamically

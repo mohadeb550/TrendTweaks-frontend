@@ -14,7 +14,7 @@ type TModalProps = {
 export default function LoginModal({ open, setOpen} : TModalProps) {
 
   return (
-    <section className="w-screen absolute top-0 left-0 right-0 bottom-0 z-50  bg-black/20 backdrop-blur-sm flex justify-center  overflow-y-auto">  
+    <section className="w-screen fixed top-0 left-0 right-0 bottom-0 z-50  bg-black/20 backdrop-blur-sm flex justify-center  overflow-y-auto">  
        
        <div className="w-[400px] md:w-[620px] h-[520px] bg-white rounded-xl relative mt-10">
 

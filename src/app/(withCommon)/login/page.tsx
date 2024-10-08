@@ -16,8 +16,10 @@ import { GoUnlock } from "react-icons/go";
 import { ClipLoader } from "react-spinners";
 import { toast } from "sonner";
 
-
-export default function Login({setOpen} : { setOpen: React.Dispatch<boolean>}) {
+type TProps = {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+export default function Login({setOpen} : TProps) {
 
   const [ errors, setErrors] = useState({emailError: '', passwordError: ''})
   const [ login ] = useLoginMutation();
@@ -62,9 +64,7 @@ export default function Login({setOpen} : { setOpen: React.Dispatch<boolean>}) {
     toast.success('Logged In Successfully')
     setLoading(false);
     if(typeof setOpen === 'function')setOpen(false)
-    const role = decoded?.role;
-    role === 'user'? router.push('/')  :  router.push('/');
-    
+    router.push('/')
    }
 }
 
@@ -117,7 +117,7 @@ export default function Login({setOpen} : { setOpen: React.Dispatch<boolean>}) {
           </div>
 
           <div className="mt-2">
-                <h4 className="text-sm font-semibold text-gray-500">Don't Have An Account? <Link href='/register'> <span className="text-blue-600">Register</span></Link> </h4>
+                <h4 className="text-sm font-semibold text-gray-500">Do not Have An Account? <Link href='/register'> <span className="text-blue-600">Register</span></Link> </h4>
             </div>
         </form>
 

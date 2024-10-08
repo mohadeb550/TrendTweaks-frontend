@@ -27,7 +27,7 @@ const DashboardLayout = ({children} : { children : ReactNode}) => {
 
         </div>
 
-        <div className="w-full h-screen overflow-y-scroll lg:pr-6">
+        <div className="w-full h-screen overflow-y-scroll lg:pr-6 pb-32">
         {children}   
         </div>
       </section>

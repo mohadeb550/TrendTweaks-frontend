@@ -1,13 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import { TComment, TPost } from "../CreatePost/CreatePostModal";
-import {  FaShare, FaEllipsisH, FaStar, FaThumbsUp, FaReply, FaEdit } from 'react-icons/fa';
+import {  FaShare, FaThumbsUp, FaReply, FaEdit } from 'react-icons/fa';
 import { RiDeleteBin4Line } from "react-icons/ri";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import TimeAgo from 'react-timeago'
-import { FaRegComment, } from "react-icons/fa6";
 import ImageGallery from "./ImageGallery";
 import { IoSendSharp } from "react-icons/io5";
 import { useForm } from "react-hook-form";
@@ -97,7 +97,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
         
         {isPremium && <MdStars className="text-orange-500 cursor-pointer text-2xl" />}
 
-        <button onClick={reactToPrintFn}> <AiFillPrinter className="text-gray-600 cursor-pointer text-2xl "/></button>
+        <button onClick={()=> reactToPrintFn()}> <AiFillPrinter className="text-gray-600 cursor-pointer text-2xl "/></button>
 
       </div>
     </div>
@@ -121,7 +121,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
   <div className="flex justify-between items-center mt-4 border-y py-2">
         <div className="flex space-x-6 text-gray-600">
 
-          <VoteSection postId={_id as string} userId={user?._id as string} votes={votes} voters={voters}/>
+          <VoteSection postId={_id as string} userId={user?._id as string} votes={votes!} voters={voters!}/>
          
           <div className="flex items-center gap-3 bg-gray-200/50 rounded-full px-3 py-1">
             <BiCommentDetail className="cursor-pointer text-lg xl:text-xl text-gray-500" />
@@ -162,13 +162,12 @@ const reactToPrintFn = useReactToPrint({ contentRef });
 
 
 
-
-        <div className="flex flex-col dropdown">
+        <div className="flex flex-col flex-wrap dropdown">
           {/* User Info */}
-          <div className=" bg-gray-100 rounded-xl group px-3 relative">
+          <div className=" bg-gray-100 flex flex-col flex-wrap rounded-xl group px-3 relative">
             <h4 className="font-semibold">{comment?.userInfo?.name}</h4>
               {/* Comment Text */}
-          <p className="text-gray-700">{comment?.comment}</p>
+          <span className="text-gray-700">{comment?.comment}</span>
 
                 
   <div tabIndex={0} role="button" className="p-2  hidden group-hover:flex  text-sm md:text-base rounded-lg ml-2 absolute top-0 right-0 "> <BsThreeDots /></div>

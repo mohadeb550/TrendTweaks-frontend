@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
-import {  FaShare, FaEllipsisH, FaThumbsUp, FaReply, FaEdit } from 'react-icons/fa';
+import {  FaShare, FaThumbsUp, FaReply, FaEdit } from 'react-icons/fa';
 import { RiDeleteBin4Line } from "react-icons/ri";
 import Image from "next/image";
 import TimeAgo from 'react-timeago'
@@ -13,7 +14,6 @@ import { ClipLoader } from "react-spinners";
 import { useAddCommentMutation, useDeleteCommentMutation, useGetCommentsQuery, useUpdateCommentMutation } from "@/redux/features/comments/commentApi";
 import { BsThreeDots } from "react-icons/bs";
 import { BiCommentDetail } from "react-icons/bi";
-import Link from "next/link";
 import { TComment, TPost } from '../../components/CreatePost/CreatePostModal';
 import MiniUserProfile from '../../components/Posts/MiniUserProfile';
 import ImageGallery from '../../components/Posts/ImageGallery';
@@ -29,7 +29,7 @@ import { useReactToPrint } from 'react-to-print';
 
 export default function PostDetails({params } : { params : { postId: string}}) {
 
-    const { data , isFetching } = useGetSinglePostQuery(params?.postId);
+    const { data  } = useGetSinglePostQuery(params?.postId);
     const post : TPost = data?.data || {};
 
   const { register, handleSubmit , reset} = useForm();
@@ -100,7 +100,7 @@ export default function PostDetails({params } : { params : { postId: string}}) {
       <div className="ml-auto flex items-center gap-2">
       {isPremium && <MdStars className="text-orange-500 cursor-pointer text-2xl" />}
 
-      <button onClick={reactToPrintFn}> <AiFillPrinter className="text-gray-600 cursor-pointer text-2xl "/></button>
+      <button onClick={()=> reactToPrintFn()}> <AiFillPrinter className="text-gray-600 cursor-pointer text-2xl "/></button>
       </div>
     </div>
 
@@ -121,7 +121,7 @@ export default function PostDetails({params } : { params : { postId: string}}) {
   <div className="flex justify-between items-center mt-4 border-y py-2">
         <div className="flex space-x-6 text-gray-600">
 
-          <VoteSection postId={_id as string} userId={user?._id as string} votes={votes} voters={voters}/>
+          <VoteSection postId={_id as string} userId={user?._id as string} votes={votes!} voters={voters!}/>
          
           <div className="flex items-center gap-3 bg-gray-200/50 rounded-full px-3 py-1">
             <BiCommentDetail className="cursor-pointer text-lg xl:text-xl text-gray-500" />

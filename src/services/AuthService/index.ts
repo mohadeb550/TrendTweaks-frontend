@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use server";
-import nexiosInstance from "@/config/nexios.config";
+// "use server";
+// import nexiosInstance from "@/config/nexios.config";
 
 
 

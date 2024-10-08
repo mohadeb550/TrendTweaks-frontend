@@ -10,7 +10,7 @@ const page = () => {
       <div className="container mx-auto text-center">
         <h1 className="text-4xl font-bold text-gray-800 mb-5">Contact Us</h1>
         <p className="text-gray-600 text-lg">
-          Have any questions or inquiries? We'd love to hear from you!
+          Have any questions or inquiries? Wed love to hear from you!
         </p>
       </div>
 
