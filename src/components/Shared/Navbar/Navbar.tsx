@@ -12,7 +12,6 @@ import { toast } from "sonner";
 import { logout } from "@/redux/features/authentication/authSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RxDashboard } from "react-icons/rx";
-import { CiLogin } from "react-icons/ci";
 import Cookies from 'js-cookie';
 import Image from "next/image";
 import { AiOutlineUserDelete } from "react-icons/ai";

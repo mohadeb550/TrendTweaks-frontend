@@ -14,7 +14,7 @@ const CommonLayout = ({children} : {children : ReactNode}) => {
         <section className="fixed w-full h-screen">
         <Navbar/>
       
-      <section className="flex max-w-[1500px] mx-auto gap-5 xl:gap-10 relative bg-[#F8F9FB] p-4 xl:pr-0 " >
+      <section className="flex max-w-[1500px] mx-auto rounded-xl gap-5 xl:gap-10 relative bg-[#F8F9FB] p-4 xl:pr-0 " >
        {user &&  <div className="hidden lg:block w-72">
           <Sidebar> 
             <FeaturesSidebar/>

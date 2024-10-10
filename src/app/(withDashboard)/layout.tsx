@@ -16,7 +16,7 @@ const DashboardLayout = ({children} : { children : ReactNode}) => {
 <section className="fixed w-full h-screen">
         <Navbar/>
       
-      <section className="flex items-center gap-5 xl:gap-10 relative bg-[#F8F9FB] p-3 pr-0" >
+      <section className="flex max-w-[1500px] mx-auto items-center gap-5 xl:gap-10 relative bg-[#F8F9FB] p-3 pr-0 rounded-xl" >
 
         <div className="hidden lg:block w-72">
           <Sidebar>
@@ -26,7 +26,7 @@ const DashboardLayout = ({children} : { children : ReactNode}) => {
           </Sidebar>
         </div>
 
-        <div className="w-full h-screen overflow-y-scroll lg:pr-6 pb-32">
+        <div className="w-full h-screen overflow-auto scrollbar-hide lg:pr-6 pb-32">
         {children}   
         </div>
       </section>
