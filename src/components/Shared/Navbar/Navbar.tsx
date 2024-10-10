@@ -15,6 +15,7 @@ import { RxDashboard } from "react-icons/rx";
 import { CiLogin } from "react-icons/ci";
 import Cookies from 'js-cookie';
 import Image from "next/image";
+import { AiOutlineUserDelete } from "react-icons/ai";
 
 export default function Navbar() {
   const pathName = usePathname()
@@ -34,12 +35,13 @@ const logoutUser = () => {
   const navLinks = <>
 
 
-   {user &&    <li ><Link href={user?.role === 'admin'? '/admin-dashboard/statistics': '/user-dashboard/my-posts'} className={pathName === '/e' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-600  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >Dashboard</Link></li>}
+   <li ><Link href='/' className={pathName === '/' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-500  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >Feed</Link></li>
 
+   <li ><Link href='/about' className={pathName === '/about' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-500  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >About Us</Link></li>
 
-   <li ><Link href='/about' className={pathName === '/about' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-600  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >About Us</Link></li>
+   <li ><Link href='/contact' className={pathName === '/contact' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-500  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >Contact Us</Link></li>
 
-   <li ><Link href='/contact' className={pathName === '/contact' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-600  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >Contact Us</Link></li>
+   <li ><Link href='/latest-event' className={pathName === '/latest-event' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-500  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >Latest Event</Link></li>
 
   </>
 
@@ -77,7 +79,7 @@ const logoutUser = () => {
 
     <div className="dropdown dropdown-end flex items-center justify-center gap-2 z-20">
     
-    {!user && <Link href={'/register'}> <button className="px-2 md:px-8 text-sm mr-3 py-1 md:py-2 xl:py-3 rounded-md transition bg-gray-100 text-gray-600 hover:bg-gray-200/70 flex items-center font-semibold gap-2 whitespace-nowrap"><CiLogin className="text-lg"/> Sign Up</button></Link>}
+    {!user && <Link href={'/register'}> <button className="px-2 md:px-8 text-[13px] md:text-sm  md:py-2 rounded-md transition bg-gray-50 border border-gray-100 text-gray-600 hover:bg-gray-200/70 flex items-center font-semibold gap-2 whitespace-nowrap"><AiOutlineUserDelete className="text-lg"/> Sign Up</button></Link>}
     
     <div className={`z-30 w-9 md:w-10 rounded-full p-[2px]  ${!user && 'hidden'}`}>
       {user && <Image width={200} height={200} alt="profile" tabIndex={0} src={user?.image || 'https://i.ibb.co/Ttgtb82/pngwing-com-15.png' } className="dropdown size-8 lg:size-9 object-cover cursor-pointer rounded-full border border-zinc-400 p-[1px]" />}

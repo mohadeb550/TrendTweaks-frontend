@@ -20,7 +20,7 @@ const commentApi = baseApi.injectEndpoints({
                 url : `/comments/${commentId}`,
                 method : "DELETE",   
             }),
-            invalidatesTags: ['Posts', 'Comments']
+            invalidatesTags: [ 'Comments','Posts', ]
         }),
 
         addComment : builder.mutation({

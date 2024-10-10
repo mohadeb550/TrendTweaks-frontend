@@ -38,7 +38,7 @@ const DrawerNav = () => {
 
         <Sidebar>
           <FeaturesSidebar/>
-          </Sidebar>}
+        </Sidebar>}
 
     </div>
   </div>

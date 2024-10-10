@@ -12,7 +12,7 @@ export default function CreatePost() {
   const [ openModal, setOpenModal ] = useState(false);
 
     return (
-      <div className="bg-white p-4 rounded-lg shadow-lg w-full  mx-auto">
+      <div className="bg-white p-4 rounded-lg shadow-sm w-full  mx-auto mb-2">
 
         {/* Create Post Modal  */}
      {openModal &&  <CreatePostModal open={openModal} setOpen={setOpenModal} />}

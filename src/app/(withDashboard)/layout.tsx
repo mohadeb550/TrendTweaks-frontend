@@ -24,7 +24,6 @@ const DashboardLayout = ({children} : { children : ReactNode}) => {
      {currentUser?.role === 'user' && <UserNavigations/>}
       {currentUser?.role === 'admin' && <AdminNavigations/>}
           </Sidebar>
-
         </div>
 
         <div className="w-full h-screen overflow-y-scroll lg:pr-6 pb-32">

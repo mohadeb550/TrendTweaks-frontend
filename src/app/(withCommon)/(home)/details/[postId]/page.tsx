@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
-import {  FaShare, FaThumbsUp, FaReply, FaEdit } from 'react-icons/fa';
+import {  FaShare, FaThumbsUp, FaReply, FaEdit, FaPen } from 'react-icons/fa';
 import { RiDeleteBin4Line } from "react-icons/ri";
 import Image from "next/image";
 import TimeAgo from 'react-timeago'
@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import { useAppSelector } from "@/redux/hooks";
 import { toast } from "sonner";
 import { ClipLoader } from "react-spinners";
-import { useAddCommentMutation, useDeleteCommentMutation, useGetCommentsQuery, useUpdateCommentMutation } from "@/redux/features/comments/commentApi";
+import { useAddCommentMutation, useDeleteCommentMutation, useGetCommentsQuery} from "@/redux/features/comments/commentApi";
 import { BsThreeDots } from "react-icons/bs";
 import { BiCommentDetail } from "react-icons/bi";
 import { TComment, TPost } from '../../components/CreatePost/CreatePostModal';
@@ -21,8 +21,9 @@ import VoteSection from '../../components/Posts/VoteSection';
 import { useGetSinglePostQuery } from '@/redux/features/posts/postApi';
 import { MdStars } from 'react-icons/md';
 import { AiFillPrinter } from 'react-icons/ai';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
+import EditCommentModal from '../../components/Posts/EditCommentModal';
 
 
 
@@ -35,8 +36,11 @@ export default function PostDetails({params } : { params : { postId: string}}) {
   const { register, handleSubmit , reset} = useForm();
   const user = useAppSelector(state => state.auth.user)
   const [ addComment, { isLoading : addLoading, } ] = useAddCommentMutation();
-  const [ updateComment, { isLoading: updateLoading} ] = useUpdateCommentMutation();
   const [ deleteComment, { isLoading: deleteLoading} ] = useDeleteCommentMutation();
+
+  // for edit comment 
+  const [ openEditCommentModal, setEditCommentModal ] = useState(false);
+  const [ commentForEdit, setCommentForEdit ] = useState({});
 
 
  const {_id, category, description, 
@@ -138,13 +142,17 @@ export default function PostDetails({params } : { params : { postId: string}}) {
 
      {/* Main comment section */}
      <div className="flex flex-col space-y-2 pb-2 md:pb-4 my-3 relative">
-    
+
+        {/* edit comment modal  */}
+        {openEditCommentModal && <EditCommentModal
+           setOpen={setEditCommentModal} 
+           comment={commentForEdit} />}
 
    {/* loading white layer  */}
-   {addLoading || deleteLoading || updateLoading && <div className="w-full h-full absolute top-0 left-0 z-50 right-0 bottom-0 bg-white/80 rounded-md flex justify-center items-center"> 
+   {(addLoading || deleteLoading ) && <div className="w-full h-full absolute top-0 left-0 z-50 right-0 bottom-0 bg-white/80 rounded-md flex justify-center items-center"> 
         <ClipLoader
            color='#3B82F6'
-           size={60}
+           size={35}
            aria-label="Loading Spinner"
            speedMultiplier={0.8} />
       </div>}
@@ -171,13 +179,15 @@ export default function PostDetails({params } : { params : { postId: string}}) {
           <p className="text-gray-700">{comment?.comment}</p>
 
                 
-  <div tabIndex={0} role="button" className="p-2  hidden group-hover:flex  text-sm md:text-base rounded-lg ml-2 absolute top-0 right-0 "> <BsThreeDots /></div>
-  <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-lg z-[1] w-52 p-2 shadow-2xl relative right-0">
-          <h3  className="cursor-pointer font-semibold px-2 py-1 hover:bg-gray-50 rounded-md flex items-center gap-2"><span className="text-gray-600 text-lg"><RiDeleteBin4Line/></span> Edit</h3>
+          <div className="p-2  hidden group-hover:flex  text-gray-600 text-[13px]  rounded-lg ml-2 absolute top-0 right-6" > 
+    <FaPen className="cursor-pointer"  onClick={()=>{
+      setCommentForEdit(comment);
+       setEditCommentModal(true)
+    }}/>
 
-          <h3 onClick={() => deleteComment(comment?._id as string) } className="cursor-pointer font-semibold px-2 py-1 hover:bg-gray-50 rounded-md flex items-center gap-2"><span className="text-gray-600 text-lg"><FaEdit/></span> Delete</h3>
-  </ul>
-  
+  </div>
+
+  <div className="p-2  hidden group-hover:flex  text-sm md:text-base rounded-lg ml-2 absolute top-0 right-0 "> <RiDeleteBin4Line className="cursor-pointer" onClick={() => deleteComment(comment?._id as string) } /></div>
 
          
           </div>
