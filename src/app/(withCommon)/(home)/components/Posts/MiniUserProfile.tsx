@@ -43,7 +43,7 @@ const MiniUserProfile = ({userInfo}: { userInfo : {
     }
 
     return (
-        <section className="hidden absolute top-8 left-0 group-hover:block">
+        <section className="hidden absolute top-8 left-0 group-hover:block z-50">
 
            <div className=" mt-7">
       <div className=" bg-white shadow-2xl border-t-4 border-gray-100 rounded-lg w-80 p-4">

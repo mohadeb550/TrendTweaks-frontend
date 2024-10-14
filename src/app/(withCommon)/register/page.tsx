@@ -44,7 +44,6 @@ export default function Register() {
       role :'user',
      })
 
-
      if(result?.error?.data?.message){
       toast.error('Email is already exist')
       setLoading(false)

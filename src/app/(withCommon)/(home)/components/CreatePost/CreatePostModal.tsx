@@ -112,9 +112,9 @@ export default function CreatePostModal({ open, setOpen} : TModalProps) {
 
 
   return (
-    <section className="w-screen absolute inset-0 bottom-0 z-50  bg-black/20 backdrop-blur-sm flex justify-center py-10 overflow-y-auto">  
+    <section className="w-screen absolute inset-0 bottom-0 z-50  bg-black/20 backdrop-blur-sm flex justify-center py-10 overflow-y-auto px-4">  
        
-       <form className="w-[400px] md:w-[700px] h-fit bg-white rounded-md relative" onSubmit={handleSubmit(onSubmit)}>
+       <form className="w-full md:w-[700px] h-fit bg-white rounded-md relative" onSubmit={handleSubmit(onSubmit)}>
 
         {/* loading white layer  */}
       {isLoading && <div className="w-full h-full absolute top-0 left-0 right-0 bottom-0 z-50 bg-white/80 rounded-md flex justify-center items-center"> 

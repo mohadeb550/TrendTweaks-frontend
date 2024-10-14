@@ -13,38 +13,45 @@ export const AuthOptions: NextAuthOptions = {
     }),
   ],
 
-  // callbacks: {
-  //   async signIn({ profile, account }: any) {
+  callbacks: {
+    async signIn({ profile, account }: any) {
       
-  //     try {
+      try {
 
-  //       if (!profile || !account) {
-  //         return false;
-  //       }
+        if (!profile || !account) {
+          return false;
+        }
 
-  //       if (account?.provider === "google") {
-  //     const response = await registerUser({
-  //         name: profile.name,
-  //         email: profile.email,
-  //         image: profile.picture,
-  //         role : 'user'
-  //       })
-
-  //         if (response?.data?.token) {
-  //           return true;
-  //         } else {
-  //           return false;
-  //         }
-  //       } else {
-  //         return false;
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //       return false;
-  //     }
+        if (account?.provider === "google") {
+      // const response = await registerUser({
+      //     name: profile.name,
+      //     email: profile.email,
+      //     image: profile.picture,
+      //     role : 'user'
+      //   })
+     
+console.log({
+  name: profile.name,
+  email: profile.email,
+  image: profile.picture,
+  role : 'user'
+})
+return true;
+          // if (response?.data?.token) {
+          //   return true;
+          // } else {
+          //   return false;
+          // }
+        } else {
+          return false;
+        }
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
   
-  //   },
-  // },
+    },
+  },
 
   pages: {
     signIn: "/login",
