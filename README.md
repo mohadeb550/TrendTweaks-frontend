@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+PROJECT NAME : TrendTweaks
+LIVE SERVER  : https://trend-tweaks.vercel.app
 
-First, run the development server:
+This is a site related to social media where users can share their thoughts by creating posts.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Summary of this project.
+Like every social media platform, users can share their posts, give votes, write comment, follow other users, see their profile and manage everything from the dashboard.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+What users can do : 
+-  sign up and login by giving information and update their data from Profile.
+-  create, delete and edit a post and also comments.
+-  give votes, upvotes, print the post, follow others, search posts and filter.
+-  create post by selecting the content type like 'free' or 'premium' only if they have membership and only premium users can see the premium posts.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- while creating the post user can format the text with TinyMce editor.
+- from dashboard, user can handle all the things done by the user and can see the statistics.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+What admin can do : 
+-  admin can manage all the things from dashboard.
+-  admin can manage posts, users and see payments history of users.
+-  admin can see the statistics in the dashboard.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Features : 
+- Has a secure authentication with JWT and Next Auth.
+- Has a role based dashboard.
+- Has protected routes.
+- Pixel Perfect Responsive.
+- Error handing and UX focused.
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+How to run the project locally?
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Install all the dependencies and replace the 'BASE_API' in '.env' file with your the server URL.
+- Add an property named 'NEXT_PAYMENT_KEY' in .env file for stripe payment secret. 
+- Add 'GOOGLE_CLIENT_ID' and 'GOOGLE_CLIENT_SECRET' in .env and replace with your own key.
+
+The technologies and packages used in this project :  
+
+- Tailwind CSS for clean style.
+- Next JS, Next Auth
+- React, RTK Query and redux-persist
+- Typescript
+- Daisy UI just for some cases around 10%
+- react-intersection-observer for infinite scrolling
+- react-hook-form
+- react-light-gallery
+- stripe for payments
+- TinyMce as a text editor
+- react-to-print for printing the post

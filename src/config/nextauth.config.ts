@@ -24,10 +24,10 @@ export const AuthOptions: NextAuthOptions = {
 
         if (account?.provider === "google") {
       // const response = await registerUser({
-      //     name: profile.name,
-      //     email: profile.email,
-      //     image: profile.picture,
-      //     role : 'user'
+      // name: profile.name,
+      // email: profile.email,
+      // image: profile.picture,
+      //  role : 'user'
       //   })
      
 console.log({
@@ -36,6 +36,7 @@ console.log({
   image: profile.picture,
   role : 'user'
 })
+
 return true;
           // if (response?.data?.token) {
           //   return true;
