@@ -60,7 +60,6 @@ const MiniUserProfile = ({userInfo}: { userInfo : {
         }
     }
 
-    console.log(latestAuthorData)
 
     return (
         <section className="hidden absolute top-8 left-0 group-hover:block z-50">

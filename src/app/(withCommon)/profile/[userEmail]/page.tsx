@@ -60,7 +60,7 @@ const Profile = ({ params} : { params: { userEmail: string}}) => {
             height={600}
             className="w-full h-28 md:h-44 lg:h-52 object-cover object-center rounded-t-lg"
           />
-          <div className="relative lg:left-4 -top-4 md:-top-7 flex items-center space-x-4">
+          <div className="relative lg:left-4 -top-2 md:-top-7 flex items-center space-x-4">
             <Image
              src={image}
               alt="Profile"
@@ -122,17 +122,6 @@ const Profile = ({ params} : { params: { userEmail: string}}) => {
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="mt-6 mb-2 border-b border-gray-100">
-          <nav className="flex space-x-8 text-[15px] md:text-base">
-            <button className="pb-2 border-b-2 border-black">About</button>
-            <button className="pb-2 text-gray-600">Membership</button>
-            <button className="pb-2 text-gray-600">Discussion</button>
-            <button className="pb-2 text-gray-600">Group</button>
-            <button className="pb-2 text-gray-600 hidden md:block">Events</button>
-            <button className="pb-2 text-gray-600 hidden md:block">Media</button>
-          </nav>
-        </div>
 
       {/* Showing followers and following component  */}
       <Followers followers={followers} following={following}/>
