@@ -1,6 +1,6 @@
 
-PROJECT NAME : TrendTweaks
-LIVE SERVER  : https://trend-tweaks.vercel.app
+PROJECT NAME : TrendTweaks <br>
+LIVE  : https://trend-tweaks.vercel.app
 
 This is a site related to social media where users can share their thoughts by creating posts.
 

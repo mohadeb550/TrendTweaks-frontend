@@ -6,6 +6,7 @@ import Navbar from "@/components/Shared/Navbar/Navbar";
 import Sidebar from "@/components/Shared/Sidebar";
 import { useAppSelector } from "@/redux/hooks";
 import { ReactNode } from "react";
+import RightSidebar from "./(home)/components/RightSidebar";
 
 const CommonLayout = ({children} : {children : ReactNode}) => {
   const user = useAppSelector(state => state.auth.user)
@@ -14,16 +15,23 @@ const CommonLayout = ({children} : {children : ReactNode}) => {
         <section className="fixed w-full h-screen">
         <Navbar/>
       
-      <section className="flex max-w-[1500px] mx-auto rounded-xl gap-5 xl:gap-10 relative bg-[#F8F9FB] p-4 xl:pr-0 " >
+      <section className="flex max-w-[1500px] mx-auto rounded-xl gap-5 xl:gap-10 relative bg-[#F8F9FB] p-4" >
+        
        {user &&  <div className="hidden lg:block w-72">
           <Sidebar> 
             <FeaturesSidebar/>
           </Sidebar>
           </div>}
 
-        <div className="w-full h-screen overflow-auto scrollbar-hide lg:pr-6 pb-24">
+        <div className="w-full h-screen overflow-auto scrollbar-hide pb-24">
         {children}   
         </div>
+
+        {/* Right side bar  for only large screen  */}
+      {user &&  <div className="hidden lg:block">
+       <RightSidebar/>
+       </div>}
+
       </section>
      
         </section>

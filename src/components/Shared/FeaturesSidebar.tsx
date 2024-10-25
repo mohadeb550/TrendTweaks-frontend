@@ -1,17 +1,35 @@
 'use client'
 
-import { useAppSelector } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import Link from 'next/link';
-import { FaTv, FaUserCircle, FaCalendarAlt, FaCog, FaChartLine } from 'react-icons/fa';
+import { FaTv, FaUserCircle, FaCalendarAlt, FaCog } from 'react-icons/fa';
 import { GoPackage } from "react-icons/go";
 import { RxDashboard } from "react-icons/rx";
 import { SiHomeadvisor } from "react-icons/si";
 import { MdWifiCalling1 } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa6";
+import { IoArrowRedoOutline } from "react-icons/io5";
+import { logout } from '@/redux/features/authentication/authSlice';
+import Cookies from 'js-cookie';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 
 const FeaturesSidebar = () => {
   const user = useAppSelector(state => state.auth.user)
+  const dispatch = useAppDispatch();
+  const router = useRouter()
+
+  
+const logoutUser = () => {
+  dispatch(logout())
+  // remove cookie 
+  Cookies.remove('accessToken');
+  toast.success('Logout Successfully!');
+   router.push('/')
+   }
+
+
 
     return (
       <>
@@ -104,12 +122,11 @@ const FeaturesSidebar = () => {
             </Link>
           </li>
           <li className="flex items-center space-x-4">
-            <Link href={user?.role === 'admin'? '/admin-dashboard/statistics': '/user-dashboard/user-analytics'} className="flex items-center space-x-4 hover:text-blue-500">
               <div className="p-2 rounded-full bg-gray-300 text-xl lg:text-2xl">
-                <FaChartLine className="text-white" />
+                <IoArrowRedoOutline className="text-white" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Analytics</span>
-            </Link>
+              <button onClick={logoutUser} className="text-gray-700 font-medium hover:text-blue-600">Log out</button>
+          
           </li>
         
         </ul>

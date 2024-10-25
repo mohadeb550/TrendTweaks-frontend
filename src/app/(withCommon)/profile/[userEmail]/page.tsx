@@ -14,6 +14,7 @@ import { toast } from 'sonner';
 import { RiUserFollowLine } from "react-icons/ri";
 import { useState } from 'react';
 import EditProfileModal from '../components/EditProfileModal';
+import Followers from '../components/Followers';
 
 const Profile = ({ params} : { params: { userEmail: string}}) => {
   const { userEmail } = params;
@@ -25,7 +26,8 @@ const Profile = ({ params} : { params: { userEmail: string}}) => {
     const { data } = useGetSingleUserQuery(userEmail);
     const userDetails : TUser = data?.data || {};
 
-    const {email, image,memberShip,name, coverImg } = userDetails;
+
+    const {email, image,memberShip,name, coverImg , followers, following} = userDetails;
 
 
 
@@ -121,7 +123,7 @@ const Profile = ({ params} : { params: { userEmail: string}}) => {
         </div>
 
         {/* Tabs */}
-        <div className="mt-6 border-b border-gray-300">
+        <div className="mt-6 mb-2 border-b border-gray-100">
           <nav className="flex space-x-8 text-[15px] md:text-base">
             <button className="pb-2 border-b-2 border-black">About</button>
             <button className="pb-2 text-gray-600">Membership</button>
@@ -132,17 +134,8 @@ const Profile = ({ params} : { params: { userEmail: string}}) => {
           </nav>
         </div>
 
-            {/* Followers/Following Section */}
-      <div className="mt-2 flex justify-around bg-white px-4 rounded-lg ">
-        <div className="text-center">
-          <h3 className="text-xl font-bold">{userDetails?.followers?.length}</h3>
-          <p className="text-gray-500">Followers</p>
-        </div>
-        <div className="text-center">
-          <h3 className="text-xl font-bold">{userDetails?.following?.length}</h3>
-          <p className="text-gray-500">Following</p>
-        </div>
-      </div>
+      {/* Showing followers and following component  */}
+      <Followers followers={followers} following={following}/>
   
   
         {/* Membership Section */}

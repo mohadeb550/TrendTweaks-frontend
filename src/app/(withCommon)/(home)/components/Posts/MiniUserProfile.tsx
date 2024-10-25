@@ -1,11 +1,12 @@
 import { FaEnvelope, FaUser } from "react-icons/fa";
 import Image from "next/image";
 import { useAppSelector } from "@/redux/hooks";
-import { useFollowUserMutation, useGetSingleUserQuery } from "@/redux/features/user/userApi";
+import { useFollowUserMutation, useGetSingleUserQuery, useUnFollowUserMutation } from "@/redux/features/user/userApi";
 import { toast } from "sonner";
 import { ClipLoader } from "react-spinners";
 import { TUser } from "@/redux/features/authentication/authSlice";
 import Link from "next/link";
+import { RiUserUnfollowLine } from "react-icons/ri";
 
 
 const MiniUserProfile = ({userInfo}: { userInfo : {
@@ -19,7 +20,8 @@ const MiniUserProfile = ({userInfo}: { userInfo : {
 
 
     const user = useAppSelector(state => state.auth.user)
-    const [ followUser , { isLoading }] = useFollowUserMutation();
+    const [ followUser , { isLoading: followLoading }] = useFollowUserMutation();
+    const [ unfollowUser , { isLoading: unFollowLoading }] = useUnFollowUserMutation();
 
     // get the authorData to check if the currentUser follows him or not 
     const { data } = useGetSingleUserQuery(userInfo?.authorEmail);
@@ -41,6 +43,24 @@ const MiniUserProfile = ({userInfo}: { userInfo : {
             console.log(error)
         }
     }
+
+    const handleUnfollow = async () => {
+        try{
+            const response = await unfollowUser({
+                userId : user?._id as string ,
+                targetedUserId : userInfo.authorId ,
+            })
+            if(response?.success){
+                toast.success('You unfollowed the user')
+              }
+
+        }catch(error){
+            toast.error("Something went wrong")
+            console.log(error)
+        }
+    }
+
+    console.log(latestAuthorData)
 
     return (
         <section className="hidden absolute top-8 left-0 group-hover:block z-50">
@@ -83,14 +103,21 @@ const MiniUserProfile = ({userInfo}: { userInfo : {
         
         <div className="flex mt-4 space-x-2">
               {/* for another user  */}
-          {latestAuthorData?.followers?.includes(user?._id as string) ? <><button className="flex-1 bg-blue-500  text-white py-1 px-4 rounded-full font-semibold">
-            Following
+          {latestAuthorData?.followers?.find(follower => follower?.email === user?.email) ? <>
+          
+          <button onClick={handleUnfollow}
+             className="flex-1 bg-gray-200 hover:bg-gray-300  text-gray-700 py-1 px-4 rounded-full font-semibold flex items-center gap-1 justify-center">
+            {!(followLoading || unFollowLoading) && <RiUserUnfollowLine />}  {(followLoading || unFollowLoading)?  <ClipLoader
+           color='#171A16'
+           size={16}
+           aria-label="Loading Spinner"
+           speedMultiplier={0.8} /> : 'Unfollow'}
           </button></> 
           
           : 
           <><button onClick={handleFollow} className="flex-1 font-semibold bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded-full">
            
-          {isLoading?  <ClipLoader
+          {(followLoading || unFollowLoading)?  <ClipLoader
            color='#ffffff'
            size={16}
            aria-label="Loading Spinner"

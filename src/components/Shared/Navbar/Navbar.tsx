@@ -3,9 +3,9 @@
 import DrawerNav from "./DrawerNavbar"
 import { HiOutlineMenu } from "react-icons/hi";
 import Link from "next/link";
-import { IoSettingsOutline } from "react-icons/io5";
+import { IoArrowRedoOutline, IoSettingsOutline } from "react-icons/io5";
 import { IoIosNotificationsOutline } from "react-icons/io";
-
+import { RiUserFill } from "react-icons/ri";
 import Container from "../Container";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -15,6 +15,7 @@ import { RxDashboard } from "react-icons/rx";
 import Cookies from 'js-cookie';
 import Image from "next/image";
 import { AiOutlineUserDelete } from "react-icons/ai";
+import { MdDashboardCustomize } from "react-icons/md";
 
 export default function Navbar() {
   const pathName = usePathname()
@@ -88,13 +89,13 @@ const logoutUser = () => {
       {user && <li className="text-lg p-2 border-b font-semibold rounded text-gray-600 flex items-center gap-2"> {user?.name || 'User'}  <Image width={200} height={200} alt="profile" tabIndex={0} src={user?.image || 'https://i.ibb.co/Ttgtb82/pngwing-com-15.png' } className="w-8 h-8 object-cover rounded-full border border-gray-300 p-[1px]" /></li>}
         
      <Link href={`/profile/${user?.email}`}>
-     <li className="text-base font-semibold cursor-pointer transition-all text-gray-500 p-1 rounded hover:text-blue-600" > Profile</li> </Link>
+     <li className="text-base font-semibold cursor-pointer transition-all text-gray-500 p-1 rounded hover:text-blue-600 flex items-center gap-2" > <RiUserFill /> Profile</li> </Link>
     
      <Link href={user?.role === 'admin'? '/admin-dashboard/statistics': '/user-dashboard/my-posts'}>
-     <li className="text-base font-semibold cursor-pointer transition-all text-gray-500 p-1 rounded hover:text-blue-600" >Dashboard</li> </Link>
+     <li className="text-base font-semibold cursor-pointer transition-all text-gray-500 p-1 rounded hover:text-blue-600 flex items-center gap-2" ><MdDashboardCustomize /> Dashboard</li> </Link>
     
 
-     <li onClick={logoutUser} className="text-base font-semibold cursor-pointer transition-all text-gray-600 p-1 rounded hover:underline" > Log out</li> 
+     <li onClick={logoutUser} className="text-base font-semibold cursor-pointer transition-all text-gray-600 p-1 rounded hover:text-blue-600 flex items-center gap-2" > <IoArrowRedoOutline/> Log out</li> 
 
     </ul>}
     </div>

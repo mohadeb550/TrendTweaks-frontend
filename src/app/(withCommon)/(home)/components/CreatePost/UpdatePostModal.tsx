@@ -125,6 +125,7 @@ export default function UpdatePostModal({ open, setOpen, postId} : TModalProps) 
               <option value='Software Engineering'>Software Engineering</option>
               <option value='AI'>AI</option>
               <option value='TEchnology'>Technology</option>
+              <option value='Others'>Others</option>
         </select>
 
       </div>
