@@ -180,7 +180,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
           <span className="text-gray-700">{comment?.comment}</span>
   
 
-  <div className="p-2  hidden group-hover:flex  text-gray-600 text-[13px]  rounded-lg ml-2 absolute top-0 right-6" > 
+              {user && <>  <div className="p-2  hidden group-hover:flex  text-gray-600 text-[13px]  rounded-lg ml-2 absolute top-0 right-6" > 
     <FaPen className="cursor-pointer"  onClick={()=>{
       setCommentForEdit(comment);
        setEditCommentModal(true)
@@ -188,7 +188,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
 
   </div>
 
-  <div className="p-2  hidden group-hover:flex  text-sm md:text-base rounded-lg ml-2 absolute top-0 right-0 "> <RiDeleteBin4Line className="cursor-pointer" onClick={() => deleteComment(comment?._id as string) } /></div>
+  <div className="p-2  hidden group-hover:flex  text-sm md:text-base rounded-lg ml-2 absolute top-0 right-0 "> <RiDeleteBin4Line className="cursor-pointer" onClick={() => deleteComment(comment?._id as string) } /></div></>}
 
          
           </div>

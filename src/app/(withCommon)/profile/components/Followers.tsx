@@ -9,9 +9,10 @@ import { toast } from "sonner";
 type TProps = {
     followers : TUser[];
     following : TUser[];
+    randomUserEmail : string;
 }
 
-const Followers  = ({ followers, following} : TProps) => {
+const Followers  = ({ followers, following, randomUserEmail} : TProps) => {
   const loggedUser = useAppSelector(state => state.auth.user)
   const [ unfollowUser , { isLoading: unFollowLoading }] = useUnFollowUserMutation();
 
@@ -61,12 +62,13 @@ const Followers  = ({ followers, following} : TProps) => {
                   <div className="w-full flex items-center justify-between gap-3">
                     <p className="font-medium text-gray-600">{user?.name}</p>
 
+                {loggedUser?.email === randomUserEmail && 
                     <button
                     onClick={()=> handleUnfollow(user?._id)} 
                      className="bg-blue-500 text-white px-2 md:px-3 py-2 text-sm md:text-sm rounded-md flex items-center font-semibold">
               <RiUserUnfollowLine className="mr-2" />
              Unfollow
-            </button>
+            </button>}
 
                   </div>
                 </div>

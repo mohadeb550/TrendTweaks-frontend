@@ -13,6 +13,8 @@ import { logout } from '@/redux/features/authentication/authSlice';
 import Cookies from 'js-cookie';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { BiSolidLogInCircle } from "react-icons/bi";
+import { BiLogIn } from "react-icons/bi";
 
 
 const FeaturesSidebar = () => {
@@ -35,7 +37,7 @@ const logoutUser = () => {
       <>
       {user?
       // for logged user   
-       <div className="w-64 bg-white p-1 lg:p-4 space-y-7">
+       <div className="w-52 xl:w-64 bg-white p-1 lg:p-4 space-y-7">
       {/* New Feeds Section */}
       <div className="space-y-4">
         <h2 className="text-gray-500 text-sm font-semibold">New Feeds</h2>
@@ -114,11 +116,11 @@ const logoutUser = () => {
         <h2 className="text-gray-500 text-sm font-semibold">Account</h2>
         <ul className="space-y-0 lg:space-y-6 flex flex-col items-start">
           <li className="flex items-center space-x-4">
-            <Link href="/settings" className="flex items-center space-x-4 hover:text-blue-500">
+            <Link href="/login" className="flex items-center space-x-4 hover:text-blue-500">
               <div className="p-2 rounded-full bg-gray-300 text-xl lg:text-2xl">
-                <FaCog className="text-white" />
+                <BiLogIn className="text-white" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Settings</span>
+              <span className="text-gray-700 font-medium hover:text-blue-600">Login</span>
             </Link>
           </li>
           <li className="flex items-center space-x-4">

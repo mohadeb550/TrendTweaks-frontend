@@ -2,7 +2,7 @@
 
 import { FaCheckCircle } from 'react-icons/fa';
 import { BsEnvelopeFill, BsThreeDots } from 'react-icons/bs';
-import { useFollowUserMutation, useGetSingleUserQuery } from '@/redux/features/user/userApi';
+import { useFollowUserMutation, useGetSingleUserQuery, useUnFollowUserMutation } from '@/redux/features/user/userApi';
 import { useAppSelector } from '@/redux/hooks';
 import { TUser } from '@/redux/features/authentication/authSlice';
 import Image from 'next/image';
@@ -11,7 +11,7 @@ import CreatePost from '../../(home)/components/CreatePost/CreatePost';
 import MyPosts from '../components/MyPosts';
 import { ClipLoader } from 'react-spinners';
 import { toast } from 'sonner';
-import { RiUserFollowLine } from "react-icons/ri";
+import { RiUserFollowLine, RiUserUnfollowLine } from "react-icons/ri";
 import { useState } from 'react';
 import EditProfileModal from '../components/EditProfileModal';
 import Followers from '../components/Followers';
@@ -20,7 +20,6 @@ const Profile = ({ params} : { params: { userEmail: string}}) => {
   const { userEmail } = params;
 
     const loggedUser = useAppSelector(state => state.auth.user)
-    const [ followUser , { isLoading }] = useFollowUserMutation();
     const [ editModal, setEditModal ] = useState(false);
 
     const { data } = useGetSingleUserQuery(userEmail);
@@ -28,6 +27,12 @@ const Profile = ({ params} : { params: { userEmail: string}}) => {
 
 
     const {email, image,memberShip,name, coverImg , followers, following} = userDetails;
+
+
+        // follow and unfollow 
+        const [ followUser , { isLoading: followLoading }] = useFollowUserMutation();
+        const [ unfollowUser , { isLoading: unFollowLoading }] = useUnFollowUserMutation();
+    
 
 
 
@@ -39,6 +44,22 @@ const Profile = ({ params} : { params: { userEmail: string}}) => {
           })
           if(response?.success){
               toast.success('You followed the user')
+            }
+
+      }catch(error){
+          toast.error("Something went wrong")
+          console.log(error)
+      }
+  }
+
+    const handleUnfollow = async () => {
+      try{
+          const response = await unfollowUser({
+              userId : loggedUser?._id as string ,
+              targetedUserId : userDetails?._id as string ,
+          })
+          if(response?.success){
+              toast.success('You unfollowed the user')
             }
 
       }catch(error){
@@ -86,16 +107,21 @@ const Profile = ({ params} : { params: { userEmail: string}}) => {
 
         {loggedUser?.email !== userDetails.email &&   <div className="flex items-center gap-3">
 
-          {userDetails?.followers?.includes(loggedUser?._id as string) ? <><h3 className="bg-blue-500 text-white px-2 md:px-4 py-2 text-sm md:text-base rounded-lg flex items-center font-semibold">
-            <RiUserFollowLine className="mr-2" />
-            Following
-          </h3></> 
+          {userDetails?.followers?.find(follower => follower?.email === loggedUser?.email) ? <>
+          
+          <button onClick={handleUnfollow}
+             className="bg-gray-200 px-2 md:px-4 py-2 text-sm md:text-base rounded-lg flex items-center font-semibold gap-2">
+            {!(followLoading || unFollowLoading) && <RiUserUnfollowLine />}  {(followLoading || unFollowLoading)?  <ClipLoader
+           color='#171A16'
+           size={16}
+           aria-label="Loading Spinner"
+           speedMultiplier={0.8} /> : 'Unfollow'}
+          </button></> 
           
           : 
-          <><button onClick={handleFollow} className="bg-blue-500 text-white px-2 md:px-4 py-2 text-sm md:text-base rounded-lg flex items-center font-semibold">
-             <RiUserFollowLine className="mr-2" />
+          <><button onClick={handleFollow} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 text-sm md:text-base rounded-lg flex items-center font-semibold gap-2">
            
-          {isLoading?  <ClipLoader
+          {(followLoading || unFollowLoading)?  <ClipLoader
            color='#ffffff'
            size={16}
            aria-label="Loading Spinner"
@@ -122,9 +148,9 @@ const Profile = ({ params} : { params: { userEmail: string}}) => {
           </div>
         </div>
 
-
+        {/* ranDomUserEmail passing in the <Followers> component is random means it's just a profile page, any account can be shown here  */}
       {/* Showing followers and following component  */}
-      <Followers followers={followers} following={following}/>
+      <Followers followers={followers} following={following} ranDomUserEmail={userDetails?.email}/>
   
   
         {/* Membership Section */}

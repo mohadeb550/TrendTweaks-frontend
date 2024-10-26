@@ -27,7 +27,7 @@ const CommonLayout = ({children} : {children : ReactNode}) => {
         {children}   
         </div>
 
-        {/* Right side bar  for only large screen  */}
+        {/* Right side bar  for only large screen and only for profile and feed */}
       {user &&  <div className="hidden lg:block">
        <RightSidebar/>
        </div>}

@@ -27,6 +27,9 @@ export default function Login({setOpen} : TProps) {
   const router = useRouter();
   const [ loading , setLoading ] = useState(false)
 
+  // demo credentials for testing 
+  const [ demoUser, setDemoUser ] = useState({})
+
 
 
   const handleLogin = async (e: any) => {
@@ -75,6 +78,18 @@ export default function Login({setOpen} : TProps) {
     <div className="hero-content flex-col w-full p-0">
 
       <div className="text-center lg:text-left">
+
+      {/* Login with Demo Accound  */}
+      <div className="border rounded-lg p-1 bg-yellow-300 mt-3">
+      <h1 className="text-lg lg:text-xl text-lime-600  px-6 py-3 font-bold ">Login With Demo For testing</h1>
+
+   <div className="flex items-center justify-center ">
+   <button onClick={()=> setDemoUser({ email: 'demoUser@gmail.com', password: '12345En$'})} className="bg-yellow-500 p-1 rounded-md text-sm lg:text-base text-black font-semibold mr-5">Login As User</button>
+   <button onClick={()=> setDemoUser({ email: 'demoAdmin@gmail.com', password: '12345En$'})} className="bg-yellow-500 p-1 rounded-md text-sm lg:text-base text-black font-semibold">Login As Admin</button>
+   </div>
+      </div>
+
+
         <h1 className="text-3xl lg:text-4xl text-gray-700  px-6 py-3 font-bold text-center carter-one-regular">Login your account</h1>
       </div>
 
@@ -86,7 +101,10 @@ export default function Login({setOpen} : TProps) {
 
           <div className="mb-5">
            <div className="relative flex items-center">
-           <input onChange={() => setErrors({emailError:'', passwordError: ''})}  type="email" placeholder="Email" className="w-full py-3 pl-12 pr-3 outline-none border-2 rounded-md bg-white border-gray-200 text-gray-700 focus:border-blue-600 " name="email" />
+           <input onChange={() => setErrors({emailError:'', passwordError: ''})}  type="email" placeholder="Email" className="w-full py-3 pl-12 pr-3 outline-none border-2 rounded-md bg-white border-gray-200 text-gray-700 focus:border-blue-600 " name="email" 
+           
+           defaultValue={demoUser?.email || ""}
+           />
            <span className="text-2xl absolute left-4 text-gray-300"> <AiOutlineMail/></span>
            </div>
 
@@ -96,7 +114,9 @@ export default function Login({setOpen} : TProps) {
 
           <div className="mb-4">
             <div className="relative flex items-center">
-            <input  onChange={() => setErrors({emailError:'', passwordError: ''})} type="text" placeholder="Password" className="w-full py-3 pl-12 pr-3 outline-none border-2 rounded-md bg-white border-gray-200 text-gray-700 focus:border-blue-600 " name="password" />
+            <input  onChange={() => setErrors({emailError:'', passwordError: ''})} type="text" placeholder="Password" className="w-full py-3 pl-12 pr-3 outline-none border-2 rounded-md bg-white border-gray-200 text-gray-700 focus:border-blue-600 " name="password"
+             defaultValue={demoUser?.password || ""}
+            />
             <span className="text-2xl absolute left-4 text-gray-300"> <GoUnlock/></span>
             </div>
 

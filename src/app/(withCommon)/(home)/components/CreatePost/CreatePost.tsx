@@ -38,27 +38,7 @@ export default function CreatePost() {
         
       </div>
 
-      {/* Action Buttons Section */}
-      <div className="flex justify-between items-center">
-        <button className="flex items-center space-x-1 text-red-500 hover:bg-red-100 p-2 rounded-lg">
-          <FaVideo className="text-base md:text-xl" />
-          <span className="text-xs md:text-sm font-medium">Live Video</span>
-        </button>
 
-        <button className="flex items-center space-x-1 text-green-500 hover:bg-green-100 p-2 rounded-lg">
-          <FaCamera className="text-base md:text-xl" />
-          <span className="text-xs md:text-sm font-medium">Photo/Video</span>
-        </button>
-
-        <button className="flex items-center space-x-1 text-orange-500 hover:bg-orange-100 p-2 rounded-lg">
-          <FaSmile className="text-base md:text-xl" />
-          <span className="text-xs md:text-sm font-medium">Feeling/Activity</span>
-        </button>
-
-        <button className="hidden md:block text-gray-500 hover:bg-gray-100 p-2 rounded-lg">
-          <FaEllipsisH className="text-base md:text-xl" />
-        </button>
-      </div>
     </div>
     )
   }

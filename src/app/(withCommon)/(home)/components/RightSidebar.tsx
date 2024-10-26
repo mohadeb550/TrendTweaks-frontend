@@ -7,6 +7,8 @@ import { useAppSelector } from '@/redux/hooks';
 import { toast } from 'sonner';
 import { ClipLoader } from 'react-spinners';
 import { FaUserPlus } from "react-icons/fa6";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 
 const RightSidebar = () => {
@@ -16,6 +18,8 @@ const RightSidebar = () => {
 
     const userDetails : TUser = data?.data || {};
 
+    // get the route for displaying the rightsidebar conditionally 
+    const pathName = usePathname();
 
     // follow and unfollow 
     const [ followUser , { isLoading: followLoading }] = useFollowUserMutation();
@@ -76,11 +80,13 @@ const RightSidebar = () => {
 
 
     return (
-        <div className="w-72  space-y-4 ">
+     <>
+     {(pathName?.includes('profile') || pathName === '/') &&  <>
+        <div className=" lg:w-60 xl:w-72  space-y-4 ">
           {/* Following Section */}
         
       {following?.length?  <div className='bg-white p-4 rounded-lg '>  
-            <h2 className="text-lg text-gray-500 font-semibold mb-4">Following ({following?.length})</h2>
+            <h2 className="xl:text-lg text-gray-500 font-semibold mb-4">Following ({following?.length})</h2>
 
          <div className="space-y-4 max-h-64 overflow-y-scroll scrollbar-hide relative">
 
@@ -94,17 +100,22 @@ const RightSidebar = () => {
           
 
               {following?.map(user => (
-                <div key={user?._id} className="flex items-center space-x-4 pb-2 border-b ">
+                <div key={user?._id} className="flex items-center lg:space-x-2 xl:space-x-4 pb-2 border-b ">
+                  <Link href={`/profile/${user?.email}`} > 
+                  <div className='size-9 xl:size-11 '>
                   <Image width={50} height={50}
                     src={user?.image}
                     alt={user?.name}
-                    className="w-11 h-11 rounded-full object-cover"
+                    className=" w-full h-full rounded-full object-cover"
                   />
+                  </div>
+                  </Link>
+                
                   <div className="w-full flex items-center justify-between gap-3">
-                    <p className="font-medium text-gray-600">{user?.name}</p>
+                    <p className="font-medium text-gray-500">{user?.name}</p>
 
                     <button onClick={()=> handleUnfollow(user?._id)}
-             className=" bg-gray-200 hover:bg-gray-300  text-gray-600 py-1 px-2 rounded-full font-semibold flex items-center gap-1 justify-center">
+             className=" bg-gray-200 hover:bg-gray-300  text-gray-600 py-1 lg:px-1 xl:px-2 rounded-md lg:text-sm xl:text-base font-semibold flex items-center gap-1 justify-center">
             <RiUserUnfollowLine />Unfollow  
           </button>
 
@@ -119,7 +130,7 @@ const RightSidebar = () => {
 
           {/* All other users  */}
          <div className='rounded-lg  bg-white p-4'> 
-            <h2 className="text-lg text-gray-500 font-semibold mb-4  ">People you can follow</h2>
+            <h2 className="xl:text-lg text-gray-500 font-semibold mb-4  ">People you can follow</h2>
 
          <div className="space-y-4 max-h-[525px] overflow-y-scroll scrollbar-hide relative">
 
@@ -133,17 +144,22 @@ const RightSidebar = () => {
           
 
               {filterUsers?.map((user: TUser) => (
-                <div key={user?._id} className="flex items-center space-x-4 pb-2 border-b ">
+                <div key={user?._id} className="flex items-center lg:space-x-2 xl:space-x-4 pb-2 border-b ">
+                  
+                  <Link href={`/profile/${user?.email}`} > 
+                  <div className='size-9 xl:size-11 '>
                   <Image width={50} height={50}
                     src={user?.image}
                     alt={user?.name}
-                    className="w-11 h-11 rounded-full object-cover"
+                    className=" w-full h-full rounded-full object-cover"
                   />
+                  </div>
+                  </Link>
                   <div className="w-full flex items-center justify-between gap-3">
-                    <p className="font-medium text-gray-600">{user?.name}</p>
+                    <p className="font-medium text-gray-500">{user?.name}</p>
 
                     <button onClick={()=> handleFollow(user?._id)}
-             className=" bg-blue-500 hover:bg-blue-600  text-white py-1 px-3 rounded-full font-semibold flex items-center gap-1 justify-center">
+             className=" bg-blue-500 hover:bg-blue-600  text-white py-1 px-2 xl:px-3 rounded-md lg:text-sm xl:text-base font-semibold flex items-center gap-1 justify-center">
              <FaUserPlus /> Follow
           </button>
 
@@ -152,7 +168,8 @@ const RightSidebar = () => {
               ))}
           </div>  
          </div>
-      </div>
+      </div></>}
+     </>
     );
 };
 

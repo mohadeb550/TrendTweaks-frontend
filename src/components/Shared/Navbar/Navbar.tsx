@@ -49,9 +49,9 @@ const logoutUser = () => {
     <>
 
   <div className={`bg-white `} >
-  <Container>
 
-<section className={`flex justify-between md:pt-2  h-16 md:h-[96px] bg-white `}>
+
+<section className={`max-w-[1500px] mx-auto px-4 flex justify-between md:pt-2  h-16 md:h-[96px] bg-white `}>
 
 {/* logo section  */}
 <div className="flex items-center gap-1" >
@@ -68,7 +68,7 @@ const logoutUser = () => {
 <div className="flex items-center justify-center  gap-2 z-50">
 
 {/* cart  */}  
-<div className="mr-3 md:mr-5 rounded-full text-xl md:text-[22px] lg:text-2xl text-black flex gap-5 md:gap-6 items-center ">
+<div className="mr-3 md:mr-5 lg:mr-0 rounded-full text-xl md:text-[22px] lg:text-2xl text-black flex gap-5 md:gap-6 items-center ">
 
 
     {user && <div className="flex items-center gap-3 md:gap-6 text-2xl md:text-[26px] text-gray-500">
@@ -110,7 +110,6 @@ const logoutUser = () => {
 </div>
 
 </section>
-  </Container>
 </div>
    </>
   )
