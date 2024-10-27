@@ -16,6 +16,7 @@ import Cookies from 'js-cookie';
 import Image from "next/image";
 import { AiOutlineUserDelete } from "react-icons/ai";
 import { MdDashboardCustomize } from "react-icons/md";
+import DarkModeToggle from "./DarkMode";
 
 export default function Navbar() {
   const pathName = usePathname()
@@ -72,8 +73,10 @@ const logoutUser = () => {
 
 
     {user && <div className="flex items-center gap-3 md:gap-6 text-2xl md:text-[26px] text-gray-500 dark:text-gray-400">
+      <DarkModeToggle/>
+
       <span><IoIosNotificationsOutline></IoIosNotificationsOutline> </span>
-      <span className= "text-xl md:text-[23px] xl:text-2xl"><RxDashboard></RxDashboard> </span>
+      <span className= "text-xl md:text-[23px] xl:text-2xl hidden md:block"><RxDashboard></RxDashboard> </span>
       <span className="hidden md:block"><IoSettingsOutline></IoSettingsOutline> </span>
       </div>}
 
