@@ -11,7 +11,7 @@ import CreatePost from '../../(home)/components/CreatePost/CreatePost';
 import MyPosts from '../components/MyPosts';
 import { ClipLoader } from 'react-spinners';
 import { toast } from 'sonner';
-import { RiUserFollowLine, RiUserUnfollowLine } from "react-icons/ri";
+import { RiUserUnfollowLine } from "react-icons/ri";
 import { useState } from 'react';
 import EditProfileModal from '../components/EditProfileModal';
 import Followers from '../components/Followers';

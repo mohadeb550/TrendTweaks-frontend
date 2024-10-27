@@ -2,7 +2,7 @@
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import Link from 'next/link';
-import { FaTv, FaUserCircle, FaCalendarAlt, FaCog } from 'react-icons/fa';
+import { FaTv, FaUserCircle, FaCalendarAlt } from 'react-icons/fa';
 import { GoPackage } from "react-icons/go";
 import { RxDashboard } from "react-icons/rx";
 import { SiHomeadvisor } from "react-icons/si";
@@ -13,7 +13,6 @@ import { logout } from '@/redux/features/authentication/authSlice';
 import Cookies from 'js-cookie';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
-import { BiSolidLogInCircle } from "react-icons/bi";
 import { BiLogIn } from "react-icons/bi";
 
 

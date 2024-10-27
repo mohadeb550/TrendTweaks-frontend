@@ -6,7 +6,6 @@ import Link from "next/link";
 import { IoArrowRedoOutline, IoSettingsOutline } from "react-icons/io5";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { RiUserFill } from "react-icons/ri";
-import Container from "../Container";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { logout } from "@/redux/features/authentication/authSlice";
@@ -16,7 +15,7 @@ import Cookies from 'js-cookie';
 import Image from "next/image";
 import { AiOutlineUserDelete } from "react-icons/ai";
 import { MdDashboardCustomize } from "react-icons/md";
-import DarkModeToggle from "./DarkMode";
+// import DarkModeToggle from "./DarkMode";
 
 export default function Navbar() {
   const pathName = usePathname()
@@ -73,7 +72,7 @@ const logoutUser = () => {
 
 
     {user && <div className="flex items-center gap-3 md:gap-6 text-2xl md:text-[26px] text-gray-500 dark:text-gray-400">
-      <DarkModeToggle/>
+      {/* <DarkModeToggle/> */}
 
       <span><IoIosNotificationsOutline></IoIosNotificationsOutline> </span>
       <span className= "text-xl md:text-[23px] xl:text-2xl hidden md:block"><RxDashboard></RxDashboard> </span>
@@ -82,7 +81,7 @@ const logoutUser = () => {
 
     <div className="dropdown dropdown-end flex items-center justify-center gap-2 z-20">
     
-    {!user && <Link href={'/register'}> <button className="px-2 md:px-8 text-[13px] md:text-sm  md:py-2 rounded-md transition bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-900 flex items-center font-semibold gap-2 whitespace-nowrap"><AiOutlineUserDelete className="text-lg"/> Sign Up</button></Link>}
+    {!user && <Link href={'/login'}> <button className="px-2 md:px-8 text-[13px] md:text-sm  md:py-2 rounded-md transition bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-900 flex items-center font-semibold gap-2 whitespace-nowrap"><AiOutlineUserDelete className="text-lg"/>Login</button></Link>}
     
     <div className={`z-30 w-9 md:w-10 rounded-full p-[2px]  ${!user && 'hidden'}`}>
       {user && <Image width={200} height={200} alt="profile" tabIndex={0} src={user?.image || 'https://i.ibb.co/Ttgtb82/pngwing-com-15.png' } className="dropdown size-8 lg:size-9 object-cover cursor-pointer rounded-full border border-zinc-400 p-[1px]" />}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import Image from 'next/image';
 import { RiUserUnfollowLine } from 'react-icons/ri';
@@ -14,7 +15,7 @@ import { usePathname } from 'next/navigation';
 const RightSidebar = () => {
     const loggedUser = useAppSelector(state => state.auth.user)
     const { data } = useGetSingleUserQuery(loggedUser?.email as string);
-    const { data: allUserData, isLoading } = useGetUsersQuery({role : 'user'});
+    const { data: allUserData} = useGetUsersQuery({role : 'user'});
 
     const userDetails : TUser = data?.data || {};
 

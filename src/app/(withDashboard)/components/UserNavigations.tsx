@@ -6,6 +6,7 @@ import { VscHistory } from "react-icons/vsc";
 import { TfiLayoutListPost } from "react-icons/tfi";
 import { SlUserFollowing } from "react-icons/sl";
 import { SiSimpleanalytics } from "react-icons/si";
+import { PiCards } from "react-icons/pi";
 
 const UserNavigations = () => {
     const pathName = usePathname();
@@ -33,6 +34,15 @@ const UserNavigations = () => {
                   <TfiLayoutListPost className="text-white" />
                 </div>
                 <span className=" font-medium hover:text-blue-600 dark:text-gray-300">My Posts</span>
+              </Link>
+            </li>
+
+            <li className="flex items-center space-x-4">
+              <Link href="/user-dashboard/my-membership" className={`flex items-center space-x-4 hover:text-blue-500 ${pathName === '/user-dashboard/my-membership'? 'text-blue-500': 'text-gray-700'}`}>
+                <div className={`p-2 rounded-full ${pathName === '/user-dashboard/my-membership' ? 'bg-blue-500': 'p-2 rounded-full bg-gray-300 dark:bg-gray-700 text-xl lg:text-2xl'} text-xl lg:text-2xl`}>
+                  <PiCards className="text-white" />
+                </div>
+                <span className=" font-medium hover:text-blue-600 dark:text-gray-300">Your Membership</span>
               </Link>
             </li>
 

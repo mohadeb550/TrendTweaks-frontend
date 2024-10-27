@@ -16,7 +16,7 @@ const TextEditor = ({ description ='', setLatestDescription}: TProps) => {
 
     setIsDarkMode(darkModeQuery.matches);
   
-    const handleSystemThemeChange = (e: any) => setIsDarkMode(e.matches);
+    const handleSystemThemeChange = (e) => setIsDarkMode(e.matches);
     darkModeQuery.addEventListener('change', handleSystemThemeChange);
 
     return () => darkModeQuery.removeEventListener('change', handleSystemThemeChange);
