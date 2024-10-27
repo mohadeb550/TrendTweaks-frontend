@@ -12,10 +12,10 @@ const CommonLayout = ({children} : {children : ReactNode}) => {
   const user = useAppSelector(state => state.auth.user)
 
     return (
-        <section className="fixed w-full h-screen">
+        <section className="fixed w-full h-screen dark:bg-gray-900 bg-white">
         <Navbar/>
       
-      <section className="flex max-w-[1500px] mx-auto rounded-xl gap-5 xl:gap-10 relative bg-[#F8F9FB] p-4" >
+      <section className="flex max-w-[1500px] mx-auto rounded-xl gap-5 xl:gap-10 relative bg-[#F8F9FB] dark:bg-gray-900 p-4" >
         
        {user &&  <div className="hidden lg:block w-72">
           <Sidebar> 

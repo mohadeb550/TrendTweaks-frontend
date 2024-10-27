@@ -5,11 +5,11 @@ import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 
 const page = () => {
   return (
-    <div className="bg-white rounded-xl py-10 px-5">
+    <div className="bg-white dark:bg-gray-800 rounded-xl py-10 px-5">
       {/* Page Header */}
       <div className="container mx-auto text-center">
-        <h1 className="text-4xl font-bold text-gray-800 mb-5">Contact Us</h1>
-        <p className="text-gray-600 text-lg">
+        <h1 className="text-4xl font-bold text-gray-800 mb-5 dark:text-gray-400">Contact Us</h1>
+        <p className="text-gray-600 text-lg dark:text-gray-400">
           Have any questions or inquiries? Wed love to hear from you!
         </p>
       </div>
@@ -17,39 +17,39 @@ const page = () => {
       {/* Contact Form & Information */}
       <div className="container mx-auto mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Contact Form */}
-        <div className="bg-white p-8 rounded-lg shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Send Us a Message</h2>
+        <div className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-sm">
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-400 mb-6">Send Us a Message</h2>
           <form className="space-y-6">
             <div>
-              <label htmlFor="name" className="block text-gray-700">Full Name</label>
+              <label htmlFor="name" className="block text-gray-700 dark:text-gray-400">Full Name</label>
               <input
                 type="text"
                 id="name"
-                className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full mt-2 p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your full name"
               />
             </div>
             <div>
-              <label htmlFor="email" className="block text-gray-700">Email Address</label>
+              <label htmlFor="email" className="block text-gray-700 dark:text-gray-400">Email Address</label>
               <input
                 type="email"
                 id="email"
-                className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full mt-2 p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your email address"
               />
             </div>
             <div>
-              <label htmlFor="message" className="block text-gray-700">Your Message</label>
+              <label htmlFor="message" className="block text-gray-700 dark:text-gray-400">Your Message</label>
               <textarea
                 id="message"
-                className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full mt-2 p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 rows={5}
                 placeholder="Write your message here"
               />
             </div>
             <button
               type="submit"
-              className="w-full p-3 bg-indigo-500 text-white font-bold rounded-lg hover:bg-indigo-600 transition-colors duration-300"
+              className="w-full p-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors duration-300"
             >
               Send Message
             </button>
@@ -57,7 +57,7 @@ const page = () => {
         </div>
 
         {/* Contact Information */}
-        <div className="bg-indigo-500 p-8 rounded-lg shadow-lg text-white">
+        <div className="bg-blue-600 p-8 rounded-lg shadow-lg text-white">
           <h2 className="text-2xl font-bold mb-6">Contact Information</h2>
           <p className="mb-4">Feel free to get in touch with us through any of the following contact details:</p>
           <div className="space-y-4">

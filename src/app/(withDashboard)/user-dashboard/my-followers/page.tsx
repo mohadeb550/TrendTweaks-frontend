@@ -19,25 +19,25 @@ const MyFollowers = () => {
         <h1 className="text-3xl font-bold mb-6">User Dashboard</h1>
 
         {/* Followers Table */}
-        <div className="bg-white shadow-md rounded-xl p-6 mb-4">
+        <div className="bg-white dark:bg-gray-800 shadow-md rounded-xl p-6 mb-4">
             <h2 className="text-2xl font-semibold flex items-center mb-4">
                 <FaUserFriends className="mr-2" />
                 Followers
             </h2>
             <p className="text-blue-500">Total Followers: {followers?.length}</p>
             <div className="overflow-x-auto mt-4">
-                <table className="min-w-full border-collapse border border-gray-300">
+                <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700">
                     <thead>
-                        <tr className="bg-gray-100">
-                            <th className="p-4 border border-gray-300">Image</th>
-                            <th className="p-4 border border-gray-300">Name</th>
-                            <th className="p-4 border border-gray-300">Email</th>
+                        <tr className="bg-gray-100 dark:bg-gray-800 ">
+                            <th className="p-4 border border-gray-300 dark:border-gray-700">Image</th>
+                            <th className="p-4 border border-gray-300 dark:border-gray-700">Name</th>
+                            <th className="p-4 border border-gray-300 dark:border-gray-700">Email</th>
                         </tr>
                     </thead>
                     <tbody>
                         {followers?.map((follower) => (
-                            <tr key={follower?._id} className="hover:bg-gray-50">
-                                <td className="p-4 border border-gray-300">
+                            <tr key={follower?._id} className="hover:bg-gray-50 hover:dark:bg-gray-900">
+                                <td className="p-4 border border-gray-300 dark:border-gray-700">
                                     <Image
                                         src={follower?.image}
                                         alt={follower?.name}
@@ -46,8 +46,8 @@ const MyFollowers = () => {
                                         className="rounded-full"
                                     />
                                 </td>
-                                <td className="p-4 border border-gray-300">{follower?.name}</td>
-                                <td className="p-4 border border-gray-300">{follower?.email}</td>
+                                <td className="p-4 border border-gray-300 dark:border-gray-700">{follower?.name}</td>
+                                <td className="p-4 border border-gray-300 dark:border-gray-700">{follower?.email}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -56,25 +56,25 @@ const MyFollowers = () => {
         </div>
 
         {/* Following Table */}
-        <div className="bg-white shadow-md rounded-xl p-6">
+        <div className="bg-white dark:bg-gray-800  shadow-md rounded-xl p-6">
             <h2 className="text-2xl font-semibold flex items-center mb-4">
                 <FaUserPlus className="mr-2" />
                 Following
             </h2>
             <p className="text-blue-500">Total Following: {following?.length}</p>
             <div className="overflow-x-auto mt-4">
-                <table className="min-w-full border-collapse border border-gray-300">
+                <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700">
                     <thead>
-                        <tr className="bg-gray-100">
-                            <th className="p-4 border border-gray-300">Image</th>
-                            <th className="p-4 border border-gray-300">Name</th>
-                            <th className="p-4 border border-gray-300">Email</th>
+                        <tr className="bg-gray-100 dark:bg-gray-800 ">
+                            <th className="p-4 border border-gray-300 dark:border-gray-700">Image</th>
+                            <th className="p-4 border border-gray-300 dark:border-gray-700">Name</th>
+                            <th className="p-4 border border-gray-300 dark:border-gray-700">Email</th>
                         </tr>
                     </thead>
                     <tbody>
                         {following?.map((followedUser) => (
-                            <tr key={followedUser?._id} className="hover:bg-gray-50">
-                                <td className="p-4 border border-gray-300">
+                            <tr key={followedUser?._id} className="hover:bg-gray-50  hover:dark:bg-gray-900">
+                                <td className="p-4 border border-gray-300 dark:border-gray-700">
                                     <Image
                                         src={followedUser?.image}
                                         alt={followedUser?.name}
@@ -83,8 +83,8 @@ const MyFollowers = () => {
                                         className="rounded-full"
                                     />
                                 </td>
-                                <td className="p-4 border border-gray-300">{followedUser?.name}</td>
-                                <td className="p-4 border border-gray-300">{followedUser?.email}</td>
+                                <td className="p-4 border border-gray-300 dark:border-gray-700">{followedUser?.name}</td>
+                                <td className="p-4 border border-gray-300 dark:border-gray-700">{followedUser?.email}</td>
                             </tr>
                         ))}
                     </tbody>

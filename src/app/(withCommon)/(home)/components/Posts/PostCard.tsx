@@ -77,7 +77,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
     
 
   return (
-    <div  ref={contentRef} className="bg-white rounded-xl shadow-md p-6 w-full mx-auto lg:mb-6">
+    <div  ref={contentRef} className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 w-full mx-auto lg:mb-6">
     {/* Header with User Info */}
   
    <div className="flex items-center mb-4">
@@ -91,8 +91,8 @@ const reactToPrintFn = useReactToPrint({ contentRef });
       </section>
 
       <div className="ml-3">
-        <h2 className="text-lg font-semibold">{authorInfo?.name}</h2>
-        <p className="text-sm md:text-base text-gray-500">{category} • <time className=" text-gray-500">
+        <h2 className="text-lg font-semibold dark:text-gray-300">{authorInfo?.name}</h2>
+        <p className="text-sm md:text-base text-gray-500 dark:text-gray-400">{category} • <time className=" text-gray-500 dark:text-gray-400">
       <TimeAgo date={createdAt!} />
       </time></p>
       </div>
@@ -100,13 +100,13 @@ const reactToPrintFn = useReactToPrint({ contentRef });
         
         {isPremium && <MdStars className="text-orange-500 cursor-pointer text-2xl" />}
 
-        <button onClick={()=> reactToPrintFn()}> <AiFillPrinter className="text-gray-600 cursor-pointer text-2xl "/></button>
+        <button onClick={()=> reactToPrintFn()}> <AiFillPrinter className="text-gray-600 dark:text-gray-400 cursor-pointer text-2xl "/></button>
 
       </div>
     </div>
     
     {/* Post Description */}
-    <div className=" text-gray-700 mb-4 text-base lg:text-lg"
+    <div className=" text-gray-700 dark:text-gray-400 mb-4 text-base lg:text-lg"
       dangerouslySetInnerHTML={{ __html: description}}
     >
     </div>
@@ -121,18 +121,18 @@ const reactToPrintFn = useReactToPrint({ contentRef });
  
 
   {/* Likes, Dislikes, Comments, Rating, and Share Section */}
-  <div className="flex justify-between items-center mt-4 border-y py-2">
+  <div className="flex justify-between items-center mt-4 border-y dark:border-gray-600 py-2">
         <div className="flex space-x-6 text-gray-600">
 
           <VoteSection postId={_id as string} userId={user?._id as string} votes={votes!} voters={voters!}/>
          
-          <div className="flex items-center gap-3 bg-gray-200/50 rounded-full px-3 py-1">
+          <div className="flex items-center gap-3 bg-gray-200/50 dark:bg-gray-900 rounded-full px-3 py-1">
             <BiCommentDetail className="cursor-pointer text-lg xl:text-xl text-gray-500" />
-            <span className="font-semibold text-gray-600">{comments?.length}</span>
+            <span className="font-semibold text-gray-600 dark:text-gray-400">{comments?.length}</span>
           </div>
           
         </div>
-        <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-800 transition-colors">
+        <button className="flex items-center space-x-2 text-gray-600 dark:text-gray-400 hover:text-gray-300 transition-colors">
           <FaShare className="cursor-pointer hover:scale-110 transition-transform" />
           <span>Share</span>
         </button>
@@ -141,7 +141,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
 
      {/* Main comment section */}
      <div className="flex flex-col space-y-2 pb-2 md:pb-4 my-3 relative">
-     <h4 className="font-semibold text-gray-600 cursor-pointer">View more comments</h4>
+     <h4 className="font-semibold text-gray-600 dark:text-gray-400 cursor-pointer">View more comments</h4>
 
 
 
@@ -174,13 +174,13 @@ const reactToPrintFn = useReactToPrint({ contentRef });
 
         <div className="flex flex-col flex-wrap">
           {/* User Info */}
-          <div className=" bg-gray-100 flex flex-col flex-wrap rounded-xl group px-3 relative">
+          <div className=" bg-gray-100 dark:bg-gray-900/60 flex flex-col flex-wrap rounded-xl group px-3 relative">
             <h4 className="font-semibold">{comment?.userInfo?.name}</h4>
               {/* Comment Text */}
-          <span className="text-gray-700">{comment?.comment}</span>
+          <span className="text-gray-700 dark:text-gray-400">{comment?.comment}</span>
   
 
-              {user && <>  <div className="p-2  hidden group-hover:flex  text-gray-600 text-[13px]  rounded-lg ml-2 absolute top-0 right-6" > 
+              {user && <>  <div className="p-2  hidden group-hover:flex  text-gray-600 dark:text-gray-400 text-[13px]  rounded-lg ml-2 absolute top-0 right-6" > 
     <FaPen className="cursor-pointer"  onClick={()=>{
       setCommentForEdit(comment);
        setEditCommentModal(true)
@@ -194,15 +194,15 @@ const reactToPrintFn = useReactToPrint({ contentRef });
           </div>
 
           {/* Like & Reply Actions */}
-          <div className="flex items-center space-x-4 text-gray-500 text-sm mt-1">
-          <span className="text-gray-500 font-semibold text-sm">  <TimeAgo date={comment.createdAt!} /></span>
+          <div className="flex items-center space-x-4 text-gray-500 dark:text-gray-400 text-sm mt-1">
+          <span className="text-gray-500 dark:text-gray-400 font-semibold text-sm">  <TimeAgo date={comment.createdAt!} /></span>
 
             <h2 className="flex items-center space-x-1 hover:text-gray-700">
-              <FaThumbsUp className="text-gray-500" />
+              <FaThumbsUp className="text-gray-500 dark:text-gray-400" />
               <span>Like</span>
             </h2>
             <h2 className="flex items-center space-x-1 hover:text-gray-700">
-              <FaReply className="text-gray-500" />
+              <FaReply className="text-gray-500 dark:text-gray-400" />
               <span>Reply</span>
             </h2>
           </div>
@@ -226,7 +226,7 @@ const reactToPrintFn = useReactToPrint({ contentRef });
     </div>
     
       <textarea {...register("newComment")}
-        className="flex-1 h-9 md:h-11 border rounded-lg p-1 md:p-2 px-3 focus:outline-none"
+        className="flex-1 h-9 md:h-11 dark:bg-gray-900/50 border dark:border-gray-700 rounded-lg p-1 md:p-2 px-3 focus:outline-none"
         placeholder="Add a comment..."
          data-gramm="false"
       />

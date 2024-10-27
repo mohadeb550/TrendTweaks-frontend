@@ -88,12 +88,12 @@ export default function UpdatePostModal({ open, setOpen, postId} : TModalProps) 
   }
 
   return (
-    <section className="w-screen fixed top-0 left-0 right-0 bottom-0 z-50  bg-black/20 backdrop-blur-sm flex justify-center py-10 overflow-y-auto px-4">  
+    <section className="w-screen fixed top-0 left-0 right-0 bottom-0 z-50  bg-black/20 backdrop-blur-sm dark:backdrop-blur-lg flex justify-center py-10 overflow-y-auto px-4">  
        
-       <form className="w-full md:w-[700px] h-fit md:p-2 bg-white rounded-md relative" onSubmit={handleSubmit(onSubmit)}>
+       <form className="w-full md:w-[700px] h-fit md:p-2 dark:bg-gray-800 bg-white rounded-md relative" onSubmit={handleSubmit(onSubmit)}>
 
         {/* loading white layer  */}
-      {(isLoading || dataGetLoading) && <div className="w-full h-full absolute top-0 left-0 right-0 bottom-0 z-50 bg-white/80 rounded-md flex justify-center items-center"> 
+      {(isLoading || dataGetLoading) && <div className="w-full h-full absolute top-0 left-0 right-0 bottom-0 z-50 bg-white/80 dark:bg-black/30 rounded-md flex justify-center items-center"> 
         <ClipLoader
            color='#3B82F6'
           //  cssOverride={override}
@@ -110,7 +110,7 @@ export default function UpdatePostModal({ open, setOpen, postId} : TModalProps) 
         <input {...register("title")}
           type="text"
           placeholder="Post Title"
-          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
@@ -119,7 +119,7 @@ export default function UpdatePostModal({ open, setOpen, postId} : TModalProps) 
         <FaListAlt className="text-green-500 text-xl" />
        
 
-        <select className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-400" {...register("category")} >
+        <select className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-400" {...register("category")} >
               <option disabled selected>Select Category</option>
               <option value='Web'>Web</option>
               <option value='Software Engineering'>Software Engineering</option>
@@ -175,7 +175,7 @@ export default function UpdatePostModal({ open, setOpen, postId} : TModalProps) 
           <input {...register("image1")}
             type="text"
             placeholder="Image URL 1"
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+            className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
           />
         </div>
         <div className="flex items-center space-x-3">
@@ -183,7 +183,7 @@ export default function UpdatePostModal({ open, setOpen, postId} : TModalProps) 
           <input {...register("image2")}
             type="text"
             placeholder="Image URL 2"
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+            className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
           />
         </div>
         <div className="flex items-center space-x-3">
@@ -191,7 +191,7 @@ export default function UpdatePostModal({ open, setOpen, postId} : TModalProps) 
           <input {...register("image3")}
             type="text"
             placeholder="Image URL 3"
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+            className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
           />
         </div>
       </div>
@@ -202,7 +202,7 @@ export default function UpdatePostModal({ open, setOpen, postId} : TModalProps) 
 <button type="submit" className="px-8 text-sm lg:text-base mb-5 md:mb-4
  mx-3 py-2 md:py-2 font-semibold text-white rounded transition bg-blue-600 hover:bg-blue-700 ">Modify</button>
 
-<button onClick={() => setOpen(!open)} className="px-8 text-sm lg:text-base mr-3 py-2 md:py-2 font-semibold text-gray-600 rounded transition bg-gray-200 hover:bg-gray-300 "> Close </button>
+<button onClick={() => setOpen(!open)} className="px-8 text-sm lg:text-base mr-3 py-2 md:py-2 font-semibold text-gray-600 rounded transition bg-gray-200 dark:bg-gray-700 hover:dark:bg-gray-600 dark:text-gray-300 hover:bg-gray-300 "> Close </button>
 </form>
        
        </section>

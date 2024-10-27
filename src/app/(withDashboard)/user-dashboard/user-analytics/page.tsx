@@ -49,62 +49,57 @@ const commentsData = {
 
 const Dashboard = () => {
   return (
-    <div className="p-6 bg-white min-h-screen">
+    <div className="p-6 bg-white dark:bg-gray-800 rounded-lg min-h-screen">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl xl:text-3xl font-bold">Analytics</h1>
-        {/* <div className="space-x-4">
-          <button className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded">Week</button>
-          <button className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded">Month</button>
-          <button className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded">Year</button>
-        </div> */}
       </div>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-gray-100/70 p-4 rounded-lg  flex items-center">
+        <div className="bg-gray-100/70 dark:bg-gray-900 p-4 rounded-lg  flex items-center">
           <FaEye className="text-2xl text-blue-500 mr-4" />
           <div>
-            <h3 className=" md:text-xl font-semibold text-gray-500">Views</h3>
-            <p className="text-lg md:text-xl xl:text-2xl font-bold text-gray-600">52</p>
+            <h3 className=" md:text-xl font-semibold text-gray-500 dark:text-gray-400">Views</h3>
+            <p className="text-lg md:text-xl xl:text-2xl font-bold text-gray-600 dark:text-gray-400">52</p>
           </div>
         </div>
-        <div className="bg-gray-100/70 p-4 rounded-lg  flex items-center">
+        <div className="bg-gray-100/70 dark:bg-gray-900 p-4 rounded-lg  flex items-center">
           <FaChartLine className="text-2xl text-green-500 mr-4" />
           <div>
-            <h3 className=" md:text-xl font-semibold text-gray-500">Votes</h3>
-            <p className="text-lg md:text-xl xl:text-2xl font-bold text-gray-600">35</p>
+            <h3 className=" md:text-xl font-semibold text-gray-500 dark:text-gray-400">Votes</h3>
+            <p className="text-lg md:text-xl xl:text-2xl font-bold text-gray-600 dark:text-gray-400">35</p>
           </div>
         </div>
-        <div className="bg-gray-100/70 p-4 rounded-lg  flex items-center">
+        <div className="bg-gray-100/70 dark:bg-gray-900 p-4 rounded-lg  flex items-center">
           <FaComments className="text-2xl text-yellow-500 mr-4" />
           <div>
-            <h3 className=" md:text-xl font-semibold text-gray-500">Comments</h3>
-            <p className="text-lg md:text-xl xl:text-2xl font-bold text-gray-600">35</p>
+            <h3 className=" md:text-xl font-semibold text-gray-500 dark:text-gray-400">Comments</h3>
+            <p className="text-lg md:text-xl xl:text-2xl font-bold text-gray-600 dark:text-gray-400">35</p>
           </div>
         </div>
-        <div className="bg-gray-100/70 p-4 rounded-lg  flex items-center">
+        <div className="bg-gray-100/70 dark:bg-gray-900 p-4 rounded-lg  flex items-center">
           <FaChartBar className="text-2xl text-purple-500 mr-4" />
           <div>
-            <h3 className=" md:text-xl font-semibold text-gray-500">Shares</h3>
-            <p className="text-lg md:text-xl xl:text-2xl font-bold text-gray-600">14</p>
+            <h3 className=" md:text-xl font-semibold text-gray-500 dark:text-gray-400">Shares</h3>
+            <p className="text-lg md:text-xl xl:text-2xl font-bold text-gray-600 dark:text-gray-400">14</p>
           </div>
         </div>
       </div>
 
       {/* Graphs */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-gray-100 p-6 rounded-lg ">
+        <div className="bg-gray-100 dark:bg-gray-900 p-6 rounded-lg ">
           <h3 className="text-lg font-semibold mb-4">Views Summary</h3>
           <Line data={readersData} />
         </div>
 
-        <div className="bg-gray-100 p-6 rounded-lg ">
+        <div className="bg-gray-100 dark:bg-gray-900 p-6 rounded-lg ">
           <h3 className="text-lg font-semibold mb-4">Votes Summary</h3>
           <Bar data={reactionsData} />
         </div>
 
-        <div className="bg-gray-100 p-6 rounded-lg xl:h-[400px]  lg:col-span-2">
+        <div className="bg-gray-100 dark:bg-gray-900 p-6 rounded-lg xl:h-[400px]  lg:col-span-2">
           <h3 className="text-lg font-semibold mb-4">Comments Summary</h3>
           <Bar data={commentsData} />
         </div>

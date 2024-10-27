@@ -23,7 +23,7 @@ const DrawerNav = () => {
     {/* close button for drawer outside  */}
     <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
 
-    <div className={`menu p-4 w-72 min-h-full bg-white`}>
+    <div className={`menu p-4 w-60 md:w-64 min-h-full bg-white dark:bg-gray-800`}>
    {/* Drawer content here */}
 
       {/* close button inside drawer  */}

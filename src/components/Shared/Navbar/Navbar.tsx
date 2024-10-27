@@ -35,23 +35,23 @@ const logoutUser = () => {
   const navLinks = <>
 
 
-   <li ><Link href='/' className={pathName === '/' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-500  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >Feed</Link></li>
+   <li ><Link href='/' className={pathName === '/' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-500  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80 dark:text-gray-400'} >Feed</Link></li>
 
-   <li ><Link href='/about' className={pathName === '/about' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-500  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >About Us</Link></li>
+   <li ><Link href='/about' className={pathName === '/about' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-500  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80 dark:text-gray-400'} >About Us</Link></li>
 
-   <li ><Link href='/contact' className={pathName === '/contact' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-500  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >Contact Us</Link></li>
+   <li ><Link href='/contact' className={pathName === '/contact' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-500  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80 dark:text-gray-400'} >Contact Us</Link></li>
 
-   <li ><Link href='/latest-event' className={pathName === '/latest-event' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-500  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80'} >Latest Event</Link></li>
+   <li ><Link href='/latest-event' className={pathName === '/latest-event' ? 'cursor-pointer font-semibold  px-4 py-[3px] text-blue-500  transition hover:text-gray-400 border-b-gray-400' : 'font-semibold text-gray-500/80 dark:text-gray-400'} >Latest Event</Link></li>
 
   </>
 
   return (
     <>
 
-  <div className={`bg-white `} >
+  <div className={`bg-white dark:bg-gray-900`} >
 
 
-<section className={`max-w-[1500px] mx-auto px-4 flex justify-between md:pt-2  h-16 md:h-[96px] bg-white `}>
+<section className={`max-w-[1500px] mx-auto px-4 flex justify-between md:pt-2  h-16 md:h-[96px] bg-white dark:bg-gray-900 `}>
 
 {/* logo section  */}
 <div className="flex items-center gap-1" >
@@ -71,7 +71,7 @@ const logoutUser = () => {
 <div className="mr-3 md:mr-5 lg:mr-0 rounded-full text-xl md:text-[22px] lg:text-2xl text-black flex gap-5 md:gap-6 items-center ">
 
 
-    {user && <div className="flex items-center gap-3 md:gap-6 text-2xl md:text-[26px] text-gray-500">
+    {user && <div className="flex items-center gap-3 md:gap-6 text-2xl md:text-[26px] text-gray-500 dark:text-gray-400">
       <span><IoIosNotificationsOutline></IoIosNotificationsOutline> </span>
       <span className= "text-xl md:text-[23px] xl:text-2xl"><RxDashboard></RxDashboard> </span>
       <span className="hidden md:block"><IoSettingsOutline></IoSettingsOutline> </span>
@@ -79,23 +79,23 @@ const logoutUser = () => {
 
     <div className="dropdown dropdown-end flex items-center justify-center gap-2 z-20">
     
-    {!user && <Link href={'/register'}> <button className="px-2 md:px-8 text-[13px] md:text-sm  md:py-2 rounded-md transition bg-gray-50 border border-gray-100 text-gray-600 hover:bg-gray-200/70 flex items-center font-semibold gap-2 whitespace-nowrap"><AiOutlineUserDelete className="text-lg"/> Sign Up</button></Link>}
+    {!user && <Link href={'/register'}> <button className="px-2 md:px-8 text-[13px] md:text-sm  md:py-2 rounded-md transition bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-900 flex items-center font-semibold gap-2 whitespace-nowrap"><AiOutlineUserDelete className="text-lg"/> Sign Up</button></Link>}
     
     <div className={`z-30 w-9 md:w-10 rounded-full p-[2px]  ${!user && 'hidden'}`}>
       {user && <Image width={200} height={200} alt="profile" tabIndex={0} src={user?.image || 'https://i.ibb.co/Ttgtb82/pngwing-com-15.png' } className="dropdown size-8 lg:size-9 object-cover cursor-pointer rounded-full border border-zinc-400 p-[1px]" />}
 
       {user && 
-     <ul tabIndex={0} className={`dropdown-content p-3 mt-1 shadow-2xl bg-white rounded-lg w-60 `}>
-      {user && <li className="text-lg p-2 border-b font-semibold rounded text-gray-600 flex items-center gap-2"> {user?.name || 'User'}  <Image width={200} height={200} alt="profile" tabIndex={0} src={user?.image || 'https://i.ibb.co/Ttgtb82/pngwing-com-15.png' } className="w-8 h-8 object-cover rounded-full border border-gray-300 p-[1px]" /></li>}
+     <ul tabIndex={0} className={`dropdown-content p-3 mt-1 shadow-2xl bg-white dark:bg-gray-800 rounded-lg w-60 `}>
+      {user && <li className="text-lg p-2 border-b dark:border-gray-600 font-semibold rounded text-gray-600 dark:text-gray-300 flex items-center gap-2"> {user?.name || 'User'}  <Image width={200} height={200} alt="profile" tabIndex={0} src={user?.image || 'https://i.ibb.co/Ttgtb82/pngwing-com-15.png' } className="w-8 h-8 object-cover rounded-full border border-gray-300 p-[1px]" /></li>}
         
      <Link href={`/profile/${user?.email}`}>
-     <li className="text-base font-semibold cursor-pointer transition-all text-gray-500 p-1 rounded hover:text-blue-600 flex items-center gap-2" > <RiUserFill /> Profile</li> </Link>
+     <li className="text-base font-semibold cursor-pointer transition-all text-gray-500 dark:text-gray-400 p-1 rounded hover:text-blue-600 flex items-center gap-2" > <RiUserFill /> Profile</li> </Link>
     
      <Link href={user?.role === 'admin'? '/admin-dashboard/statistics': '/user-dashboard/my-posts'}>
-     <li className="text-base font-semibold cursor-pointer transition-all text-gray-500 p-1 rounded hover:text-blue-600 flex items-center gap-2" ><MdDashboardCustomize /> Dashboard</li> </Link>
+     <li className="text-base font-semibold cursor-pointer transition-all text-gray-500 dark:text-gray-400 p-1 rounded hover:text-blue-600 flex items-center gap-2" ><MdDashboardCustomize /> Dashboard</li> </Link>
     
 
-     <li onClick={logoutUser} className="text-base font-semibold cursor-pointer transition-all text-gray-600 p-1 rounded hover:text-blue-600 flex items-center gap-2" > <IoArrowRedoOutline/> Log out</li> 
+     <li onClick={logoutUser} className="text-base font-semibold cursor-pointer transition-all text-gray-600 dark:text-gray-400 p-1 rounded hover:text-blue-600 flex items-center gap-2" > <IoArrowRedoOutline/> Log out</li> 
 
     </ul>}
     </div>
@@ -105,7 +105,7 @@ const logoutUser = () => {
 </div>
 
 {/* label for open daisy ui drawer that component has another file  */}
-    <label htmlFor="my-drawer" className={`lg:hidden text-xl md:text-2xl text-gray-500`}><HiOutlineMenu/> </label>
+    <label htmlFor="my-drawer" className={`lg:hidden text-xl md:text-2xl text-gray-500 dark:text-gray-400`}><HiOutlineMenu/> </label>
     <DrawerNav/>
 </div>
 

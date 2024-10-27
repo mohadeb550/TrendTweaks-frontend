@@ -25,35 +25,35 @@ export default function  PaymentHistory() {
         <table
           className="min-w-full text-center text-sm inter-regular dark:border-neutral-500">
           <thead className="">
-            <tr className="bg-gray-200 h-8 text-gray-500 text-[12px] md:text-base ">
+            <tr className="bg-gray-200 dark:bg-gray-800 h-8 text-gray-500 text-[12px] md:text-base ">
               <th
                 scope="col"
-                className="border-r px-6 py-0 md:py-2 lg:py-4 border-gray-300 rounded-l-lg">
+                className="border-r dark:text-gray-400 px-6 py-0 md:py-2 lg:py-4 border-gray-300 dark:border-gray-700 rounded-l-lg">
                Img
               </th>
               <th
                 scope="col"
-                className="border-r px-6 py-0 md:py-2 lg:py-4 border-gray-300">
+                className="border-r dark:text-gray-400 px-6 py-0 md:py-2 lg:py-4 border-gray-300 dark:border-gray-700">
               Name
               </th>
               <th
                 scope="col"
-                className="border-r px-6 py-0 md:py-2 lg:py-4 border-gray-300">
+                className="border-r dark:text-gray-400 px-6 py-0 md:py-2 lg:py-4 border-gray-300 dark:border-gray-700">
             Email
               </th>
               <th
                 scope="col"
-                className="border-r px-6 py-0 md:py-2 lg:py-4 border-gray-300">
+                className="border-r dark:text-gray-400 px-6 py-0 md:py-2 lg:py-4 border-gray-300 dark:border-gray-700">
            Package
               </th>
               <th
                 scope="col"
-                className="border-r px-6 py-0 md:py-2 lg:py-4 border-gray-300">
+                className="border-r dark:text-gray-400 px-6 py-0 md:py-2 lg:py-4 border-gray-300 dark:border-gray-700">
           Total
               </th>
               <th
                 scope="col"
-                className="border-r px-6 py-0 md:py-2 lg:py-4 border-gray-300">
+                className="border-r dark:text-gray-400 px-6 py-0 md:py-2 lg:py-4 border-gray-300 dark:border-gray-700">
           Expiry Date
               </th>
              
@@ -73,7 +73,7 @@ export default function  PaymentHistory() {
 
           {histories?.map((doc : any) =>  <tr key={doc._id} className="border-b ">
               <td
-                className="whitespace-nowrap border-r px-6 py-4 font-medium border-gray-300 flex items-center justify-center">
+                className="whitespace-nowrap border-r px-6 py-4 font-medium border-gray-300 dark:border-gray-700 flex items-center justify-center">
                 <Image
                 width={200}
                 height={200}
@@ -81,26 +81,26 @@ export default function  PaymentHistory() {
                  src={doc?.userInfo?.image} className="size-9 md:size-12  object-contain rounded-3xl" />
               </td>
               <td
-                className=" border-r font-medium text-sm md:text-lg  text-zinc-400 text-start md:text-center px-6 py-4 border-gray-300">
+                className=" border-r font-medium text-sm md:text-lg  text-zinc-400 text-start md:text-center px-6 py-4 border-gray-300 dark:border-gray-700">
                 {doc?.userInfo?.name}
               </td>
 
               <td
-                className=" border-r font-medium text-sm md:text-lg  text-zinc-400 text-start md:text-center px-6 py-4 border-gray-300">
+                className=" border-r font-medium text-sm md:text-lg  text-zinc-400 text-start md:text-center px-6 py-4 border-gray-300 dark:border-gray-700">
                 {doc?.email}
               </td>
 
               <td
-                className="whitespace-nowrap font-medium text-orange-500 text-sm md:text-lg border-r px-6 py-4 border-gray-300">
+                className="whitespace-nowrap font-medium text-orange-500 text-sm md:text-lg border-r px-6 py-4 border-gray-300 dark:border-gray-700">
                 {doc?.membersShip?.package?.name}
               </td>
               <td
-                className="whitespace-nowrap font-medium text-zinc-400 text-sm md:text-lg border-r px-6 py-4 border-gray-300">
+                className="whitespace-nowrap font-medium text-zinc-400 text-sm md:text-lg border-r px-6 py-4 border-gray-300 dark:border-gray-700">
                 {doc?.membersShip?.package?.price}$
               </td>
 
               <td
-                className="whitespace-nowrap font-medium text-zinc-400 text-sm md:text-lg border-r px-6 py-4 border-gray-300">
+                className="whitespace-nowrap font-medium text-zinc-400 text-sm md:text-lg border-r px-6 py-4 border-gray-300 dark:border-gray-700">
                 {new Date(doc?.membersShip?.exp).toLocaleDateString()}
               </td>
             </tr>)}

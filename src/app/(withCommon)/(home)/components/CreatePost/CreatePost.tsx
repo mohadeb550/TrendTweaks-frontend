@@ -12,7 +12,7 @@ export default function CreatePost() {
   const [ openModal, setOpenModal ] = useState(false);
 
     return (
-      <div className="bg-white p-4 rounded-lg shadow-sm w-full  mx-auto mb-2">
+      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm w-full  mx-auto mb-2">
 
         {/* Create Post Modal  */}
      {openModal &&  <CreatePostModal open={openModal} setOpen={setOpenModal} />}
@@ -20,7 +20,7 @@ export default function CreatePost() {
       {/* Header Section */}
       <div className="flex items-center mb-4">
         <FaPen className="text-blue-500 md:text-lg" />
-        <h2 className="ml-2 xl:text-lg font-semibold text-gray-500">Create Post</h2>
+        <h2 className="ml-2 xl:text-lg font-semibold text-gray-500 dark:text-gray-300">Create Post</h2>
       </div>
 
       {/* Input Section */}
@@ -33,7 +33,7 @@ export default function CreatePost() {
           className="size-9 md:size-10 rounded-full object-cover"
         />
         <button onClick={() => setOpenModal(true)} 
-          className="flex-1 p-2 md:p-3 border border-gray-200 rounded-md text-left text-gray-600">Whats on your mind?</button>
+          className="flex-1 p-2 md:p-3 border border-gray-200 dark:border-gray-600 rounded-md text-left text-gray-600 dark:text-gray-400">Whats on your mind?</button>
          
         
       </div>

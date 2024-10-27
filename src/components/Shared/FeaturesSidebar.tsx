@@ -37,17 +37,17 @@ const logoutUser = () => {
       <>
       {user?
       // for logged user   
-       <div className="w-52 xl:w-64 bg-white p-1 lg:p-4 space-y-7">
+       <div className="w-52 xl:w-64 bg-white dark:bg-gray-800 p-1 lg:p-4 space-y-7">
       {/* New Feeds Section */}
       <div className="space-y-4">
-        <h2 className="text-gray-500 text-sm font-semibold">New Feeds</h2>
+        <h2 className="text-gray-500 dark:text-gray-300 text-sm font-semibold">New Feeds</h2>
         <ul className="space-y-0 lg:space-y-6 flex flex-col items-start">
           <li className="flex items-center space-x-4">
             <Link href="/" className="flex items-center space-x-4 hover:text-blue-500">
               <div className="p-2 rounded-full bg-blue-600 text-xl lg:text-2xl">
                 <FaTv className="text-white" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Newsfeed</span>
+              <span className="text-gray-700 dark:text-gray-300 font-medium hover:text-blue-600 dark:hover:text-blue-500">Newsfeed</span>
               <span className="bg-orange-400 text-white text-xs font-bold px-2 py-1 rounded-full">14</span>
             </Link>
           </li>
@@ -56,7 +56,7 @@ const logoutUser = () => {
               <div className="p-2 rounded-full bg-orange-500 text-xl lg:text-2xl">
                 <GoPackage className="text-white" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Membership</span>
+              <span className="text-gray-700 dark:text-gray-300 font-medium hover:text-blue-600 dark:hover:text-blue-500">Membership</span>
             </Link>
           </li>
           <li className="flex items-center space-x-4">
@@ -64,7 +64,7 @@ const logoutUser = () => {
               <div className="p-2 rounded-full bg-blue-500 text-xl lg:text-2xl">
                 <FaUserCircle className="text-white" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Profile</span>
+              <span className="text-gray-700 dark:text-gray-300 font-medium hover:text-blue-600 dark:hover:text-blue-500">Profile</span>
             </Link>
           </li>
           <li className="flex items-center space-x-4">
@@ -72,7 +72,7 @@ const logoutUser = () => {
               <div className="p-2 rounded-full bg-yellow-400 text-xl lg:text-2xl">
                 <RxDashboard className="text-white" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Dashboard</span>
+              <span className="text-gray-700 dark:text-gray-300 font-medium hover:text-blue-600 dark:hover:text-blue-500">Dashboard</span>
             </Link>
           </li>
           
@@ -82,14 +82,14 @@ const logoutUser = () => {
 
       {/* More Pages Section */}
       <div className="space-y-4">
-        <h2 className="text-gray-500 text-sm font-semibold">More Pages</h2>
+        <h2 className="text-gray-500 dark:text-gray-300 text-sm font-semibold">More Pages</h2>
         <ul className="space-y-0 lg:space-y-6 flex flex-col items-start">
           <li className="flex items-center justify-between">
             <Link href="/about" className="flex items-center space-x-4 hover:text-blue-500">
               <div className="p-2 rounded-full bg-blue-500 text-xl lg:text-2xl">
                 <SiHomeadvisor className="text-white" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">About Us</span>
+              <span className="text-gray-700 dark:text-gray-300 font-medium hover:text-blue-600 dark:hover:text-blue-500">About Us</span>
             </Link>
           </li>
           <li className="flex items-center space-x-4">
@@ -97,7 +97,7 @@ const logoutUser = () => {
               <div className="p-2 rounded-full bg-blue-500 text-xl lg:text-2xl">
                 <MdWifiCalling1 className="text-white" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Contact Us</span>
+              <span className="text-gray-700 dark:text-gray-300 font-medium hover:text-blue-600 dark:hover:text-blue-500">Contact Us</span>
             </Link>
           </li>
           <li className="flex items-center space-x-4">
@@ -105,7 +105,7 @@ const logoutUser = () => {
               <div className="p-2 rounded-full bg-blue-500 text-xl lg:text-2xl">
                 <FaCalendarAlt className="text-white" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Latest Event</span>
+              <span className="text-gray-700 dark:text-gray-300 font-medium hover:text-blue-600 dark:hover:text-blue-500">Latest Event</span>
             </Link>
           </li>
         </ul>
@@ -113,23 +113,32 @@ const logoutUser = () => {
 
       {/* Account Section */}
       <div className="space-y-4">
-        <h2 className="text-gray-500 text-sm font-semibold">Account</h2>
+        <h2 className="text-gray-500 dark:text-gray-300 text-sm font-semibold">Account</h2>
         <ul className="space-y-0 lg:space-y-6 flex flex-col items-start">
           <li className="flex items-center space-x-4">
             <Link href="/login" className="flex items-center space-x-4 hover:text-blue-500">
-              <div className="p-2 rounded-full bg-gray-300 text-xl lg:text-2xl">
-                <BiLogIn className="text-white" />
+              <div className="p-2 rounded-full bg-gray-300 dark:bg-gray-700 text-xl lg:text-2xl">
+                <BiLogIn className="text-white dark:text-gray-300" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Login</span>
+              <span className="text-gray-700  dark:text-gray-300 font-medium hover:text-blue-600 dark:hover:text-blue-500">Login</span>
             </Link>
           </li>
           <li className="flex items-center space-x-4">
+            <Link href="/login" className="flex items-center space-x-4 hover:text-blue-500">
+              <div className="p-2 rounded-full bg-gray-300 dark:bg-gray-700 text-xl lg:text-2xl">
+                <IoArrowRedoOutline className="text-white dark:text-gray-300" />
+              </div>
+              <span onClick={logoutUser} className="text-gray-700  dark:text-gray-300 font-medium hover:text-blue-600 dark:hover:text-blue-500">Log out</span>
+            </Link>
+          </li>
+          
+   {/* <li className="flex items-center space-x-4">
               <div className="p-2 rounded-full bg-gray-300 text-xl lg:text-2xl">
                 <IoArrowRedoOutline className="text-white" />
               </div>
-              <button onClick={logoutUser} className="text-gray-700 font-medium hover:text-blue-600">Log out</button>
+              <button  className="text-gray-700 dark:text-gray-300 font-medium hover:text-blue-600 dark:hover:text-blue-500"></button>
           
-          </li>
+          </li> */}
         
         </ul>
       </div>
@@ -137,17 +146,17 @@ const logoutUser = () => {
      : 
     // only for not logged user 
 
-    <div className="w-64 bg-white p-1 lg:p-4 space-y-7">
+    <div className="w-64 bg-white dark:bg-gray-800 p-1 lg:p-4 space-y-7">
       {/* New Feeds Section */}
       <div className="space-y-4">
-        <h2 className="text-gray-500 text-sm font-semibold">New Feeds</h2>
+        <h2 className="text-gray-500 dark:text-gray-300 text-sm font-semibold">New Feeds</h2>
         <ul className="space-y-0 lg:space-y-6 flex flex-col items-start">
           <li className="flex items-center space-x-4">
             <Link href="/" className="flex items-center space-x-4 hover:text-blue-500">
               <div className="p-2 rounded-full bg-blue-600 text-xl lg:text-2xl">
                 <FaTv className="text-white" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Newsfeed</span>
+              <span className="text-gray-700 dark:text-gray-300 font-medium hover:text-blue-600 dark:hover:text-blue-500">Newsfeed</span>
               <span className="bg-orange-400 text-white text-xs font-bold px-2 py-1 rounded-full">14</span>
             </Link>
           </li>
@@ -156,7 +165,7 @@ const logoutUser = () => {
               <div className="p-2 rounded-full bg-orange-500 text-xl lg:text-2xl">
                 <GoPackage className="text-white" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Membership</span>
+              <span className="text-gray-700 dark:text-gray-300 font-medium hover:text-blue-600 dark:hover:text-blue-500">Membership</span>
             </Link>
           </li>
 
@@ -165,7 +174,7 @@ const logoutUser = () => {
               <div className="p-2 rounded-full bg-gray-500 text-xl lg:text-2xl">
                 <FaRegUser className="text-white" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Register</span>
+              <span className="text-gray-700 dark:text-gray-300 font-medium hover:text-blue-600 dark:hover:text-blue-500">Register</span>
             </Link>
           </li>
        
@@ -176,14 +185,14 @@ const logoutUser = () => {
 
       {/* More Pages Section */}
       <div className="space-y-4">
-        <h2 className="text-gray-500 text-sm font-semibold">More Pages</h2>
+        <h2 className="text-gray-500 dark:text-gray-300 text-sm font-semibold">More Pages</h2>
         <ul className="space-y-0 lg:space-y-6 flex flex-col items-start">
           <li className="flex items-center justify-between">
             <Link href="/about" className="flex items-center space-x-4 hover:text-blue-500">
               <div className="p-2 rounded-full bg-blue-500 text-xl lg:text-2xl">
                 <SiHomeadvisor className="text-white" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">About Us</span>
+              <span className="text-gray-700 dark:text-gray-300 font-medium hover:text-blue-600 dark:hover:text-blue-500">About Us</span>
             </Link>
           </li>
           <li className="flex items-center space-x-4">
@@ -191,7 +200,7 @@ const logoutUser = () => {
               <div className="p-2 rounded-full bg-blue-500 text-xl lg:text-2xl">
                 <MdWifiCalling1 className="text-white" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Contact Us</span>
+              <span className="text-gray-700 dark:text-gray-300 font-medium hover:text-blue-600 dark:hover:text-blue-500">Contact Us</span>
             </Link>
           </li>
           <li className="flex items-center space-x-4">
@@ -199,7 +208,7 @@ const logoutUser = () => {
               <div className="p-2 rounded-full bg-blue-500 text-xl lg:text-2xl">
                 <FaCalendarAlt className="text-white" />
               </div>
-              <span className="text-gray-700 font-medium hover:text-blue-600">Latest Event</span>
+              <span className="text-gray-700 dark:text-gray-300 font-medium hover:text-blue-600 dark:hover:text-blue-500">Latest Event</span>
             </Link>
           </li>
         </ul>

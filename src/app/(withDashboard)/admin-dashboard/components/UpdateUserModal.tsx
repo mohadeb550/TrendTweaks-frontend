@@ -68,10 +68,10 @@ export default function UpdateUserModal({ open, setOpen, userEmail} : TModalProp
   return (
     <section className="w-screen h-screen fixed top-0 left-0 right-0 bottom-0 z-50  bg-black/30 backdrop-blur-sm flex justify-center items-center overflow-y-auto px-4">  
        
-       <form className="w-full md:w-[530px]  p-7 bg-white rounded-xl relative" onSubmit={handleSubmit(onSubmit)}>
+       <form className="w-full md:w-[530px]  p-7 bg-white dark:bg-gray-800 rounded-xl relative" onSubmit={handleSubmit(onSubmit)}>
 
         {/* loading white layer  */}
-      {dataLoading || updateLoading? <div className="w-full h-full absolute top-0 left-0 right-0 bottom-0 bg-white/80 rounded-md flex justify-center items-center"> 
+      {dataLoading || updateLoading? <div className="w-full h-full absolute top-0 left-0 right-0 bottom-0 bg-white/80 dark:bg-black/30  rounded-md flex justify-center items-center"> 
         <ClipLoader
            color='#2563EB'
           //  loading={dataLoading || updateLoading}
@@ -91,17 +91,17 @@ export default function UpdateUserModal({ open, setOpen, userEmail} : TModalProp
 
         <div className="flex flex-col justify-start items-start mb-3">
         <label className="font-semibold">Name</label>
-        <input type="text" className="outline-none border-b-2 border-gray-700 focus:border-blue-600 w-full py-1 rounded-sm"  {...register("name")} />
+        <input type="text" className="outline-none dark:bg-gray-800 border-b-2 border-gray-700 focus:border-blue-600 w-full py-1 rounded-sm"  {...register("name")} />
         </div>
 
         <div className="flex flex-col justify-start items-start mb-3">
         <label className="font-semibold">Email</label>
-        <input type="text" className="outline-none border-b-2 border-gray-700 focus:border-blue-600 w-full py-1 rounded-sm"  {...register("email")} />
+        <input type="text" className="outline-none dark:bg-gray-800 border-b-2 border-gray-700 focus:border-blue-600 w-full py-1 rounded-sm"  {...register("email")} />
         </div>
 
         <div className="flex flex-col justify-start items-start mb-3">
         <label className="font-semibold">Role</label>
-         <select className="w-full outline p-2 mt-3 outline-black/20 rounded-sm outline-1 text-xs md:text-sm " {...register("role")} >
+         <select className="w-full outline p-2 mt-3 outline-black/20 dark:bg-gray-900 rounded-sm outline-1 text-xs md:text-sm " {...register("role")} >
               <option value='user'>User</option>
               <option value='admin'>Admin</option>
               
@@ -112,7 +112,7 @@ export default function UpdateUserModal({ open, setOpen, userEmail} : TModalProp
 
         <div className="flex flex-col justify-start items-start mb-3">
         <label className="font-semibold">Profile Image</label>
-        <input type="text" className="outline-none border-b-2 border-gray-700 focus:border-blue-600 w-full py-1 rounded-sm" {...register("image")} />
+        <input type="text" className="outline-none dark:bg-gray-800 border-b-2 border-gray-700 focus:border-blue-600 w-full py-1 rounded-sm" {...register("image")} />
         </div>
 
 

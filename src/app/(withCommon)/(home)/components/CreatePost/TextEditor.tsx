@@ -1,5 +1,6 @@
 'use client'
 import { Editor } from '@tinymce/tinymce-react';
+import { useEffect, useState } from 'react';
 
 
 type TProps = {
@@ -8,6 +9,20 @@ type TProps = {
 }
 
 const TextEditor = ({ description ='', setLatestDescription}: TProps) => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    setIsDarkMode(darkModeQuery.matches);
+  
+    const handleSystemThemeChange = (e: any) => setIsDarkMode(e.matches);
+    darkModeQuery.addEventListener('change', handleSystemThemeChange);
+
+    return () => darkModeQuery.removeEventListener('change', handleSystemThemeChange);
+  }, []);
+
+
 
     const handleEditorChange = (content : string) => {
       setLatestDescription(content);
@@ -21,6 +36,8 @@ const TextEditor = ({ description ='', setLatestDescription}: TProps) => {
           initialValue={`<p>${description || 'Description here...'}</p>`}
           init={{
             height: 190,
+            skin: isDarkMode ? 'oxide-dark' : 'oxide', 
+            content_css: isDarkMode ? 'dark' : 'default',
             menubar: false,
             plugins: [
               'advlist autolink lists link image charmap print preview anchor',

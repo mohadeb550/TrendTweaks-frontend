@@ -102,18 +102,17 @@ const Membership = () => {
    {openPayModal && <PaymentModal membersShip={membersShip} open={openPayModal} setOpen={setOpenPayModal}/> }
         
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7 w-full ">
-          
 
-         {membershipPackages?.map(pack => <><div className="bg-white shadow-md rounded-xl p-6 flex flex-col justify-between hover:shadow-lg transition-shadow duration-300">
+         {membershipPackages?.map(pack => <><div className="bg-white dark:bg-gray-800 shadow-md rounded-xl p-6 flex flex-col justify-between hover:shadow-lg transition-shadow duration-300">
             <div>
-              <h2 className="text-2xl font-bold text-gray-800">{pack.name}</h2>
-              <p className="text-gray-600 mt-2">{pack.description}</p>
+              <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-300">{pack.name}</h2>
+              <p className="text-gray-600 mt-2 dark:text-gray-400">{pack.description}</p>
               <div className="my-4">
                 <span className={`text-4xl font-bold text-${pack.color}`}>${pack.price}</span>
-                <span className="text-gray-600">/month</span>
+                <span className="text-gray-600 dark:text-gray-400">/month</span>
               </div>
               <ul className="text-gray-600 mb-6">
-                {pack.features?.map(feature => <><li className="mb-2 flex items-center">
+                {pack.features?.map(feature => <><li className="mb-2 flex items-center dark:text-gray-400">
                   <i className="fas fa-check-circle text-green-500 mr-2"></i> {feature}
                 </li></>)}
                 

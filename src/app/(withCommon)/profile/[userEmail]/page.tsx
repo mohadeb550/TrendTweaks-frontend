@@ -71,7 +71,7 @@ const Profile = ({ params} : { params: { userEmail: string}}) => {
 
 
     return (
-        <div className=" md:bg-white md:p-4 rounded-lg">
+        <div className=" md:bg-white dark:bg-gray-800/50 p-2 md:p-4 rounded-lg ">
         {/* Cover Photo */}
         <div className="relative">
           <Image
@@ -87,14 +87,14 @@ const Profile = ({ params} : { params: { userEmail: string}}) => {
               alt="Profile"
               width={300}
               height={300}
-              className="size-20 md:size-36 rounded-full border-4 border-white object-cover"
+              className="size-20 md:size-36 rounded-full border-4 border-white dark:border-gray-700 object-cover "
             />
             <div>
               <h1 className=  "text-xl md:text-2xl font-bold flex items-center">
                 {name}
                 {memberShip && <FaCheckCircle className="text-blue-500 ml-2" />}
               </h1>
-              <p className="text-gray-600">{email}</p>
+              <p className="text-gray-600 dark:text-gray-400">{email}</p>
             </div>
           </div>
         </div>
@@ -110,7 +110,7 @@ const Profile = ({ params} : { params: { userEmail: string}}) => {
           {userDetails?.followers?.find(follower => follower?.email === loggedUser?.email) ? <>
           
           <button onClick={handleUnfollow}
-             className="bg-gray-200 px-2 md:px-4 py-2 text-sm md:text-base rounded-lg flex items-center font-semibold gap-2">
+             className="bg-gray-200 dark:bg-gray-900/50 dark:text-gray-400 px-2 md:px-4 py-2 text-sm md:text-base rounded-lg flex items-center font-semibold gap-2">
             {!(followLoading || unFollowLoading) && <RiUserUnfollowLine />}  {(followLoading || unFollowLoading)?  <ClipLoader
            color='#171A16'
            size={16}
@@ -129,8 +129,7 @@ const Profile = ({ params} : { params: { userEmail: string}}) => {
           </button></>}
 
 
-
-            <button className="bg-gray-200 px-2 md:px-4 py-2 text-sm md:text-base rounded-lg flex items-center font-semibold">
+            <button className="bg-gray-200 dark:bg-gray-900/50 dark:text-gray-400 px-2 md:px-4 py-2 text-sm md:text-base rounded-lg flex items-center font-semibold">
               <BsEnvelopeFill className="mr-2" />
              
               Message
@@ -138,11 +137,11 @@ const Profile = ({ params} : { params: { userEmail: string}}) => {
           </div>}
 
           <div className="space-y-1 flex items-center">
-           {loggedUser?.email === userDetails?.email &&  <button onClick={()=> setEditModal(true)} className="bg-gray-200 px-2 md:px-4 py-2 text-sm md:text-base rounded-lg flex items-center font-semibold">
+           {loggedUser?.email === userDetails?.email &&  <button onClick={()=> setEditModal(true)} className="bg-gray-200 dark:bg-gray-900/70 dark:text-gray-400 px-2 md:px-4 py-2 text-sm md:text-base rounded-lg flex items-center font-semibold">
               <MdModeEdit className="mr-2" />
              Edit Profile
             </button>}
-            <button className="bg-gray-200 px-2 md:px-4 h-full hidden md:block  text-sm md:text-base rounded-lg ml-2">
+            <button className="bg-gray-200 dark:bg-gray-900/70 dark:text-gray-400 px-2 md:px-4 h-full hidden md:block  text-sm md:text-base rounded-lg ml-2">
               <BsThreeDots />
             </button>
           </div>
@@ -150,17 +149,18 @@ const Profile = ({ params} : { params: { userEmail: string}}) => {
 
         {/* ranDomUserEmail passing in the <Followers> component is random means it's just a profile page, any account can be shown here  */}
       {/* Showing followers and following component  */}
+      {console.log(userDetails?.email)}
       <Followers followers={followers} following={following} ranDomUserEmail={userDetails?.email}/>
   
   
         {/* Membership Section */}
-      {memberShip &&   <div className={`mt-4 mb-8 p-4 bg-orange-50 rounded-lg shadow`}>
-          <h2 className="text-lg text-gray-600 font-bold">Membership</h2>
+      {memberShip &&   <div className={`mt-4 mb-8 p-4 bg-orange-50 dark:bg-orange-950 rounded-lg shadow`}>
+          <h2 className="text-lg text-gray-600 font-bold dark:text-gray-300">Membership</h2>
           <div className="flex items-center mt-2">
             <div className="text-orange-400 font-bold text-xl">{memberShip?.package?.name}</div>
-            <span className="ml-auto bg-orange-100 py-1 px-3 rounded-lg text-gray-500">Designer</span>
+            <span className="ml-auto bg-orange-100 dark:bg-orange-800 py-1 px-3 rounded-md text-gray-500 dark:text-gray-100 font-semibold">Designer</span>
           </div>
-          <p className="text-gray-500 mt-2">
+          <p className="text-gray-500 mt-2 dark:text-gray-400">
             87% progress through the membership.
           </p>
         </div>}

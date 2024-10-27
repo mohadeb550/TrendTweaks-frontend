@@ -53,7 +53,7 @@ export default function MiniPostCard({ post } : { post : TPost}) {
 
  
   return (
-    <div  className="bg-white rounded-xl shadow-md p-6 pb-2 w-full mx-auto mt-6">
+    <div  className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 pb-2 w-full mx-auto mt-6">
 
     {/* POST UPDATE MODAL  */}
       {updateModal &&  <UpdatePostModal open={updateModal} setOpen={setUpdateModal} postId={_id as string} />}
@@ -71,8 +71,8 @@ export default function MiniPostCard({ post } : { post : TPost}) {
       </section>
 
       <div className="ml-3">
-        <h2 className="text-lg font-semibold">{authorInfo?.name}</h2>
-        <p className="text-sm md:text-base text-gray-500">{category} • <time className=" text-gray-500">
+        <h2 className="text-lg font-semibold dark:text-gray-300">{authorInfo?.name}</h2>
+        <p className="text-sm md:text-base text-gray-500  dark:text-gray-400">{category} • <time className=" text-gray-500  dark:text-gray-400">
       <TimeAgo date={createdAt!} />
       </time></p>
       </div>
@@ -80,15 +80,15 @@ export default function MiniPostCard({ post } : { post : TPost}) {
         
         {isPremium && <MdStars className="text-orange-500 cursor-pointer text-2xl" />}
 
-        <button onClick={() => setUpdateModal(true)}> <MdModeEdit className="text-gray-600 cursor-pointer text-2xl "/></button>
+        <button onClick={() => setUpdateModal(true)}> <MdModeEdit className="text-gray-600 cursor-pointer text-2xl  dark:text-gray-400"/></button>
 
-        <button onClick={() => handleDelete(_id!)}> <RiDeleteBinLine className="text-gray-600 cursor-pointer text-2xl "/></button>
+        <button onClick={() => handleDelete(_id!)}> <RiDeleteBinLine className="text-gray-600 cursor-pointer text-2xl  dark:text-gray-400"/></button>
 
       </div>
     </div>
 
     {/* Post title*/}
-    <p className=" text-gray-500 mb-4 text-base lg:text-lg font-semibold">
+    <p className=" text-gray-500 mb-4 text-base lg:text-lg font-semibold  dark:text-gray-400">
      {title}
       <Link href={`/details/${_id}`} className="text-blue-500 pl-2">
         See more..
@@ -108,18 +108,18 @@ export default function MiniPostCard({ post } : { post : TPost}) {
  
 
   {/* Likes, Dislikes, Comments, Rating, and Share Section */}
-  <div className="flex justify-between items-center mt-4 border-t py-2">
+  <div className="flex justify-between items-center mt-4 border-t dark:border-gray-700 py-2">
         <div className="flex space-x-6 text-gray-600">
 
           <VoteSection postId={_id as string} userId={user?._id as string} votes={votes} voters={voters}/>
          
-          <div className="flex items-center gap-3 bg-gray-200/50 rounded-full px-3 py-1">
+          <div className="flex items-center gap-3 bg-gray-200/50 dark:bg-gray-900 rounded-full px-3 py-1">
             <BiCommentDetail className="cursor-pointer text-lg xl:text-xl text-gray-500" />
-            <span className="font-semibold text-gray-600">{comments?.length}</span>
+            <span className="font-semibold text-gray-600  dark:text-gray-400 ">{comments?.length}</span>
           </div>
           
         </div>
-        <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-800 transition-colors">
+        <button className="flex items-center space-x-2 text-gray-600   dark:text-gray-400 hover:text-gray-800 transition-colors">
           <FaShare className="cursor-pointer hover:scale-110 transition-transform" />
           <span>Share</span>
         </button>

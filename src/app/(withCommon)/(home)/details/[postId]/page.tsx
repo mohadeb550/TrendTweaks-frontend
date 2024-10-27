@@ -82,7 +82,7 @@ export default function PostDetails({params } : { params : { postId: string}}) {
     
 
   return (
-    <div ref={contentRef} className="bg-white rounded-xl shadow-md p-6 w-full mx-auto mt-6">
+    <div ref={contentRef} className="bg-white rounded-xl dark:bg-gray-800 shadow-md p-6 w-full mx-auto mt-6">
     {/* Header with User Info */}
 
    <div className="flex items-center mb-4">
@@ -96,15 +96,15 @@ export default function PostDetails({params } : { params : { postId: string}}) {
       </section>
 
       <div className="ml-3">
-        <h2 className="text-lg font-semibold">{authorInfo?.name}</h2>
-        <p className="text-sm md:text-base text-gray-500">{category} • <time className=" text-gray-500">
+        <h2 className="text-lg font-semibold dark:text-gray-300">{authorInfo?.name}</h2>
+        <p className="text-sm md:text-base text-gray-500 dark:text-gray-400">{category} • <time className=" text-gray-500 dark:text-gray-400">
       <TimeAgo date={createdAt!} />
       </time></p>
       </div>
       <div className="ml-auto flex items-center gap-2">
       {isPremium && <MdStars className="text-orange-500 cursor-pointer text-2xl" />}
 
-      <button onClick={()=> reactToPrintFn()}> <AiFillPrinter className="text-gray-600 cursor-pointer text-2xl "/></button>
+      <button onClick={()=> reactToPrintFn()}> <AiFillPrinter className="text-gray-600 dark:text-gray-400 cursor-pointer text-2xl "/></button>
       </div>
     </div>
 
@@ -114,7 +114,7 @@ export default function PostDetails({params } : { params : { postId: string}}) {
     </h2>
 
     {/* Post Description */}
-  <div className='text-gray-700 mb-4 text-base lg:text-lg' dangerouslySetInnerHTML={{ __html: description }}>
+  <div className='text-gray-700 mb-4 dark:text-gray-400 text-base lg:text-lg' dangerouslySetInnerHTML={{ __html: description }}>
   </div>
     
 
@@ -122,18 +122,18 @@ export default function PostDetails({params } : { params : { postId: string}}) {
     <ImageGallery images={images} />
 
   {/* Likes, Dislikes, Comments, Rating, and Share Section */}
-  <div className="flex justify-between items-center mt-4 border-y py-2">
-        <div className="flex space-x-6 text-gray-600">
+  <div className="flex justify-between items-center mt-4 border-y  dark:border-gray-600 py-2">
+        <div className="flex space-x-6 text-gray-600 ">
 
           <VoteSection postId={_id as string} userId={user?._id as string} votes={votes!} voters={voters!}/>
          
-          <div className="flex items-center gap-3 bg-gray-200/50 rounded-full px-3 py-1">
+          <div className="flex items-center gap-3 bg-gray-200/50 dark:bg-gray-900 rounded-full px-3 py-1">
             <BiCommentDetail className="cursor-pointer text-lg xl:text-xl text-gray-500" />
-            <span className="font-semibold text-gray-600">{comments?.length}</span>
+            <span className="font-semibold text-gray-600 dark:text-gray-400">{comments?.length}</span>
           </div>
           
         </div>
-        <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-800 transition-colors">
+        <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 transition-colors">
           <FaShare className="cursor-pointer hover:scale-110 transition-transform" />
           <span>Share</span>
         </button>
@@ -173,10 +173,10 @@ export default function PostDetails({params } : { params : { postId: string}}) {
 
         <div className="flex flex-col dropdown">
           {/* User Info */}
-          <div className=" bg-gray-100 rounded-xl group px-3 relative">
+          <div className=" bg-gray-100 dark:bg-gray-900/60 rounded-xl group px-3 relative">
             <h4 className="font-semibold">{comment?.userInfo?.name}</h4>
               {/* Comment Text */}
-          <p className="text-gray-700">{comment?.comment}</p>
+          <p className="text-gray-700 dark:text-gray-400">{comment?.comment}</p>
 
                 
           <div className="p-2  hidden group-hover:flex  text-gray-600 text-[13px]  rounded-lg ml-2 absolute top-0 right-6" > 
@@ -193,15 +193,15 @@ export default function PostDetails({params } : { params : { postId: string}}) {
           </div>
 
           {/* Like & Reply Actions */}
-          <div className="flex items-center space-x-4 text-gray-500 text-sm mt-1">
-          <span className="text-gray-500 font-semibold text-sm">  <TimeAgo date={comment.createdAt!} /></span>
+          <div className="flex items-center space-x-4 text-gray-500 dark:text-gray-400 text-sm mt-1">
+          <span className="text-gray-500 dark:text-gray-400 font-semibold text-sm">  <TimeAgo date={comment.createdAt!} /></span>
 
             <h3 className="flex items-center space-x-1 hover:text-gray-700">
-              <FaThumbsUp className="text-gray-500" />
+              <FaThumbsUp className="text-gray-500 dark:text-gray-400" />
               <span>Like</span>
             </h3>
             <h3 className="flex items-center space-x-1 hover:text-gray-700">
-              <FaReply className="text-gray-500" />
+              <FaReply className="text-gray-500 dark:text-gray-400" />
               <span>Reply</span>
             </h3>
           </div>
@@ -225,7 +225,7 @@ export default function PostDetails({params } : { params : { postId: string}}) {
     </div>
     
       <textarea {...register("newComment")}
-        className="flex-1 h-9 md:h-11 border rounded-lg p-1 md:p-2 px-3 focus:outline-none"
+        className="flex-1 h-9 md:h-11 border dark:border-gray-700 rounded-lg p-1 md:p-2 px-3 focus:outline-none"
         placeholder="Add a comment..."
          data-gramm="false"
       />

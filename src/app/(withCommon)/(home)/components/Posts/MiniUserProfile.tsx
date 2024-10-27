@@ -65,7 +65,7 @@ const MiniUserProfile = ({userInfo}: { userInfo : {
         <section className="hidden absolute top-8 left-0 group-hover:block z-50">
 
            <div className=" mt-7">
-      <div className=" bg-white shadow-2xl border-t-4 border-gray-100 rounded-lg w-80 p-4">
+      <div className=" bg-white dark:bg-gray-900 shadow-2xl border-t-4 border-gray-100 dark:border-gray-700 rounded-lg w-80 p-4">
         <div className="flex items-center">
           <Image
           width={300}
@@ -76,10 +76,10 @@ const MiniUserProfile = ({userInfo}: { userInfo : {
           />
           <div>
             <h2 className="font-bold text-lg">{userInfo?.name}</h2>
-            <p className="text-gray-500 flex items-center capitalize">
+            <p className="text-gray-500 dark:text-gray-400 flex items-center capitalize">
               <FaUser className="mr-2" /> {userInfo?.role}
             </p>
-            <p className="text-gray-500 flex items-center">
+            <p className="text-gray-500 dark:text-gray-400 flex items-center">
               <FaEnvelope className="mr-2" /> {userInfo?.email}
             </p>
           </div>

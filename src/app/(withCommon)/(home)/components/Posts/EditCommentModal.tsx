@@ -53,12 +53,12 @@ export default function EditCommentModal({ setOpen, comment} : TModalProps) {
 
 
   return (
-    <section className="fixed h-screen inset-0 z-50 shadow-2xl rounded-lg  flex justify-center py-1 overflow-y-auto bg-black/20 w-screen px-5 md:px-0">  
+    <section className="fixed h-screen inset-0 z-50 shadow-2xl rounded-lg  flex justify-center overflow-y-auto bg-black/20 dark:backdrop-blur-sm w-screen px-5 md:px-0">  
        
-       <form className="w-[400px] h-fit bg-white rounded-md relative top-[40%]" onSubmit={handleSubmit(onSubmit)}>
+       <form className="w-[400px] h-fit bg-white dark:bg-gray-700 rounded-md relative top-[40%] py-3" onSubmit={handleSubmit(onSubmit)}>
 
         {/* loading white layer  */}
-      {isLoading && <div className="w-full h-full top-0 left-0 right-0 bottom-0 z-50 bg-white/80 absolute rounded-md flex justify-center items-center"> 
+      {isLoading && <div className="w-full h-full top-0 left-0 right-0 bottom-0 z-50 bg-white/80 dark:bg-gray-900/50 absolute rounded-md flex justify-center items-center"> 
         <ClipLoader
            color='#3B82F6'
            size={40}
@@ -72,7 +72,7 @@ export default function EditCommentModal({ setOpen, comment} : TModalProps) {
       <div className="flex items-center space-x-3">
         <FaPen className="text-blue-500 text-xl" />
         <textarea rows={4} {...register("modifiedComment")}
-          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none"
+          className="w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 rounded-md focus:outline-none"
         />
       </div>
     </div>
