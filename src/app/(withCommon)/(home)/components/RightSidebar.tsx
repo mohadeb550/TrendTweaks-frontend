@@ -10,12 +10,16 @@ import { ClipLoader } from 'react-spinners';
 import { FaUserPlus } from "react-icons/fa6";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useSendNotificationMutation } from '@/redux/features/notification/notificationApi';
 
 
 const RightSidebar = () => {
     const loggedUser = useAppSelector(state => state.auth.user)
     const { data } = useGetSingleUserQuery(loggedUser?.email as string);
     const { data: allUserData} = useGetUsersQuery({role : 'user'});
+
+      // notifications dispatcher
+      const [ sendNotification , { isSuccess}] = useSendNotificationMutation();
 
     const userDetails : TUser = data?.data || {};
 
@@ -44,8 +48,6 @@ const RightSidebar = () => {
     
 
 
-
-
     const handleFollow = async (targetedId) => {
         try{
             const response = await followUser({
@@ -54,6 +56,15 @@ const RightSidebar = () => {
             })
             if(response?.success){
                 toast.success('You followed the user')
+
+              //   await sendNotification({
+              //     userEmail : authorInfo?.authorEmail,
+              //     text : `${loggedUser?.name} followed you!`,
+              //     commentedUserPic : user?.image as string,
+              //     commentedUser : user?.name as string,
+              //     date : new Date().toISOString(),
+              //     isRead : false,
+              // })
               }
 
         }catch(error){

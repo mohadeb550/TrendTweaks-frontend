@@ -5,7 +5,7 @@ import { HiOutlineMenu } from "react-icons/hi";
 import Link from "next/link";
 import { IoArrowRedoOutline, IoSettingsOutline } from "react-icons/io5";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { RiUserFill } from "react-icons/ri";
+import { RiNotificationOffLine, RiUserFill } from "react-icons/ri";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { logout } from "@/redux/features/authentication/authSlice";
@@ -15,6 +15,8 @@ import Cookies from 'js-cookie';
 import Image from "next/image";
 import { AiOutlineUserDelete } from "react-icons/ai";
 import { MdDashboardCustomize } from "react-icons/md";
+import { TNotification, useGetNotificationsQuery } from "@/redux/features/notification/notificationApi";
+import TimeAgo from 'react-timeago'
 // import DarkModeToggle from "./DarkMode";
 
 export default function Navbar() {
@@ -22,6 +24,10 @@ export default function Navbar() {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.auth.user)
   const router = useRouter()
+
+  // Notification
+    const { data} = useGetNotificationsQuery(user?.email as string);
+    const notifications : TNotification[] = data?.data || [];
 
 const logoutUser = () => {
   dispatch(logout())
@@ -67,14 +73,37 @@ const logoutUser = () => {
 
 <div className="flex items-center justify-center  gap-2 z-50">
 
-{/* cart  */}  
+{/* cart  */}
 <div className="mr-3 md:mr-5 lg:mr-0 rounded-full text-xl md:text-[22px] lg:text-2xl text-black flex gap-5 md:gap-6 items-center ">
 
 
     {user && <div className="flex items-center gap-3 md:gap-6 text-2xl md:text-[26px] text-gray-500 dark:text-gray-400">
       {/* <DarkModeToggle/> */}
 
-      <span><IoIosNotificationsOutline></IoIosNotificationsOutline> </span>
+      <div className="dropdown">
+  <div tabIndex={0} role="button" className="hover:text-gray-700 relative">
+    <IoIosNotificationsOutline>
+    </IoIosNotificationsOutline>
+
+    {/* badge  */}
+    {notifications?.length? <div className="bg-red-600 rounded-full size-5 absolute -right-2 -top-2 flex items-center justify-center">
+      <span className="text-white font-semibold text-sm">{notifications?.length}</span>
+    </div> : ''}
+       </div>
+
+  <div tabIndex={0} className="dropdown-content mt-2 z-[1] menu p-4 shadow-md  border-gray-200 bg-base-100 rounded-md w-80 lg:w-96 h-80 overflow-y-auto flex-nowrap -left-48">
+
+{notifications?.map(notification => <div key={notification?._id} className="flex items-center gap-2 font-prompt my-2 pb-2 border-b"> <Image src={notification?.commentedUserPic} width={200} height={200} alt="profile"  className="size-9 object-cover rounded-full" />  <div> <p className="text-gray-700 font-semibold"> {notification?.text} </p> 
+  <span className="text-gray-500 dark:text-gray-400 font-semibold text-sm">  <TimeAgo date={notification?.date} /></span>
+   </div> </div>)}
+
+  {!notifications?.length && <div className="flex flex-col h-full justify-center items-center"> <RiNotificationOffLine size={52} className="text-gray-400" /> <span className=" text-gray-500 italic mt-2">  No Notifications</span> </div>}
+
+</div>
+
+</div>
+
+
       <span className= "text-xl md:text-[23px] xl:text-2xl hidden md:block"><RxDashboard></RxDashboard> </span>
       <span className="hidden md:block"><IoSettingsOutline></IoSettingsOutline> </span>
       </div>}

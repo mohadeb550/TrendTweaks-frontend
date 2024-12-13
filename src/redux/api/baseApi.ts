@@ -20,7 +20,7 @@ const baseApi = createApi({
           },
     }),
     
-    tagTypes: [ 'Posts', 'Post', 'Users', 'User', 'Comments'],
+    tagTypes: [ 'Posts', 'Post', 'Users', 'User', 'Comments', 'Notifications'],
     endpoints: () => ({})
 })
 

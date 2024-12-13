@@ -1,8 +1,8 @@
 'use client'
 
 import { useGetStatisticsQuery } from "@/redux/features/statistics/statisticsApi";
-import { FaChartBar, FaChartLine, FaComments, FaEye, FaIdCard } from "react-icons/fa";
-import { FaDollarSign, FaGooglePay, FaUser } from "react-icons/fa6";
+import {  FaChartLine, FaIdCard } from "react-icons/fa";
+import { FaDollarSign, FaUser } from "react-icons/fa6";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, PieChart, Pie, Cell, LineChart, Line, CartesianGrid, ResponsiveContainer } from 'recharts';
 
 

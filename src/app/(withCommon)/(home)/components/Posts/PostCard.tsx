@@ -25,7 +25,7 @@ import { useReactToPrint } from "react-to-print";
 import { AiFillPrinter } from "react-icons/ai";
 import EditCommentModal from "./EditCommentModal";
 import { FaPen } from 'react-icons/fa';
-
+import { useSendNotificationMutation } from "@/redux/features/notification/notificationApi";
 
 
 export default function PostCard({ post } : { post : TPost}) {
@@ -35,6 +35,9 @@ export default function PostCard({ post } : { post : TPost}) {
   const [ deleteComment, { isLoading: deleteLoading} ] = useDeleteCommentMutation();
   const [ openEditCommentModal, setEditCommentModal ] = useState(false);
   const [ commentForEdit, setCommentForEdit ] = useState({});
+
+  // notifications dispatcher
+  const [ sendNotification , { isSuccess}] = useSendNotificationMutation();
 
   // for printing the page 
   const contentRef = useRef<HTMLDivElement>(null);
@@ -67,12 +70,20 @@ const reactToPrintFn = useReactToPrint({ contentRef });
     
       if(response?.success){
         reset();
+        // send a notification to the post owner 
+       await sendNotification({
+          userEmail : authorInfo?.authorEmail,
+          text : `${user?.name} commented on your post`,
+          commentedUserPic : user?.image as string,
+          commentedUser : user?.name as string,
+          date : new Date().toISOString(),
+          isRead : false,
+      })
       }
       }catch(error){
         toast.error('Something went wrong')
         console.log(error)
       }
-     
       }
     
 
@@ -237,8 +248,6 @@ const reactToPrintFn = useReactToPrint({ contentRef });
       </button>
     </form>
 }
-
-
 
   </div>
   )

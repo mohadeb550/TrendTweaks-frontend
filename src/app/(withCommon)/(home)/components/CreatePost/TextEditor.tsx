@@ -28,7 +28,6 @@ const TextEditor = ({ description ='', setLatestDescription}: TProps) => {
       setLatestDescription(content);
       };
 
-
     return (
         <div className="w-full">
         <Editor
@@ -51,9 +50,6 @@ const TextEditor = ({ description ='', setLatestDescription}: TProps) => {
           }}
           
           onEditorChange={handleEditorChange}
-
-
-          
         />
       </div>
     );
